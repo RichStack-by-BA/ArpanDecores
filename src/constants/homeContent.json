@@ -1,0 +1,102 @@
+{
+  "hero": {
+    "badge": "Artisan Crafted Excellence",
+    "title": "Handcrafted Gifts",
+    "highlight": "With Passion",
+    "description": "Discover exquisite personalized gifts and home decor crafted with premium materials and meticulous attention to detail.",
+    "buttons": [
+      { "label": "Explore Collections", "variant": "primary" },
+      { "label": "Custom Orders", "variant": "outline" }
+    ],
+    "image": "/images/hero-main.jpg",
+    "rating": "4.9/5 from over 2,000 reviews"
+  },
+  "curatedCollections": {
+    "title": "Curated Collections",
+    "description": "Thoughtfully selected pieces for every occasion and space",
+    "collections": [
+      {
+        "title": "Festive Treasures",
+        "description": "Celebrate special occasions with our festive collection",
+        "image": "/images/collections/festive-collection.jpg",
+        "href": "/categories/festive"
+      },
+      {
+        "title": "Wedding Elegance",
+        "description": "Timeless gifts and decor for the perfect wedding",
+        "image": "/images/collections/wedding-collection.jpg",
+        "href": "/categories/wedding"
+      },
+      {
+        "title": "Bespoke Creations",
+        "description": "Personalized gifts crafted to your specifications",
+        "image": "/images/collections/custom-collection.jpg",
+        "href": "/categories/custom"
+      }
+    ]
+  },
+  "featuredProducts": {
+    "title": "Handpicked Selections",
+    "description": "Our most exquisite creations, meticulously crafted with premium materials",
+    "cta": "View All Collections"
+  },
+  "sustainability": {
+    "badge": "Our Commitment",
+    "title": "Crafted with Care for the Planet",
+    "description": "At Arpan Decores, sustainability isn't just a buzzword—it's woven into every piece we create.",
+    "points": [
+      {
+        "icon": "Leaf",
+        "title": "Responsibly Sourced Materials",
+        "text": "We use reclaimed wood, organic textiles, and locally sourced materials whenever possible."
+      },
+      {
+        "icon": "Award",
+        "title": "Artisan Fair Trade",
+        "text": "We ensure fair wages and safe working conditions for all our skilled craftspeople."
+      },
+      {
+        "icon": "Shield",
+        "title": "Minimal Waste Production",
+        "text": "Our production processes are designed to minimize waste and reduce our environmental footprint."
+      }
+    ],
+    "button": "Learn More About Our Practices",
+    "image": "/images/sustainability/eco-materials.jpg"
+  },
+  "trustSignals": [
+    {
+      "icon": "box",
+      "title": "Premium Materials",
+      "desc": "We source only the finest materials for exceptional quality and longevity"
+    },
+    {
+      "icon": "Shield",
+      "title": "Lifetime Guarantee",
+      "desc": "We stand behind our craftsmanship with a lifetime guarantee on all products"
+    },
+    {
+      "icon": "message",
+      "title": "Expert Consultation",
+      "desc": "Personal guidance from our artisans for custom orders and special requests"
+    },
+    {
+      "icon": "Sparkles",
+      "title": "Bespoke Customization",
+      "desc": "Personalize your gifts to create truly unique and meaningful pieces"
+    }
+  ],
+  "testimonialSection": {
+    "title": "Client Testimonials",
+    "description": "Hear from our clients about their Arpan Decores experience"
+  },
+  "cta": {
+    "title": "Create Something Extraordinary",
+    "description": "Whether you're celebrating a special occasion or enhancing your living space, our artisans are ready to bring your vision to life.",
+    "buttons": [
+      { "label": "Start Your Custom Order", "variant": "primary" },
+      { "label": "Browse Collections", "variant": "outline" }
+    ],
+    "image": "/images/craft/crafting-process.jpg"
+  }
+}

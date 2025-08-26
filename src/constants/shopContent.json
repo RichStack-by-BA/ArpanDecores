@@ -1,0 +1,274 @@
+{
+  "breadcrumbs": [
+    { "label": "Home", "href": "/" },
+    { "label": "Shop", "href": "/shop" }
+  ],
+  "title": "All Products",
+  "subtitle": "Find the perfect handcrafted gift or décor piece",
+  "sortOptions": [
+    { "value": "featured", "label": "Featured" },
+    { "value": "price-low", "label": "Price: Low to High" },
+    { "value": "price-high", "label": "Price: High to Low" },
+    { "value": "newest", "label": "Newest" },
+    { "value": "name", "label": "Name: A to Z" }
+  ],
+  "defaultFilters": {
+    "categories": [],
+    "priceRange": [0, 10000],
+    "occasions": [],
+    "customizable": false
+  },
+  "viewModes": ["grid", "list"],
+  "priceRange": [0, 10000],
+  "occasions": [],
+  "customizable": false,
+  "featuredProducts": [
+    {
+      "id": "1",
+      "name": "Personalized Wooden Name Plate",
+      "price": 1299,
+      "image": "/images/products/wooden-nameplate.jpg",
+      "category": "Home Decor",
+      "isCustomizable": true,
+      "isBestseller": true
+    },
+    {
+      "id": "2",
+      "name": "Brass Photo Frame",
+      "price": 1899,
+      "image": "/images/products/brass-photo-frame.jpg",
+      "category": "Photo Frames",
+      "isCustomizable": true
+    },
+    {
+      "id": "3",
+      "name": "Personalized Metal Keychain",
+      "price": 599,
+      "image": "/images/products/personalized-keychain.jpg",
+      "category": "Keychains",
+      "isNew": true,
+      "isCustomizable": true
+    },
+    {
+      "id": "4",
+      "name": "Wedding Gift Box Set",
+      "price": 3999,
+      "image": "/images/products/wedding-gift-box.jpg",
+      "category": "Gift Sets",
+      "isBestseller": true
+    }
+  ],
+  "allProducts": [
+    {
+      "id": "1",
+      "name": "Personalized Wooden Name Plate",
+      "price": 1299,
+      "image": "/images/products/wooden-nameplate.jpg",
+      "category": "Home Decor",
+      "isCustomizable": true,
+      "isBestseller": true
+    },
+    {
+      "id": "2",
+      "name": "Brass Photo Frame",
+      "price": 1899,
+      "image": "/images/products/brass-photo-frame.jpg",
+      "category": "Photo Frames",
+      "isCustomizable": true
+    },
+    {
+      "id": "3",
+      "name": "Personalized Metal Keychain",
+      "price": 599,
+      "image": "/images/products/personalized-keychain.jpg",
+      "category": "Keychains",
+      "isNew": true,
+      "isCustomizable": true
+    },
+    {
+      "id": "4",
+      "name": "Wedding Gift Box Set",
+      "price": 3999,
+      "image": "/images/products/wedding-gift-box.jpg",
+      "category": "Gift Sets",
+      "isBestseller": true
+    },
+    {
+      "id": "5",
+      "name": "Wooden Wall Art",
+      "price": 2299,
+      "image": "/images/products/wooden-wall-art.jpg",
+      "category": "Wall Art",
+      "isCustomizable": true
+    },
+    {
+      "id": "6",
+      "name": "Decorative Ceramic Vase",
+      "price": 1599,
+      "image": "/images/products/decorative-vase.jpg",
+      "category": "Home Decor",
+      "isNew": true
+    },
+    {
+      "id": "7",
+      "name": "Leather Bound Journal",
+      "price": 899,
+      "image": "/images/products/leather-journal.jpg",
+      "category": "Stationery",
+      "isCustomizable": true
+    },
+    {
+      "id": "8",
+      "name": "Handcrafted Ceramic Bowls",
+      "price": 1299,
+      "image": "/images/products/ceramic-bowls.jpg",
+      "category": "Home Decor",
+      "isBestseller": true
+    },
+    {
+      "id": "9",
+      "name": "Custom Cutting Board",
+      "price": 1799,
+      "image": "/images/products/custom-cutting-board.jpg",
+      "category": "Kitchen",
+      "isCustomizable": true,
+      "isNew": true
+    },
+    {
+      "id": "10",
+      "name": "Brass Candle Holders",
+      "price": 2499,
+      "image": "/images/products/brass-candle-holders.jpg",
+      "category": "Home Decor",
+      "isCustomizable": true
+    },
+    {
+      "id": "11",
+      "name": "Wooden Jewelry Box",
+      "price": 2199,
+      "image": "/images/products/wooden-jewelry-box.jpg",
+      "category": "Storage",
+      "isCustomizable": true
+    },
+    {
+      "id": "12",
+      "name": "Anniversary Gift Hamper",
+      "price": 3499,
+      "image": "/images/products/wedding-gift-box.jpg",
+      "category": "Gift Sets",
+      "isCustomizable": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "festive",
+      "name": "Festive Treasures",
+      "description": "Celebrate special occasions with our festive collection",
+      "image": "/images/collections/festive-collection.jpg"
+    },
+    {
+      "id": "wedding",
+      "name": "Wedding Elegance",
+      "description": "Timeless gifts and decor for the perfect wedding",
+      "image": "/images/collections/wedding-collection.jpg"
+    },
+    {
+      "id": "custom",
+      "name": "Bespoke Creations",
+      "description": "Personalized gifts crafted to your specifications",
+      "image": "/images/collections/custom-collection.jpg"
+    },
+    {
+      "id": "home-decor",
+      "name": "Home Decor",
+      "description": "Beautiful pieces to enhance your living space",
+      "image": "/images/products/wooden-nameplate.jpg"
+    },
+    {
+      "id": "photo-frames",
+      "name": "Photo Frames",
+      "description": "Preserve your precious memories in style",
+      "image": "/images/products/brass-photo-frame.jpg"
+    },
+    {
+      "id": "gift-sets",
+      "name": "Gift Sets",
+      "description": "Curated gift boxes for every occasion",
+      "image": "/images/products/wedding-gift-box.jpg"
+    }
+  ],
+  "galleryImages": [
+    {
+      "id": "1",
+      "src": "/images/products/name-plate.png",
+      "alt": "Personalized Name Plate",
+      "category": "Home Decor"
+    },
+    {
+      "id": "2",
+      "src": "/images/products/wedding-hamper.png",
+      "alt": "Wedding Gift Hamper",
+      "category": "Wedding Gifts"
+    },
+    {
+      "id": "3",
+      "src": "/images/products/photo-frame.png",
+      "alt": "Handcrafted Photo Frame",
+      "category": "Photo Frames"
+    },
+    {
+      "id": "4",
+      "src": "/images/products/festive-decor.png",
+      "alt": "Festive Decor Set",
+      "category": "Festive Decor"
+    },
+    {
+      "id": "5",
+      "src": "/images/products/wall-art.png",
+      "alt": "Custom Wall Art",
+      "category": "Wall Art"
+    },
+    {
+      "id": "6",
+      "src": "/images/products/gift-box.png",
+      "alt": "Anniversary Gift Box",
+      "category": "Gift Boxes"
+    },
+    {
+      "id": "7",
+      "src": "/images/products/centerpiece.png",
+      "alt": "Decorative Table Centerpiece",
+      "category": "Table Decor"
+    },
+    {
+      "id": "8",
+      "src": "/images/products/cushion-set.png",
+      "alt": "Personalized Cushion Set",
+      "category": "Home Textiles"
+    },
+    {
+      "id": "9",
+      "src": "/images/products/jewelry-box.png",
+      "alt": "Handcrafted Jewelry Box",
+      "category": "Storage"
+    },
+    {
+      "id": "10",
+      "src": "/images/products/neon-sign.png",
+      "alt": "Custom Name Neon Sign",
+      "category": "Lighting"
+    },
+    {
+      "id": "11",
+      "src": "/images/products/welcome-board.png",
+      "alt": "Wedding Welcome Board",
+      "category": "Wedding Decor"
+    },
+    {
+      "id": "12",
+      "src": "/images/products/calendar.png",
+      "alt": "Personalized Calendar",
+      "category": "Stationery"
+    }
+  ]
+}

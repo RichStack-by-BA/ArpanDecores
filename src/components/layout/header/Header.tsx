@@ -9,22 +9,15 @@ import { cn } from "@/lib/utils"
 // import { useCart } from "@/components/cart-provider"
 import MobileMenu from "@/components/layout/MobileMenu"
 import SearchBar from "@/components/ui/SearchBar"
+import { navigation } from "@/constants/HomeContent"
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Shop", href: "/shop" },
-  { name: "Collections", href: "/categories" },
-  { name: "Our Craft", href: "/craft" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-]
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const pathname = usePathname()
-//   const { cartItems } = useCart()
+  //   const { cartItems } = useCart()
 
   useEffect(() => {
     const handleScroll = () => {

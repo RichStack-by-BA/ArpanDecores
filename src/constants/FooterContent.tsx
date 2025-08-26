@@ -81,19 +81,19 @@ export const footerData: FooterData = {
           icon: MapPin,
           value: (
             <>
-              123 Artisan Quarter, Craft Street
+              Block 18 Plot, 11, Nehru Nagar East,
               <br />
-              Mumbai, Maharashtra 400001
+              Bhilai, Chhattisgarh, 490020
             </>
           ),
         },
         {
           icon: Phone,
-          value: "+91 98765 43210",
+          value: "+91 7587144408",
         },
         {
           icon: Mail,
-          value: "hello@arpandecores.com",
+          value: "arpandecores@gmail.com",
         },
       ],
     },

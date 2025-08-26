@@ -1,0 +1,40 @@
+{
+  "heroSection": {
+    "heading": "Get in Touch",
+    "description": "Have a question about our products or need help with a custom order? We'd love to hear from you. Our team is here to help bring your vision to life.",
+    "imageSrc": "/images/contact/contact-hero.jpg"
+  },
+  "contactMethods": [
+    {
+      "icon": "phone",
+      "label": "Call us",
+      "value": "+91 98765 43210"
+    },
+    {
+      "icon": "mail",
+      "label": "Email us",
+      "value": "hello@arpandecores.com"
+    },
+    {
+      "icon": "clock",
+      "label": "Business Hours",
+      "value": "Mon-Sat: 9AM-7PM"
+    }
+  ],
+  "contactFormFields": [
+    { "name": "name", "label": "Full Name", "placeholder": "Your full name", "type": "text", "required": true },
+    { "name": "email", "label": "Email Address", "placeholder": "your@email.com", "type": "email", "required": true },
+    { "name": "phone", "label": "Phone Number", "placeholder": "+91 98765 43210", "type": "tel", "required": false },
+    { "name": "subject", "label": "Subject", "placeholder": "Select a subject", "type": "select", "required": true, "options": ["General Inquiry", "Custom Order", "Bulk Order", "Customer Support", "Partnership"] },
+    { "name": "message", "label": "Message", "placeholder": "Tell us about your requirements...", "type": "textarea", "required": true }
+  ],
+  "contactInfo": {
+    "address": "123 Craft Street, Artisan Quarter\nMumbai, Maharashtra 400001\nIndia",
+    "directionsButton": "Get Directions",
+    "quickContact": [
+      { "icon": "phone", "label": "+91 98765 43210" },
+      { "icon": "mail", "label": "hello@arpandecores.com" }
+    ],
+    "faqLink": "View FAQs"
+  }
+}
