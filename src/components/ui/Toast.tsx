@@ -1,53 +1,40 @@
-import React, { useEffect } from "react"
-import { useToast } from "./ToastContext"
-import { X } from "lucide-react"
-import { cn } from "@/lib/utils" // A utility function to concatenate class names
+"use client";
 
-const Toast: React.FC = () => {
-  const { toasts, removeToast } = useToast()
+import { useEffect } from 'react';
+import { X } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { removeToast } from '@/store/slices/toastSlice';
+import { cn } from '@/lib/utils';
+
+export default function Toast() {
+  const items = useAppSelector((s) => s.toast.items);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Automatically remove the toast after 5 seconds
-    const timeout = setTimeout(() => {
-      if (toasts.length > 0) {
-        removeToast(toasts[0].id)
-      }
-    }, 5000)
+    if (items.length === 0) return;
+    const id = items[0].id;
+    const t = setTimeout(() => dispatch(removeToast(id)), 4000);
+    return () => clearTimeout(t);
+  }, [items, dispatch]);
 
-    // Cleanup timeout on component unmount
-    return () => clearTimeout(timeout)
-  }, [toasts, removeToast])
+  if (items.length === 0) return null;
 
   return (
-    <div
-      className={cn(
-        "fixed top-0 right-0 z-50 flex flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col"
-      )}
-    >
-      {toasts.map((toast) => (
-        <div
-          key={toast.id}
-          className={cn(
-            "relative flex items-center w-full max-w-sm p-4 mb-4 rounded-md shadow-lg transition-all duration-300",
-            toast.variant === "destructive"
-              ? "bg-red-500 text-white"
-              : "bg-green-500 text-white"
-          )}
-        >
+    <div className={cn("fixed top-0 right-0 z-50 flex flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col")}> 
+      {items.map((toast) => (
+        <div key={toast.id} className={cn(
+          "relative flex items-center w-[350px]  p-4 mb-4 rounded-md shadow-lg transition-all duration-300",
+          toast.variant === 'error' ? 'bg-red-500 text-white' : toast.variant === 'success' ? 'bg-green-600 text-white' : 'bg-gray-900 text-white'
+        )}>
           <div className="flex-1">
-            <div className="font-semibold">{toast.title}</div>
-            <div className="text-sm">{toast.description}</div>
+            {toast.title && <div className="font-semibold">{toast.title}</div>}
+            <div className="text-sm">{toast.message}</div>
           </div>
-          <button
-            onClick={() => removeToast(toast.id)}
-            className="absolute top-2 right-2 text-white hover:text-black"
-          >
+          <button onClick={() => dispatch(removeToast(toast.id))} className="absolute top-2 right-2 text-white hover:text-black">
             <X className="h-5 w-5" />
           </button>
         </div>
       ))}
     </div>
-  )
-}
-
-export default Toast
+  );
+} 

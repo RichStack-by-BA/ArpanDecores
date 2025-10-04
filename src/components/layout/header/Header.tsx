@@ -3,21 +3,28 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, Search, ShoppingBag, Heart, User, Phone } from "lucide-react"
+import { Menu, Search, ShoppingBag, Heart, User, Phone, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 // import { useCart } from "@/components/cart-provider"
 import MobileMenu from "@/components/layout/MobileMenu"
 import SearchBar from "@/components/ui/SearchBar"
 import { navigation } from "@/constants/HomeContent"
-
+import { useAppSelector } from "@/store/hooks"
+import { useAuthMutations } from "@/hooks/useAuthMutations"
+import { AuthModal } from "@/components/auth/AuthModal"
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [username, setUsername] = useState<string | null>(null)
   const pathname = usePathname()
+  const reduxUser = useAppSelector((s) => s.auth)
+  const { signOut } = useAuthMutations()
   //   const { cartItems } = useCart()
+  console.log(reduxUser,"reduxUser")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +38,28 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // useEffect(() => {
+  //   // Prefer Redux user name; fallback to cookie-backed session
+  //   if (reduxUser?.firstName || reduxUser?.lastName) {
+  //     const name = `${reduxUser?.firstName ?? ''} ${reduxUser?.lastName ?? ''}`.trim() || reduxUser?.email || null
+  //     setUsername(name)
+  //     return
+  //   }
+  //   let aborted = false
+  //   fetch('/api/session', { credentials: 'include' })
+  //     .then(r => r.json())
+  //     .then((res) => {
+  //       if (aborted) return
+  //       if (res?.authenticated && res?.user?.username) {
+  //         setUsername(res.user.username as string)
+  //       } else {
+  //         setUsername(null)
+  //       }
+  //     })
+  //     .catch(() => setUsername(null))
+  //   return () => { aborted = true }
+  // }, [reduxUser?.firstName, reduxUser?.lastName, reduxUser?.email])
 
   return (
     <>
@@ -114,21 +143,25 @@ export default function Header() {
                 </Button>
               </Link>
 
-              <Link href="/account">
-                <Button variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
+              {username ? (
+                <div className="hidden md:flex items-center gap-2">
                   <User className="h-5 w-5" />
-                  <span className="sr-only">Account</span>
-                </Button>
-              </Link>
+                  <span className="text-sm">{username}</span>
+                  <Button variant="ghost" size="sm" className="rounded-md hover:bg-primary/10" onClick={signOut}>
+                    <LogOut className="h-4 w-4 mr-1" /> Sign Out
+                  </Button>
+                </div>
+              ) : (
+               
+                  <Button onClick={() => setLoginModalOpen(true)} variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
+                    <User className="h-5 w-5" />
+                    <span className="sr-only">Account</span>
+                  </Button>
+              )}
 
               <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative rounded-md hover:bg-primary/10">
                   <ShoppingBag className="h-5 w-5" />
-                  {/* {cartItems.length > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                      {cartItems.length}
-                    </span>
-                  )} */}
                   <span className="sr-only">Cart</span>
                 </Button>
               </Link>
@@ -154,7 +187,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {loginModalOpen && <AuthModal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} />}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} navigation={navigation} />
     </>
   )
