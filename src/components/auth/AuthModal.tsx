@@ -9,7 +9,7 @@ import { ForgotPasswordForm } from './ForgotPasswordForm';
 import { OTPForm } from './OTPForm';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import type { AuthModalProps, AuthModalView } from './types';
-import type { LoginFormData, SignupFormData, ForgotPasswordFormData, OTPFormData, ResetPasswordFormData } from '@/lib/auth-schemas';
+import type { LoginFormData, SignupFormData, ForgotPasswordFormData, OTPFormData, ResetPasswordFormData } from '@/lib/schemas/auth-schemas';
 import { useAuthMutations } from '@/hooks/useAuthMutations';
 
 export function AuthModal({ isOpen, onClose, initialView = 'login' }: AuthModalProps) {
@@ -74,7 +74,7 @@ export function AuthModal({ isOpen, onClose, initialView = 'login' }: AuthModalP
   const handleReset = async (data: ResetPasswordFormData) => {
     setIsLoading(true);
     try {
-      await resetPasswordMutation.mutateAsync({ email: emailCtx, password: data.newPassword });
+      await resetPasswordMutation.mutateAsync({ email: emailCtx, newPassword: data.newPassword });
       onClose();
     } finally {
       setIsLoading(false);

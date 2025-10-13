@@ -5,7 +5,8 @@ export const API_ROUTES = {
     FORGOT_PASSWORD: '/api/v1/auth/forget-password',
     VERIFY_OTP: '/api/v1/auth/verify-otp',
     RESET_PASSWORD: '/api/v1/auth/reset-password',
-  },
+    GET_USER_DETAILS: '/api/v1/auth/me',
+  }
 } as const;
 
 export type ApiError = {

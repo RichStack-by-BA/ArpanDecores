@@ -1,4 +1,3 @@
-'use client'
 
 import type React from "react"
 import { Cormorant_Garamond, Lato } from "next/font/google"
@@ -6,6 +5,8 @@ import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/Footer"
 import Toast from "@/components/ui/Toast"
 import "@/styles/globals.css"
+import { getServerCookie } from "@/lib/cookies"
+import { getUserDetails } from "@/lib/api/auth"
 
 // Import fonts
 const cormorant = Cormorant_Garamond({
@@ -22,11 +23,13 @@ const lato = Lato({
     display: "swap",
 })
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+export default async function ClientLayout({ children }: { children: React.ReactNode }) {
+    const token = await  getServerCookie("token") ||''
+    const userDetails:any = await getUserDetails()
     return (
         <div className={`${cormorant.variable} ${lato.variable} font-body bg-background`}>
             <div className="flex min-h-screen flex-col">
-                <Header />
+                <Header token={token} user={userDetails?.data?.user}/>
                 <main className="flex-1">{children}</main>
                 <Footer />
             </div>

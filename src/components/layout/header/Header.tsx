@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -13,18 +12,14 @@ import { navigation } from "@/constants/HomeContent"
 import { useAppSelector } from "@/store/hooks"
 import { useAuthMutations } from "@/hooks/useAuthMutations"
 import { AuthModal } from "@/components/auth/AuthModal"
+import UserMenu from "../UserMenu"
 
-export default function Header() {
+export default function Header({token,user}: {token: string | null,user:any}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
-  const [username, setUsername] = useState<string | null>(null)
   const pathname = usePathname()
-  const reduxUser = useAppSelector((s) => s.auth)
-  const { signOut } = useAuthMutations()
-  //   const { cartItems } = useCart()
-  console.log(reduxUser,"reduxUser")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,27 +34,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // useEffect(() => {
-  //   // Prefer Redux user name; fallback to cookie-backed session
-  //   if (reduxUser?.firstName || reduxUser?.lastName) {
-  //     const name = `${reduxUser?.firstName ?? ''} ${reduxUser?.lastName ?? ''}`.trim() || reduxUser?.email || null
-  //     setUsername(name)
-  //     return
-  //   }
-  //   let aborted = false
-  //   fetch('/api/session', { credentials: 'include' })
-  //     .then(r => r.json())
-  //     .then((res) => {
-  //       if (aborted) return
-  //       if (res?.authenticated && res?.user?.username) {
-  //         setUsername(res.user.username as string)
-  //       } else {
-  //         setUsername(null)
-  //       }
-  //     })
-  //     .catch(() => setUsername(null))
-  //   return () => { aborted = true }
-  // }, [reduxUser?.firstName, reduxUser?.lastName, reduxUser?.email])
 
   return (
     <>
@@ -143,13 +117,9 @@ export default function Header() {
                 </Button>
               </Link>
 
-              {username ? (
+              {token ? (
                 <div className="hidden md:flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  <span className="text-sm">{username}</span>
-                  <Button variant="ghost" size="sm" className="rounded-md hover:bg-primary/10" onClick={signOut}>
-                    <LogOut className="h-4 w-4 mr-1" /> Sign Out
-                  </Button>
+                   <UserMenu user={user}/>
                 </div>
               ) : (
                

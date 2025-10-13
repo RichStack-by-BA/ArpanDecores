@@ -1,5 +1,5 @@
 import { API_ROUTES, toApiError, type ApiError } from './endpoints';
-import { apiPost } from './client';
+import { apiGet, apiPost } from './fetchWrapper';
 
 export interface LoginPayload { email: string; password: string; }
 export interface RegisterPayload { firstName: string; lastName: string; email: string; password: string; phone: string; }
@@ -52,11 +52,21 @@ export async function verifyOtp(payload: VerifyOtpPayload): Promise<ApiResult<Ve
   }
 }
 
-export interface ResetPasswordPayload { token?: string; email?: string; password: string; }
+export interface ResetPasswordPayload { token?: string; email?: string; newPassword: string; }
 export interface ResetPasswordResponse { message: string; }
 export async function resetPassword(payload: ResetPasswordPayload): Promise<ApiResult<ResetPasswordResponse>> {
   try {
     const data = await apiPost<ResetPasswordResponse>(API_ROUTES.AUTH.RESET_PASSWORD, payload, { cache: 'no-store' });
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, error: toApiError(err) };
+  }
+} 
+export interface getUserDetailsParams { token?: string; }
+
+export async function getUserDetails(): Promise<ApiResult<any>> {
+  try {
+    const data = await apiGet<ResetPasswordResponse>(API_ROUTES.AUTH.GET_USER_DETAILS, );
     return { ok: true, data };
   } catch (err) {
     return { ok: false, error: toApiError(err) };

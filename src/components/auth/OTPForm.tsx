@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { otpSchema, type OTPFormData } from '@/lib/auth-schemas';
+import { otpSchema, type OTPFormData } from '@/lib/schemas/auth-schemas';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Label } from '@/components/ui/Label';
@@ -30,7 +30,7 @@ export function OTPForm({ onViewChange, onSubmit, isLoading }: Props) {
           <Label htmlFor="otp">One-time password</Label>
           <div className="relative">
             <Key className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input id="otp" type="text" placeholder="0000" className="pl-10 text-center text-lg tracking-widest" maxLength={4} {...register('otp')} />
+            <Input id="otp" type="text" placeholder="0000" className="pl-10 text-center text-lg tracking-widest" maxLength={6} {...register('otp')} />
           </div>
           {errors.otp && <p className="mt-1 text-sm text-red-600">{errors.otp.message}</p>}
         </div>

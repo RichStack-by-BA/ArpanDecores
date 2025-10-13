@@ -16,21 +16,9 @@ import {
 import { useAppDispatch } from '@/store/hooks';
 import { setCredentials, clearCredentials } from '@/store/slices/authSlice';
 import { pushToast } from '@/store/slices/toastSlice';
+import {  setServerCookie } from '@/lib/cookies';
 
 const makeId = () => Math.random().toString(36).slice(2);
-
-async function setSessionCookie(token: string) {
-  await fetch('/api/session', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({ token }),
-  });
-}
-
-export async function clearSessionCookie() {
-  await fetch('/api/session', { method: 'DELETE', credentials: 'include' });
-}
 
 export function useAuthMutations() {
   const dispatch = useAppDispatch();
@@ -38,18 +26,17 @@ export function useAuthMutations() {
   const loginMutation = useMutation({
     mutationFn: async (payload: LoginPayload) => {
       const res = await loginApi(payload);
-      if (!res.ok) throw res.error;
-      return res.data;
+      if (!res.ok) throw res.error;     
+       return res.data;
     },
     onSuccess: async (data: any) => {
       try {
-        await setSessionCookie(data.token);
-        if (typeof window !== 'undefined') localStorage.setItem('auth_token', data.token);
+        await setServerCookie('token',data?.data?.token)
       } catch { }
       dispatch(
         setCredentials({
-          token: data.token,
-          user: data.user
+          token: data?.data?.token,
+          user: data?.data?.user
         })
       );
       dispatch(pushToast({ id: makeId(), variant: 'success', title: 'Signed in', message: 'You are now logged in.' }));
@@ -66,16 +53,6 @@ export function useAuthMutations() {
       return res.data;
     },
     onSuccess: (data: any) => {
-      // Do NOT set cookie on signup per requirement
-      try {
-        if (typeof window !== 'undefined') localStorage.setItem('auth_token', data.token);
-      } catch {}
-      dispatch(
-        setCredentials({
-          token: data.token,
-          user: data.user
-        })
-      );
       dispatch(pushToast({ id: makeId(), variant: 'success', title: 'Account created', message: 'Welcome aboard!' }));
     },
     onError: (err: any) => {
@@ -127,12 +104,11 @@ export function useAuthMutations() {
 
   const signOut = async () => {
     try {
-      await clearSessionCookie();
-      if (typeof window !== 'undefined') localStorage.removeItem('auth_token');
+        await setServerCookie('token','', { maxAge: -1 });
       dispatch(clearCredentials());
       dispatch(pushToast({ id: makeId(), variant: 'success', title: 'Signed out', message: 'You have been signed out.' }));
       if (typeof window !== 'undefined') {
-        window.location.href = '/login';
+        window.location.href = '/';
       }
     } catch { }
   };

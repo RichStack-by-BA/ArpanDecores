@@ -10,16 +10,15 @@ export type CookieOptions = {
   maxAge?: number;
 };
 
-export const AUTH_COOKIE_NAME = "atkn_" + Buffer.from("auth").toString("hex"); 
+// export const AUTH_COOKIE_NAME = "atkn_" + Buffer.from("auth").toString("hex"); 
 
-// ✅ Must be called inside a Server Action or Route Handler
 export async function setServerCookie(
   name: string,
   value: string,
   options: CookieOptions = {}
 ) {
   const cookieStore = await cookies();
-
+console.log(value,name,"cookiestoreee")
   cookieStore.set(name, value, {
     httpOnly: options.httpOnly ?? true,
     secure: options.secure ?? process.env.NODE_ENV === "production",

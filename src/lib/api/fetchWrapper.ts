@@ -1,4 +1,7 @@
-const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+import { set } from "zod";
+import { getServerCookie, setServerCookie } from "../cookies";
+
+const baseURL =  'http://localhost:4000';
 
 export type ApiError = {
   status?: number;
@@ -21,28 +24,12 @@ export type FetchOptions = RequestInit & {
   // Next.js fetch options
   next?: { revalidate?: number };
   cache?: RequestCache;
-  // When true, response body will be returned even for non-2xx if possible
   returnErrorBody?: boolean;
 };
 
-function getAuthTokenFromBrowser(): string | null {
-  try {
-    if (typeof window === 'undefined') return null;
-    return localStorage.getItem('auth_token');
-  } catch {
-    return null;
-  }
-}
 
-async function handleUnauthorized(): Promise<void> {
-  try {
-    if (typeof window !== 'undefined') {
-      await fetch('/api/session', { method: 'DELETE', credentials: 'include' });
-      localStorage.removeItem('auth_token');
-      window.location.href = '/login';
-    }
-  } catch {}
-}
+
+
 
 function buildUrl(path: string): string {
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
@@ -68,7 +55,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
   }
 
   // Attach Authorization from localStorage when on client
-  const token = getAuthTokenFromBrowser();
+  const token = await getServerCookie("token");
   if (token && !headers.has('Authorization')) {
     headers.set('Authorization', `Bearer ${token}`);
   }
@@ -76,7 +63,6 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
   const res = await fetch(url, {
     ...options,
     headers,
-    credentials: options.credentials ?? 'include',
   });
 
   if (res.ok) {
@@ -90,8 +76,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
   const message = (data as any)?.message || res.statusText || 'Unexpected error';
 
   if (status === 401) {
-    // trigger logout/redirect
-    await handleUnauthorized();
+    await setServerCookie("token", "", { maxAge: -1 });
   }
 
   const apiError: ApiError = { status, message, data };

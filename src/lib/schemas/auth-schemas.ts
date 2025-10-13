@@ -29,7 +29,7 @@ export const forgotPasswordSchema = z.object({
 });
 
 export const otpSchema = z.object({
-  otp: z.string().length(4, 'OTP must be 4 digits').regex(/^\d{4}$/, 'Only digits allowed'),
+  otp: z.string().length(6, 'OTP must be 6 digits').regex(/^\d{6}$/, 'Only digits allowed'),
 });
 
 export const resetPasswordSchema = z.object({
