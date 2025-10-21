@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Slider } from "@/components/ui/Slider"; // if you're on shadcn default, path is "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/Checkbox"; // if default: "@/components/ui/checkbox"
 import type { ShopFilters } from "@/types/products";
+import { Button } from "../ui/Button";
 
 type CategoryOption = { id: string; name: string };
 type OccasionOption = { id: string; name: string };
@@ -21,21 +22,35 @@ export default function ProductFilters({ options, filters, onFiltersChange }: Pr
     const toggleId = (arr: string[], id: string, nextChecked: boolean) =>
         nextChecked ? (arr.includes(id) ? arr : [...arr, id]) : arr.filter((x) => x !== id);
 
+    const handleReset = () => {
+        onFiltersChange({
+            categories: [],
+            priceRange: [0, 10000] as [number, number],
+            occasions: [],
+            customizable: false,
+        })
+    }
+
     return (
         <div className="space-y-6">
-            {/* Categories */}
             <div>
-                <h4 className="mb-2 font-semibold">Categories</h4>
+                <div className="flex items-center justify-between">
+                    <h2 className="font-playfair font-semibold text-lg">Filters</h2>
+                    <Button variant="ghost" size="sm" onClick={handleReset}>
+                        Reset
+                    </Button>
+                </div>
+                <h4 className="mb-2 font-semibold text-lg font-heading mt-4 ">Categories</h4>
                 <div className="space-y-1">
-                    {options.categories.map((cat) => {
-                        const checked = filters.categories.includes(cat.id);
+                    {options.categories.map((cat: any) => {
+                        const checked = filters.categories.includes(cat._id);
                         return (
-                            <label key={cat.id} className="flex cursor-pointer items-center space-x-2">
+                            <label key={cat._id} className="flex cursor-pointer text-sm items-center space-x-2">
                                 <Checkbox
                                     checked={checked}
                                     onChange={(event) => {
                                         const next = event.target.checked;
-                                        const nextCategories = toggleId(filters.categories, cat.id, next);
+                                        const nextCategories = toggleId(filters.categories, cat._id, next);
                                         onFiltersChange({ ...filters, categories: nextCategories });
                                     }}
                                 />
@@ -66,6 +81,7 @@ export default function ProductFilters({ options, filters, onFiltersChange }: Pr
             </div>
 
             {/* Occasions */}
+            {options.occasions.length > 0 &&
             <div>
                 <h4 className="mb-2 font-semibold">Occasions</h4>
                 <div className="space-y-1">
@@ -86,7 +102,7 @@ export default function ProductFilters({ options, filters, onFiltersChange }: Pr
                         );
                     })}
                 </div>
-            </div>
+            </div>}
 
             {/* Customizable */}
             <div>

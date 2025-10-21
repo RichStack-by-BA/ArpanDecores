@@ -13,8 +13,10 @@ import { useAppSelector } from "@/store/hooks"
 import { useAuthMutations } from "@/hooks/useAuthMutations"
 import { AuthModal } from "@/components/auth/AuthModal"
 import UserMenu from "../UserMenu"
+import { setCredentials } from "@/store/slices/authSlice"
+import { useDispatch } from "react-redux"
 
-export default function Header({token,user}: {token: string | null,user:any}) {
+export default function Header({token,user}: {token: string,user:any}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
@@ -33,7 +35,12 @@ export default function Header({token,user}: {token: string | null,user:any}) {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setCredentials({user,token}))
+  }, [token])
 
+  const userDetails = useAppSelector((state) => state.auth)
 
   return (
     <>
@@ -117,7 +124,7 @@ export default function Header({token,user}: {token: string | null,user:any}) {
                 </Button>
               </Link>
 
-              {token ? (
+              {token && user ? (
                 <div className="hidden md:flex items-center gap-2">
                    <UserMenu user={user}/>
                 </div>

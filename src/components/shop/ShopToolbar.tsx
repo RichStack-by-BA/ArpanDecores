@@ -44,6 +44,7 @@ export default function ShopToolbar({
             </Sheet>
 
             <Select
+            className="w-48"
                 options={sortOptions}
                 value={sortBy}
                 onChange={(value) => setSortBy(value as SortOption)}

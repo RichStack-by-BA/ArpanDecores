@@ -3,17 +3,17 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 type CategoryCardProps = {
-    id: string;
+    slug: string;
     name: string;
     description: string;
     image: string;
 };
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ id, name, description, image }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({ slug, name, description, image }) => {
     return (
         <Link
-            key={id}
-            href={`/categories/${id}`}
+            key={slug}
+            href={`/categories/${slug}`}
             className="group relative overflow-hidden rounded-2xl shadow-elegant card-hover"
         >
             <div className="aspect-[4/5] relative">

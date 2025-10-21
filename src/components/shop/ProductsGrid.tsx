@@ -22,8 +22,8 @@ export default function ProductsGrid({
           : "space-y-6"
       }
     >
-      {products.map((p) => (
-        <ProductCard key={p.id} product={p} viewMode={viewMode} />
+      {products.map((p:any) => (
+        <ProductCard key={p._id} product={p} viewMode={viewMode} />
       ))}
     </div>
   )

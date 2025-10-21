@@ -1,11 +1,10 @@
-import { set } from "zod";
 import { getServerCookie, setServerCookie } from "../cookies";
 
 const baseURL =  'http://localhost:4000';
 
 export type ApiError = {
   status?: number;
-  message: string;
+  message: string
   data?: unknown;
 };
 
@@ -56,6 +55,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
 
   // Attach Authorization from localStorage when on client
   const token = await getServerCookie("token");
+  console.log(token,"token")
   if (token && !headers.has('Authorization')) {
     headers.set('Authorization', `Bearer ${token}`);
   }

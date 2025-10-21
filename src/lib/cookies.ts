@@ -18,7 +18,6 @@ export async function setServerCookie(
   options: CookieOptions = {}
 ) {
   const cookieStore = await cookies();
-console.log(value,name,"cookiestoreee")
   cookieStore.set(name, value, {
     httpOnly: options.httpOnly ?? true,
     secure: options.secure ?? process.env.NODE_ENV === "production",

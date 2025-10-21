@@ -2,11 +2,12 @@ export type ViewMode = "grid" | "list"
 export type SortOption = "featured" | "price-low" | "price-high" | "newest" | "name"
 
 export type Product = {
-  id: string
+  _id: string
   name: string
   price: number
-  category: string
-  image: string
+  slug: string 
+  categories: any
+  images: string
   isCustomizable?: boolean
   isBestseller?: boolean
   isNew?: boolean

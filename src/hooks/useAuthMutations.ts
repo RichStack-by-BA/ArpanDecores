@@ -17,8 +17,8 @@ import { useAppDispatch } from '@/store/hooks';
 import { setCredentials, clearCredentials } from '@/store/slices/authSlice';
 import { pushToast } from '@/store/slices/toastSlice';
 import {  setServerCookie } from '@/lib/cookies';
+import { makeId } from '@/lib/utils';
 
-const makeId = () => Math.random().toString(36).slice(2);
 
 export function useAuthMutations() {
   const dispatch = useAppDispatch();

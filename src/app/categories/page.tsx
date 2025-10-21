@@ -1,14 +1,15 @@
+
 import CategoryCard from "@/components/categories/CategoryCard"; // Import the CategoryCard
 import Breadcrumbs from "@/components/ui/Breadcrumbs"; // Import the Breadcrumbs
 import shopContent from "@/constants/shopContent.json";
+import { useGetCategories } from "@/hooks/useCategory";
+import { getAllCategories } from "@/lib/api/category";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
 
-    // useEffect(() => {
-    //     // Replace this with dynamic data fetching if needed
-    //     setCategories(categoriesData);
-    // }, []);
-
+     const categoriesResult = await getAllCategories(); 
+     const categoriesData: any = categoriesResult.ok ? categoriesResult.data : [];
+    
     return (
         <div className="container-custom py-8 md:py-12">
             {/* Breadcrumbs */}
@@ -22,10 +23,11 @@ export default function CategoriesPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {shopContent.categories.map((category) => (
+                {categoriesData?.categories.map((category:any) => (
+                    category.status &&
                     <CategoryCard
-                        key={category.id}
-                        id={category.id}
+                        key={category._id}
+                        slug={category.slug}
                         name={category.name}
                         description={category.description}
                         image={category.image}

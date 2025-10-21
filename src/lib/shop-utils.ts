@@ -4,12 +4,12 @@ export function filterProducts(products: Product[], filters: ShopFilters) {
   return products.filter((product) => {
     // Category filter (normalize to kebab)
     if (filters.categories.length > 0 && !filters.categories.includes("all")) {
-      const productCategory = product.category.toLowerCase().replace(/\s+/g, "-")
+      const productCategory = product.categories.length > 0 ? product.categories[0]._id : null;
       if (!filters.categories.includes(productCategory)) return false
     }
 
     // Price
-    if (product.price < filters.priceRange[0] || product.price > filters.priceRange[1]) return false
+    // if (product.price < filters.priceRange[0] || product.price > filters.priceRange[1]) return false
 
     // Customizable
     if (filters.customizable && !product.isCustomizable) return false

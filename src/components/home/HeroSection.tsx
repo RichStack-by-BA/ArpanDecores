@@ -1,44 +1,11 @@
-'use client'
 import Image from "next/image"
 import { Star } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/misc/Badge"
 import homeContent from "@/constants/homeContent.json"
-import { useEffect } from "react"
 
 export default function HeroSection() {
     const { hero } = homeContent
-
-    useEffect(() => {
-    const loginUser = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/api/v1/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: "test@example.com",  // 🔹 replace with actual email
-            password: "123456",         // 🔹 replace with actual password
-          }),
-        });
-
-        // check if response is ok
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("✅ Login successful:", data);
-      } catch (error) {
-        console.error("❌ Login failed:", error);
-      }
-    };
-
-    loginUser(); // call function when component mounts
-  }, []);
-
-
 
     return (
         <section className="relative bg-secondary/10 pt-16 pb-20 md:pt-24 md:pb-32 wood-texture">
