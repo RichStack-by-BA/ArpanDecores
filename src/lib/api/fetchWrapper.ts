@@ -92,8 +92,8 @@ export const apiGet = <T>(path: string, options?: Omit<FetchOptions, 'method' | 
 export const apiPost = <T>(path: string, body?: unknown, options?: Omit<FetchOptions, 'method' | 'body'>) =>
   fetchWrapper<T>(path, { ...options, method: 'POST', body: body instanceof FormData ? body : JSON.stringify(body) });
 
-export const apiPut = <T>(path: string, body?: unknown, options?: Omit<FetchOptions, 'method' | 'body'>) =>
-  fetchWrapper<T>(path, { ...options, method: 'PUT', body: body instanceof FormData ? body : JSON.stringify(body) });
+export const apiPatch = <T>(path: string, body?: unknown, options?: Omit<FetchOptions, 'method' | 'body'>) =>
+  fetchWrapper<T>(path, { ...options, method: 'PATCH', body: body instanceof FormData ? body : JSON.stringify(body) });
 
 export const apiDelete = <T>(path: string, options?: Omit<FetchOptions, 'method' | 'body'>) =>
   fetchWrapper<T>(path, { ...options, method: 'DELETE' }); 

@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPut, apiDelete } from './fetchWrapper';
+import { apiGet, apiPost, apiPatch, apiDelete } from './fetchWrapper';
 import { API_ROUTES, toApiError, type ApiError } from './endpoints';
 
 // Define Cart Item type
@@ -43,9 +43,9 @@ export async function addToCartAPI(item: Omit<any, '_id'>): Promise<ApiResult<Ca
 }
 
 // ✅ 3. UPDATE cart item (e.g., change quantity)
-export async function updateCartItemById(id: string, updates: Partial<CartItem>): Promise<ApiResult<CartItem>> {
+export async function updateCartItemById(id: string, quantity: any): Promise<ApiResult<CartItem>> {
   try {
-    const data = await apiPut<CartItem>(`${API_ROUTES.CART.UPDATE}/${id}`, updates);
+    const data = await apiPatch<CartItem>(`${API_ROUTES.CART.UPDATE}/${id}`, quantity);
     return { ok: true, data };
   } catch (err) {
     return { ok: false, error: toApiError(err) };

@@ -40,7 +40,8 @@ export default function Header({token,user}: {token: string,user:any}) {
     dispatch(setCredentials({user,token}))
   }, [token])
 
-  const userDetails = useAppSelector((state) => state.auth)
+  const cartItems = useAppSelector((state) => state.cart.items)
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0)
 
   return (
     <>
@@ -139,6 +140,11 @@ export default function Header({token,user}: {token: string,user:any}) {
               <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative rounded-md hover:bg-primary/10">
                   <ShoppingBag className="h-5 w-5" />
+                   {cartItemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                      {cartItemCount}
+                    </span>
+                  )}
                   <span className="sr-only">Cart</span>
                 </Button>
               </Link>

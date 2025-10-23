@@ -3,22 +3,12 @@
 import { useState } from "react"
 import { ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-// import { useCart } from "@/components/cart-provider"
-import { useToast } from "@/components/ui/useToast"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { addToCartAPI } from "@/lib/api/cart"
-import { useDispatch, useSelector } from "react-redux"
-import { addToCart } from "@/store/slices/cartSlice"
+import { useDispatch } from "react-redux"
 import { pushToast } from "@/store/slices/toastSlice"
 import { makeId } from "@/lib/utils"
-import { cartStorage } from "@/lib/cart-storage"
 import { useCart } from "@/hooks/useCart"
-
-interface Product {
-  _id: string
-  name: string
-  price: number
-  image: string
-}
 
 interface AddToCartButtonProps {
   product: any
@@ -27,51 +17,78 @@ interface AddToCartButtonProps {
 }
 
 export default function AddToCartButton({ product, quantity = 1, customization }: AddToCartButtonProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const userDetails = useSelector((state: any) => state.auth.user)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const queryClient = useQueryClient()
+  const { addItem } = useCart()
 
+  const addToCartMutation = useMutation({
+    mutationFn: async (cartItem: any) => {
+      // Try server-side first
+      console.log(cartItem, "cartItemcartItem")
+      const response = await addToCartAPI({items: [{
+        productId: cartItem.product._id,
+        quantity: cartItem.quantity,
+        priceAtAddTime: cartItem.priceAtAddTime || 0,}]})
+      if (!response.ok) {
+        throw new Error(response.error?.message || "Failed to add to cart")
+      }
+      return response.data
+    },
+    onMutate: async (cartItem) => {
+      // 🟡 Optimistic Update (update local storage before server response)
+      addItem(cartItem)
+      dispatch(
+        pushToast({
+          id: makeId(),
+          variant: "info",
+          title: "Adding to cart...",
+          message: `${cartItem.product.name} is being added.`,
+        })
+      )
+    },
+    onSuccess: (data:any) => {
+      // ✅ Sync local cart with server version
+      if (data?.cart) {
+        queryClient.invalidateQueries({ queryKey: ["cart"] })
+      }
+      dispatch(
+        pushToast({
+          id: makeId(),
+          variant: "success",
+          title: "Added to cart",
+          message: `${product.name} has been added to your cart.`,
+        })
+      )
+    },
+    onError: (error: any) => {
+      dispatch(
+        pushToast({
+          id: makeId(),
+          variant: "error",
+          title: "Error",
+          message: error.message || "Failed to add item to cart.",
+        })
+      )
+    },
+  })
 
-const { addItem } = useCart()
-
-  const handleAddToCart = async () => {
-    setIsLoading(true)
-    
-    try {
-      const cartItem = {
-        product: product,
-        quantity: quantity,
-        priceAtAddTime: product.price
-      };
-
-      await addItem(cartItem);
-
-      dispatch(pushToast({ 
-        id: makeId(), 
-        variant: 'success', 
-        title: 'Added to cart', 
-        message: `${product.name} has been added to your cart.` 
-      }));
-
-      // Reset quantity
-      // setQuantity(1);
-    } catch (error) {
-      dispatch(pushToast({ 
-        id: makeId(), 
-        variant: 'error', 
-        title: 'Error', 
-        message: 'Failed to add item to cart.' 
-      }));
-    } finally {
-      setIsLoading(false)
+  const handleAddToCart = () => {
+    const cartItem = {
+      product,
+      quantity,
+      priceAtAddTime: product.price,
     }
+    addToCartMutation.mutate(cartItem)
   }
 
-
   return (
-    <Button onClick={handleAddToCart} disabled={isLoading} className="btn-primary flex-1 sm:flex-none">
+    <Button
+      onClick={handleAddToCart}
+      disabled={addToCartMutation.isPending}
+      className="btn-primary flex-1 sm:flex-none"
+    >
       <ShoppingBag className="h-4 w-4 mr-2" />
-      {isLoading ? "Adding..." : "Add to Cart"}
+      {addToCartMutation.isPending ? "Adding..." : "Add to Cart"}
     </Button>
   )
 }
