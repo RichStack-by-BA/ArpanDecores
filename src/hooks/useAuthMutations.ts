@@ -18,10 +18,12 @@ import { setCredentials, clearCredentials } from '@/store/slices/authSlice';
 import { pushToast } from '@/store/slices/toastSlice';
 import {  setServerCookie } from '@/lib/cookies';
 import { makeId } from '@/lib/utils';
+import { useSyncLocalCart } from './useSyncLocalCart';
 
 
 export function useAuthMutations() {
   const dispatch = useAppDispatch();
+  const {syncCart} = useSyncLocalCart()
 
   const loginMutation = useMutation({
     mutationFn: async (payload: LoginPayload) => {
@@ -33,6 +35,9 @@ export function useAuthMutations() {
       try {
         await setServerCookie('token',data?.data?.token)
       } catch { }
+      if(data?.data?.data){
+        syncCart()
+      }
       dispatch(
         setCredentials({
           token: data?.data?.token,
@@ -42,7 +47,8 @@ export function useAuthMutations() {
       dispatch(pushToast({ id: makeId(), variant: 'success', title: 'Signed in', message: 'You are now logged in.' }));
     },
     onError: (err: any) => {
-      dispatch(pushToast({ id: makeId(), variant: 'error', title: 'Login failed', message: err?.message || 'Unable to sign in' }));
+      // console.log(err,"error in useAuthMutations");
+      // dispatch(pushToast({ id: makeId(), variant: 'error', title: 'Login failed', message: err?.message || 'Unable to sign in' }));
     },
   });
 

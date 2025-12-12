@@ -18,7 +18,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="container-custom py-8 md:py-12">
-      {/* <Breadcrumbs categoryName={category.name} /> */}
+      <Breadcrumbs />
 
       <div className="text-center mb-12">
         <h1 className="heading-lg mb-4">{categoryProducts.category?.name}</h1>

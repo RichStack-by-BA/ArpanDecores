@@ -26,6 +26,7 @@ const lato = Lato({
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
     const token = await  getServerCookie("token") ||''
     const userDetails:any = await getUserDetails()
+    
     return (
         <div className={`${cormorant.variable} ${lato.variable} font-body bg-background`}>
             <div className="flex min-h-screen flex-col">

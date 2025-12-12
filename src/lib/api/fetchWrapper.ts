@@ -55,7 +55,6 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
 
   // Attach Authorization from localStorage when on client
   const token = await getServerCookie("token");
-  console.log(token,"token")
   if (token && !headers.has('Authorization')) {
     headers.set('Authorization', `Bearer ${token}`);
   }

@@ -5,19 +5,12 @@ import Link from "next/link"
 import Image from "next/image"
 import { Heart, ShoppingBag, Eye } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-// import { useToast } from "@/components/ui/use-toast"
-// import { useCart } from "@/components/cart-provider"
-import { cn, makeId } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { Badge } from "../misc/Badge"
 import { Product } from "@/types/products"
-import { pushToast } from "@/store/slices/toastSlice"
-import { useDispatch } from "react-redux"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useCart } from "@/hooks/useCart"
-import { addToCartAPI } from "@/lib/api/cart"
-// import { addToCart } from "@/lib/api/cart"
-
-
+import { useAddToCart } from "@/hooks/useAddToCart"
+import { useSelector } from "react-redux"
+import { selectCartItems } from "../../store/slices/cartSlice"
 
 interface ProductCardProps {
   product: Product
@@ -26,73 +19,23 @@ interface ProductCardProps {
   quantity?: number
 }
 
-export default function  ProductCard({ product, className, viewMode = "grid" ,quantity=1}: ProductCardProps) {
+export default function ProductCard({ product, className, viewMode = "grid", quantity = 1 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
-const dispatch = useDispatch()
-  const queryClient = useQueryClient()
-  const { addItem } = useCart()
-
-  const addToCartMutation = useMutation({
-    mutationFn: async (cartItem: any) => {
-      // Try server-side first
-      console.log(cartItem, "cartItemcartItem")
-      const response = await addToCartAPI({items: [{
-        productId: cartItem.product._id,
-        quantity: cartItem.quantity,
-        priceAtAddTime: cartItem.priceAtAddTime || 0,}]})
-      if (!response.ok) {
-        throw new Error(response.error?.message || "Failed to add to cart")
-      }
-      return response.data
-    },
-    onMutate: async (cartItem) => {
-      // 🟡 Optimistic Update (update local storage before server response)
-      // addItem(cartItem)
-      // dispatch(
-      //   pushToast({
-      //     id: makeId(),
-      //     variant: "info",
-      //     title: "Adding to cart...",
-      //     message: `${cartItem.product.name} is being added.`,
-      //   })
-      // )
-    },
-    onSuccess: (data:any) => {
-      // ✅ Sync local cart with server version
-      if (data?.cart) {
-        queryClient.invalidateQueries({ queryKey: ["cart"] })
-      }
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "success",
-          title: "Added to cart",
-          message: `${product.name} has been added to your cart.`,
-        })
-      )
-    },
-    onError: (error: any) => {
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "error",
-          title: "Error",
-          message: error.message || "Failed to add item to cart.",
-        })
-      )
-    },
-  })
+  const { addToCart, isPending } = useAddToCart()
+  const cartItems = useSelector(selectCartItems)
 
   const handleAddToCart = () => {
     const cartItem = {
-      product,
+      productId: product._id,
+      product: product,
       quantity,
       priceAtAddTime: product.price,
     }
-    addToCartMutation.mutate(cartItem)
+    
+    addToCart(cartItem)
   }
 
-  const [image] = product.images || []
+  // Check if product is already in cart
 
   if (viewMode === "list") {
     return (
@@ -100,7 +43,7 @@ const dispatch = useDispatch()
         <div className="relative h-32 w-32 rounded-md overflow-hidden flex-shrink-0">
           <Link href={`/product/${product.slug}`}>
             <Image
-              src={image || "/placeholder.svg"}
+              src={product.image || "/placeholder.svg"}
               alt={product.name}
               fill
               className="object-cover transition-transform duration-500 hover:scale-105"
@@ -125,11 +68,12 @@ const dispatch = useDispatch()
 
           <div className="flex gap-2">
             <Button
+              disabled={isPending }
               onClick={handleAddToCart}
               className="bg-brass-gradient text-white shadow-brass hover:shadow-brass-lg"
             >
               <ShoppingBag className="h-4 w-4 mr-2" />
-              Add to Cart
+              {isPending ? "Adding..." : "Add to Cart"}
             </Button>
             <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
               <Heart className="h-4 w-4" />
@@ -158,7 +102,7 @@ const dispatch = useDispatch()
       <div className="aspect-square relative overflow-hidden">
         <Link href={`/product/${product.slug}`}>
           <Image
-            src={image|| "/placeholder.svg"}
+            src={product.image || "/placeholder.svg"}
             alt={product.name}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -175,6 +119,7 @@ const dispatch = useDispatch()
           <Button
             size="icon"
             variant="secondary"
+            disabled={isPending }
             className="rounded-md bg-white/90 hover:bg-white text-secondary"
             onClick={handleAddToCart}
           >
@@ -194,7 +139,7 @@ const dispatch = useDispatch()
         </div>
 
         {/* Badges */}
-        {/* <div className="absolute top-3 left-3 flex flex-col gap-2">
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
           {product.isNew && <Badge className="bg-accent text-accent-foreground">New Arrival</Badge>}
           {product.isBestseller && <Badge className="bg-primary text-primary-foreground">Bestseller</Badge>}
           {product.isCustomizable && (
@@ -202,12 +147,12 @@ const dispatch = useDispatch()
               Customizable
             </Badge>
           )}
-        </div> */}
+        </div>
       </div>
 
       {/* Product info */}
       <div className="p-4">
-        <div className="text-sm text-muted-foreground mb-1">{product.categories.name}</div>
+        <div className="text-sm text-muted-foreground mb-1">{product.categories?.name || "Uncategorized"}</div>
         <Link href={`/product/${product.slug}`} className="block">
           <h3 className="font-heading font-medium text-lg mb-2 transition-colors group-hover:text-primary">
             {product.name}
@@ -217,6 +162,7 @@ const dispatch = useDispatch()
           <div className="font-semibold">₹{product.price.toLocaleString()}</div>
           <Button
             size="sm"
+            disabled={isPending}
             className="rounded-md bg-brass-gradient text-white h-8 w-8 p-0 shadow-brass hover:shadow-brass-lg"
             onClick={handleAddToCart}
           >

@@ -1,94 +1,51 @@
 "use client"
 
-import { useState } from "react"
 import { ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { addToCartAPI } from "@/lib/api/cart"
-import { useDispatch } from "react-redux"
-import { pushToast } from "@/store/slices/toastSlice"
-import { makeId } from "@/lib/utils"
-import { useCart } from "@/hooks/useCart"
+import { useAddToCart } from "@/hooks/useAddToCart"
 
 interface AddToCartButtonProps {
   product: any
   quantity?: number
   customization?: string
+  className?: string
+  variant?: "default" | "outline" | "secondary" | "ghost" | "link"
+  size?: "default" | "sm" | "lg" | "icon"
 }
 
-export default function AddToCartButton({ product, quantity = 1, customization }: AddToCartButtonProps) {
-  const dispatch = useDispatch()
-  const queryClient = useQueryClient()
-  const { addItem } = useCart()
-
-  const addToCartMutation = useMutation({
-    mutationFn: async (cartItem: any) => {
-      // Try server-side first
-      console.log(cartItem, "cartItemcartItem")
-      const response = await addToCartAPI({items: [{
-        productId: cartItem.product._id,
-        quantity: cartItem.quantity,
-        priceAtAddTime: cartItem.priceAtAddTime || 0,}]})
-      if (!response.ok) {
-        throw new Error(response.error?.message || "Failed to add to cart")
-      }
-      return response.data
-    },
-    onMutate: async (cartItem) => {
-      // 🟡 Optimistic Update (update local storage before server response)
-      addItem(cartItem)
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "info",
-          title: "Adding to cart...",
-          message: `${cartItem.product.name} is being added.`,
-        })
-      )
-    },
-    onSuccess: (data:any) => {
-      // ✅ Sync local cart with server version
-      if (data?.cart) {
-        queryClient.invalidateQueries({ queryKey: ["cart"] })
-      }
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "success",
-          title: "Added to cart",
-          message: `${product.name} has been added to your cart.`,
-        })
-      )
-    },
-    onError: (error: any) => {
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "error",
-          title: "Error",
-          message: error.message || "Failed to add item to cart.",
-        })
-      )
-    },
-  })
+export default function AddToCartButton({ 
+  product, 
+  quantity = 1, 
+  customization, 
+  className = "",
+  variant = "default",
+  size = "default"
+}: AddToCartButtonProps) {
+  const { addToCart, isPending } = useAddToCart()
 
   const handleAddToCart = () => {
     const cartItem = {
-      product,
+      productId: product._id,  // Changed from _id to productId to match your hook
+      product: product,        // Added product object which is used in the hook
       quantity,
       priceAtAddTime: product.price,
+      // Add customization if provided
+      ...(customization && { customization })
     }
-    addToCartMutation.mutate(cartItem)
+    
+    addToCart(cartItem)
   }
 
   return (
     <Button
       onClick={handleAddToCart}
-      disabled={addToCartMutation.isPending}
-      className="btn-primary flex-1 sm:flex-none"
+      disabled={isPending}
+      variant={variant}
+      size={size}
+      className={`flex-1 sm:flex-none ${className}`}
     >
       <ShoppingBag className="h-4 w-4 mr-2" />
-      {addToCartMutation.isPending ? "Adding..." : "Add to Cart"}
+      {isPending ? "Adding..." : "Add to Cart"}
     </Button>
   )
 }

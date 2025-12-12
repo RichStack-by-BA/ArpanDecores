@@ -1,78 +1,93 @@
-import { useState, useEffect } from 'react';
-import { cartStorage, CartData, CartItem } from '@/lib/cart-storage';
+// hooks/useCart.ts
+"use client"
 
-export function useCart() {
-  const [cart, setCart] = useState<CartData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+import { useState, useEffect, useCallback } from "react"
+
+const LOCAL_CART_KEY = "local_cart_v2"
+
+export function useLocalCart() {
+  const [items, setItems] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   // Load cart on mount
   useEffect(() => {
-    const loadCart = () => {
-      const cartData = cartStorage.getCart();
-      setCart(cartData);
-      setIsLoading(false);
-    };
+    try {
+      const saved = localStorage.getItem(LOCAL_CART_KEY)
+      setItems(saved ? JSON.parse(saved) : [])
+    } catch {
+      setItems([])
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
 
-    loadCart();
+  // Save to localStorage
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(items))
+    }
+  }, [items, isLoading])
 
-    // Listen for storage changes (across tabs)
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === cartStorage['CART_KEY']) {
-        loadCart();
+  // Memoized addItem
+  const addItem = useCallback((item: Omit<any, "id" | "addedAt">) => {
+    setItems(prev => {
+      const index = prev.findIndex(i => i.productId === item.productId)
+      if (index !== -1) {
+        const updated = [...prev]
+        updated[index] = {
+          ...updated[index],
+          quantity: updated[index].quantity + item.quantity,
+          addedAt: new Date().toISOString()
+        }
+        return updated
       }
-    };
+      return [
+        ...prev,
+        {
+          ...item,
+          id: `${item.productId}_${Date.now()}`,
+          addedAt: new Date().toISOString(),
+        }
+      ]
+    })
+  }, [])
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+  const removeItem = useCallback((productId: string) => {
+    setItems(prev => prev.filter(i => i.productId !== productId))
+  }, [])
 
-  const addItem = (item: Omit<CartItem, '_id'>) => {
-    const updatedCart = cartStorage.addItem(item);
-    setCart(updatedCart);
-    return updatedCart;
-  };
+  const updateQuantity = useCallback((productId: string, quantity: number) => {
+    setItems(prev =>
+      prev.map(item =>
+        item.productId === productId
+          ? { ...item, quantity: Math.max(1, quantity), addedAt: new Date().toISOString() }
+          : item
+      )
+    )
+  }, [])
 
-  const updateQuantity = (itemId: string, quantity: number) => {
-    const updatedCart = cartStorage.updateItemQuantity(itemId, quantity);
-    if (updatedCart) {
-      setCart(updatedCart);
-    }
-    return updatedCart;
-  };
+  const clear = useCallback(() => {
+    setItems([])
+    localStorage.removeItem(LOCAL_CART_KEY)
+  }, [])
 
-  const removeItem = (itemId: string) => {
-    const updatedCart = cartStorage.removeItem(itemId);
-    if (updatedCart) {
-      setCart(updatedCart);
-    }
-    return updatedCart;
-  };
+  const getItem = useCallback(
+    (productId: string) => items.find(i => i.productId === productId),
+    [items]
+  )
 
-  const clearCart = () => {
-    cartStorage.clearCart();
-    setCart(null);
-  };
-
-  const syncWithServer = (serverCart: CartData) => {
-    cartStorage.syncWithServer(serverCart);
-    setCart(serverCart);
-  };
-
-  const cartCount = cartStorage.getCartCount();
-  const subtotal = cartStorage.getSubtotal();
-  const needsSync = cartStorage.needsSync();
+  const getCart = useCallback(() => items, [items])
 
   return {
-    cart,
-    cartItems: cart?.items || [],
-    cartCount,
-    subtotal,
+    items,
     isLoading,
-    needsSync,
     addItem,
-    updateQuantity,
     removeItem,
-    clearCart,
-    syncWithServer
-  };
+    updateQuantity,
+    clear,
+    getItem,
+    getCart,
+    count: items.reduce((t, i) => t + i.quantity, 0),
+    total: items.reduce((t, i) => t + i.priceAtAddTime * i.quantity, 0),
+  }
 }

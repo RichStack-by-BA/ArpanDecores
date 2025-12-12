@@ -7,7 +7,11 @@ export type Product = {
   price: number
   slug: string 
   categories: any
-  images: string
+  image?: string
+  rating?: number
+  totalReviews?: number
+  description?: string
+  discountPrice?: number
   isCustomizable?: boolean
   isBestseller?: boolean
   isNew?: boolean
@@ -18,4 +22,18 @@ export type ShopFilters = {
   priceRange: [number, number]
   occasions: string[]
   customizable: boolean
+}
+
+
+// types/cart.ts
+export interface CartItem {
+  id: string;
+  product: Product; // Your existing Product type
+  quantity: number;
+  priceAtAddTime: number;
+}
+
+export interface CartState {
+  items: CartItem[];
+  isLoading: boolean;
 }

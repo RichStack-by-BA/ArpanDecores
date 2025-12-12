@@ -28,21 +28,23 @@ export default function ShopPage({productsList,categoryList}:any) {
         return sortProducts(filtered, sortBy);
     }, [filters, sortBy]);
 
+
     return (
         <div className="container-custom py-8 md:py-12">
-            <Breadcrumbs items={shopContent.breadcrumbs} />
+            <Breadcrumbs  />
 
             <div className="flex flex-col lg:flex-row gap-8">
+                {categoryList?.data?.categories?.length>0 ?
                 <div className="hidden lg:block w-64 flex-shrink-0">
                     <ProductFilters
                         options={{
-                            categories: [{ _id: "all", name: "All Categories" },...categoryList.categories],          
+                            categories: [{ _id: "all", name: "All Categories" },...categoryList?.data?.categories],          
                             occasions: shopContent.occasions ?? [],      
                         }}
                         filters={filters}                              
                         onFiltersChange={setFilters}
                     />
-                </div>
+                </div>:''}
 
                 <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8">

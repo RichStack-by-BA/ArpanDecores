@@ -9,7 +9,7 @@ export function filterProducts(products: Product[], filters: ShopFilters) {
     }
 
     // Price
-    // if (product.price < filters.priceRange[0] || product.price > filters.priceRange[1]) return false
+    if (product.price < filters.priceRange[0] || product.price > filters.priceRange[1]) return false
 
     // Customizable
     if (filters.customizable && !product.isCustomizable) return false

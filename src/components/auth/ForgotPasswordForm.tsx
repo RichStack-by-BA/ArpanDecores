@@ -35,7 +35,7 @@ export function ForgotPasswordForm({ onViewChange, onSubmit, isLoading }: Props)
           {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
         </div>
 
-        <Button type="submit" className="w-full" disabled={isLoading}>{isLoading ? 'Sending…' : 'Send reset link'}</Button>
+        <Button type="submit" className="w-full" disabled={isLoading}>{isLoading ? 'Sending…' : 'Send OTP'}</Button>
       </form>
 
       <div className="mt-6 text-center">

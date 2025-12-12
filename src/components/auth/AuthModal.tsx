@@ -11,12 +11,14 @@ import { ResetPasswordForm } from './ResetPasswordForm';
 import type { AuthModalProps, AuthModalView } from './types';
 import type { LoginFormData, SignupFormData, ForgotPasswordFormData, OTPFormData, ResetPasswordFormData } from '@/lib/schemas/auth-schemas';
 import { useAuthMutations } from '@/hooks/useAuthMutations';
+import { useSyncLocalCart } from '@/hooks/useSyncLocalCart';
 
 export function AuthModal({ isOpen, onClose, initialView = 'login' }: AuthModalProps) {
   const [view, setView] = useState<AuthModalView>(initialView);
   const [isLoading, setIsLoading] = useState(false);
   const { loginMutation, registerMutation, forgotPasswordMutation, verifyOtpMutation, resetPasswordMutation } = useAuthMutations();
   const [emailCtx, setEmailCtx] = useState<string | undefined>(undefined);
+
 
   useEffect(() => {
     if (isOpen) setView(initialView);

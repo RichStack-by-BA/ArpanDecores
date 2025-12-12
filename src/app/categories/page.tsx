@@ -9,11 +9,11 @@ export default async function CategoriesPage() {
 
      const categoriesResult = await getAllCategories(); 
      const categoriesData: any = categoriesResult.ok ? categoriesResult.data : [];
-    
+
     return (
         <div className="container-custom py-8 md:py-12">
             {/* Breadcrumbs */}
-            <Breadcrumbs items={shopContent.breadcrumbs} />
+            <Breadcrumbs  />
 
             <div className="text-center mb-12">
                 <h1 className="heading-lg mb-4">Shop by Category</h1>
@@ -23,8 +23,8 @@ export default async function CategoriesPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {categoriesData?.categories.map((category:any) => (
-                    category.status &&
+                {categoriesData?.data?.categories.map((category:any) => (
+                    category.isActive &&
                     <CategoryCard
                         key={category._id}
                         slug={category.slug}

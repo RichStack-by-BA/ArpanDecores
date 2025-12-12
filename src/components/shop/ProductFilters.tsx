@@ -42,7 +42,7 @@ export default function ProductFilters({ options, filters, onFiltersChange }: Pr
                 </div>
                 <h4 className="mb-2 font-semibold text-lg font-heading mt-4 ">Categories</h4>
                 <div className="space-y-1">
-                    {options.categories.map((cat: any) => {
+                    {options?.categories.map((cat: any) => {
                         const checked = filters.categories.includes(cat._id);
                         return (
                             <label key={cat._id} className="flex cursor-pointer text-sm items-center space-x-2">

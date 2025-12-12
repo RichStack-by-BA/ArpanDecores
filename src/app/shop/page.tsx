@@ -9,7 +9,7 @@ const page = async () => {
     const products :any= await getAllProducts()
     const productsList = products?.ok ? products.data?.data : []
   return (
-   <ShopPage productsList={productsList}  categoryList={categoryList}/>
+   <ShopPage productsList={productsList}  categoryList={categoryList||[]}/>
   )
 }
 

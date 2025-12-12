@@ -6,14 +6,14 @@ export function CartItem({ item, updateQuantity, removeFromCart }: any) {
   return (
     <div className="flex gap-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
       <div className="relative h-24 w-24 rounded-md overflow-hidden flex-shrink-0">
-        <Image src={item.product.thumbnail || "/placeholder.svg"} alt={item.product.name} fill className="object-cover" />
+        <Image src={item.product.image || "/placeholder.svg"} alt={item.product.name} fill className="object-cover" />
       </div>
 
       <div className="flex-1 min-w-0">
         <div className="flex justify-between">
           <Link href={`/product/${item.slug}`}>
             <h3 className="font-medium text-lg truncate hover:text-blue-600 transition-colors">
-              {item.name}
+              {item.product.name}
             </h3>
           </Link>
           <span className="font-semibold">₹{item.priceAtAddTime.toLocaleString()}</span>

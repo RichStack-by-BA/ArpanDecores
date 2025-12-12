@@ -25,7 +25,7 @@ export type ApiResult<T> = { ok: true; data: T } | { ok: false; error: ApiError 
 // ✅ 1. GET all cart items
 export async function getAllCart(): Promise<ApiResult<Cart>> {
   try {
-    const data = await apiGet<Cart>(API_ROUTES.CART.GET_ALL, { cache: 'no-store' });
+    const data:any = await apiGet<Cart>(API_ROUTES.CART.GET_ALL, { cache: 'no-store' });
     return { ok: true, data };
   } catch (err) {
     return { ok: false, error: toApiError(err) };

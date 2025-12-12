@@ -96,6 +96,13 @@ export const CART_ROUTES = {
     GET_ALL: '/all',
     DELETE: '/delete',
 };
+export const CONTACT_ROUTES = {
+    BASE: `${API_BASE_PATH}/contact`,
+    ADD: '/add',
+    // UPDATE: '/edit',
+    // GET_ALL: '/all',
+    // DELETE: '/delete',
+};
 // ---------- COMBINED ROUTES ----------
 export const API_ROUTES = {
   AUTH: {
@@ -130,6 +137,10 @@ export const API_ROUTES = {
     GET_ALL: `${CART_ROUTES.BASE}${CART_ROUTES.GET_ALL}`,
     DELETE: `${CART_ROUTES.BASE}${CART_ROUTES.DELETE}`,
     GET_BY_ID: `${CART_ROUTES.BASE}`,
+  },
+  CONTACT: {
+    BASE: `${CONTACT_ROUTES.BASE}`,
+    ADD: `${CONTACT_ROUTES.BASE}${CONTACT_ROUTES.ADD}`,
   },
 } as const;
 

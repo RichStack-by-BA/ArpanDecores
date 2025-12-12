@@ -2,7 +2,7 @@
   "heroSection": {
     "heading": "Get in Touch",
     "description": "Have a question about our products or need help with a custom order? We'd love to hear from you. Our team is here to help bring your vision to life.",
-    "imageSrc": "/images/contact/contact-hero.jpg"
+    "imageSrc": "https://arpan-image-bucket.s3.amazonaws.com/users/686fe02c8f1ea8b43616c123/1760454904437-custom-collection-24721b66.jpeg"
   },
   "contactMethods": [
     {
@@ -36,5 +36,12 @@
       { "icon": "mail", "label": "hello@arpandecores.com" }
     ],
     "faqLink": "View FAQs"
-  }
+  },
+"subjectOptions": [
+  { "label": "General Inquiry", "value": "general-inquiry" },
+  { "label": "Custom Order", "value": "custom-order" },
+  { "label": "Bulk Order", "value": "bulk-order" },
+  { "label": "Customer Support", "value": "customer-support" },
+  { "label": "Partnership", "value": "partnership" }
+]
 }
