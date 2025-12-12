@@ -2,7 +2,6 @@
 "use client"
 
 import { useEffect } from "react"
-import { useLocalCart } from "@/hooks/useCart"
 import { addToCartAPI } from "@/lib/api/cart"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useDispatch, useSelector } from "react-redux"
@@ -10,9 +9,11 @@ import { RootState } from "@/store"
 import { pushToast } from "@/store/slices/toastSlice"
 import { makeId } from "@/lib/utils"
 import { setCart } from "@/store/slices/cartSlice"
+import { localCart } from "@/lib/local-cart"
 
 export function useSyncLocalCart() {
-  const { items: localItems, clear: clearLocalCart } = useLocalCart()
+   const localItems = localCart.getCart()
+   console.log("localItems in useSyncLocalCart",localItems)
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.user)
@@ -43,7 +44,7 @@ export function useSyncLocalCart() {
     },
     onSuccess: (data:any, itemsSynced) => {
       // Clear local storage
-      clearLocalCart()
+      localCart.clear()
       
       // Update Redux store with merged cart from API
       if (data?.carts?.items) {
@@ -87,7 +88,7 @@ export function useSyncLocalCart() {
   useEffect(() => {
     if (shouldSync) {
       // Merge local storage items with current structure
-      const itemsToSync = localItems.map(item => ({
+      const itemsToSync = localItems.map((item:any) => ({
         productId: item.productId || item.product?._id,
         product: item.product || { _id: item.productId, name: "Product" },
         quantity: item.quantity || 1,
@@ -104,7 +105,7 @@ export function useSyncLocalCart() {
     hasLocalItems: hasLocalCart,
     syncCart: () => {
       if (hasLocalCart ) {
-        const itemsToSync = localItems.map(item => ({
+        const itemsToSync = localItems.map((item:any) => ({
           productId: item.product?._id,
           product: item.product || { _id: '11111', name: "Product" },
           quantity: item.quantity || 1,

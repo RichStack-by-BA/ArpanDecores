@@ -35,7 +35,7 @@ export function useAuthMutations() {
       try {
         await setServerCookie('token',data?.data?.token)
       } catch { }
-      if(data?.data?.data){
+      if(data?.data?.user){
         syncCart()
       }
       dispatch(

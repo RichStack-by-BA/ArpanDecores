@@ -6,7 +6,6 @@ import { addToCartAPI } from "@/lib/api/cart"
 import { useDispatch, useSelector } from "react-redux"
 import { pushToast } from "@/store/slices/toastSlice"
 import { addItem, setLoading } from "@/store/slices/cartSlice"
-import { useLocalCart } from "@/hooks/useCart"
 import type { RootState } from "@/store"
 import { localCart } from "@/lib/local-cart"
 
@@ -99,7 +98,7 @@ export function useAddToCart() {
     // Also add to localStorage as backup
    localCart.addItem({
     productId: cartData.productId,
-    product: cartData.product,
+    product: {name:cartData.product.name, image: cartData.product.image,_id:cartData.product._id},
     quantity: cartData.quantity || 1,
     priceAtAddTime: cartData.priceAtAddTime
   })

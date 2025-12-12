@@ -60,9 +60,9 @@ export default function UserMenu({ user }: { user: any }) {
           </div>
 
           <div className="py-1">
-            <MenuItem href="/account" icon={<User className="h-4 w-4" />}>
+            {/* <MenuItem href="/account" icon={<User className="h-4 w-4" />}>
               My Account
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem href="/orders" icon={<ShoppingBag className="h-4 w-4" />}>
               My Orders
             </MenuItem>
