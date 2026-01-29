@@ -1,11 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
   images: {
-    domains: [
-      'arpan-image-bucket.s3.eu-north-1.amazonaws.com',
-      'arpan-image-bucket.s3.amazonaws.com',
-      'example.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'arpan-image-bucket.s3.eu-north-1.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'arpan-image-bucket.s3.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'example.com',
+      },
     ],
   },
 };
