@@ -1,0 +1,58 @@
+{
+  "craftingTechniques": [
+    {
+      "id": "wood",
+      "name": "Wood Carving",
+      "description": "Traditional hand carving techniques that bring out the natural beauty of premium hardwoods.",
+      "image": "/placeholder.svg?height=400&width=600&text=Wood+Carving",
+      "years": "25+ years of expertise"
+    },
+    {
+      "id": "metal",
+      "name": "Metal Engraving",
+      "description": "Precision engraving on brass, copper, and other metals for lasting personalization.",
+      "image": "/placeholder.svg?height=400&width=600&text=Metal+Engraving",
+      "years": "20+ years of expertise"
+    },
+    {
+      "id": "textile",
+      "name": "Textile Artistry",
+      "description": "Hand embroidery and fabric work using traditional techniques passed down through generations.",
+      "image": "/placeholder.svg?height=400&width=600&text=Textile+Artistry",
+      "years": "30+ years of expertise"
+    },
+    {
+      "id": "glass",
+      "name": "Glass Etching",
+      "description": "Delicate etching and sandblasting to create intricate designs on premium glassware.",
+      "image": "/placeholder.svg?height=400&width=600&text=Glass+Etching",
+      "years": "15+ years of expertise"
+    }
+  ],
+  "artisans": [
+    {
+      "id": "1",
+      "name": "Rajesh Kumar",
+      "specialty": "Master Woodworker",
+      "experience": "25 years",
+      "image": "/placeholder.svg?height=300&width=300&text=Rajesh",
+      "bio": "Rajesh brings traditional woodworking techniques to create heirloom-quality pieces that stand the test of time."
+    },
+    {
+      "id": "2",
+      "name": "Priya Sharma",
+      "specialty": "Metal Artisan",
+      "experience": "18 years",
+      "image": "/placeholder.svg?height=300&width=300&text=Priya",
+      "bio": "Priya's metal engravings combine precision with artistic flair, creating personalized pieces with intricate detail."
+    },
+    {
+      "id": "3",
+      "name": "Vikram Singh",
+      "specialty": "Design Lead",
+      "experience": "20 years",
+      "image": "/placeholder.svg?height=300&width=300&text=Vikram",
+      "bio": "Vikram oversees our design process, ensuring each piece balances traditional craftsmanship with contemporary aesthetics."
+    }
+  ]
+}

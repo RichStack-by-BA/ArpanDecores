@@ -1,0 +1,84 @@
+{
+  "breadcrumbs": [
+    { "label": "Home", "href": "/" },
+    { "label": "About Us", "href": "/about" }
+  ],
+  "hero": {
+    "title": "Crafting <span class='text-primary'>Memories</span> Since 2015",
+    "paragraphs": [
+      "At Arpan Decores, we believe that every gift tells a story and every decoration creates a memory. Our journey began with a simple vision: to bring joy and elegance into people's lives through handcrafted, personalized creations.",
+      "What started as a small family business has grown into a trusted name in personalized gifts and home decor, but our commitment to quality craftsmanship and personal touch remains unchanged."
+    ],
+    "image": "https://arpan-image-bucket.s3.amazonaws.com/temp/68ec7fc75ac36dd139ad7761/1765551348262-1760454904437-custom-collection-24721b66-5b7ac6a2.webp"
+  },
+  "values": {
+    "title": "Our Values",
+    "description": "These core values guide everything we do, from the materials we choose to the way we serve our customers",
+    "items": [
+      {
+        "icon": "Heart",
+        "title": "Crafted with Love",
+        "text": "Every piece is created with passion and attention to detail, ensuring it carries the love and care of our artisans."
+      },
+      {
+        "icon": "Award",
+        "title": "Premium Quality",
+        "text": "We use only the finest materials and traditional techniques to ensure each product meets our high standards."
+      },
+      {
+        "icon": "Sparkles",
+        "title": "Personalization",
+        "text": "We believe in making each piece unique and meaningful through thoughtful customization options."
+      },
+      {
+        "icon": "Users",
+        "title": "Customer First",
+        "text": "Your satisfaction is our priority. We're committed to providing exceptional service and support."
+      }
+    ]
+  },
+  "team": {
+    "title": "Meet Our Artisans",
+    "description": "The talented hands and creative minds behind every Arpan Decores creation",
+    "members": [
+      {
+        "name": "Rajesh Kumar",
+        "role": "Master Craftsman",
+        "bio": "With over 20 years of experience in woodworking and metal crafts, Rajesh brings traditional techniques to modern designs.",
+        "image": "/images/artisans/artisan-1.jpg"
+      },
+      {
+        "name": "Priya Sharma",
+        "role": "Design Lead",
+        "bio": "Priya's creative vision and attention to detail ensure that every piece is not just functional but also beautiful.",
+        "image": "/images/artisans/artisan-2.jpg"
+      },
+      {
+        "name": "Amit Patel",
+        "role": "Quality Specialist",
+        "bio": "Amit ensures that every product meets our stringent quality standards before it reaches your hands.",
+        "image": "/images/artisans/artisan-3.jpg"
+      }
+    ]
+  },
+  "workshop": {
+    "title": "Our Workshop",
+    "image": "/images/workshop/workshop-interior.jpg",
+    "paragraphs": [
+      "Located in the heart of the city, our workshop is where magic happens. It's a space where traditional craftsmanship meets modern innovation, where raw materials are transformed into beautiful, meaningful pieces.",
+      "We invite you to visit our workshop and see the creation process firsthand. Watch our artisans at work, learn about our techniques, and even participate in creating your own custom piece."
+    ],
+    "bullets": [
+      "Eco-friendly materials and processes",
+      "Traditional techniques preserved",
+      "Modern tools for precision",
+      "Quality control at every step"
+    ]
+  },
+  "stats": [
+    { "value": "5000+", "label": "Happy Customers" },
+    { "value": "8+", "label": "Years of Excellence" },
+    { "value": "200+", "label": "Unique Designs" },
+    { "value": "50+", "label": "Cities Served" }
+  ]
+}
