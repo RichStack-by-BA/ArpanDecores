@@ -12,7 +12,6 @@ export default async function CategoriesPage() {
 
     return (
         <div className="container-custom py-8 md:py-12">
-            {/* Breadcrumbs */}
             <Breadcrumbs  />
 
             <div className="text-center mb-12">

@@ -12,9 +12,8 @@ import { setCart } from "@/store/slices/cartSlice"
 import { localCart } from "@/lib/local-cart"
 
 export function useSyncLocalCart() {
-   const localItems = localCart.getCart()
-   console.log("localItems in useSyncLocalCart",localItems)
-  const queryClient = useQueryClient()
+ const localItems = localCart.getCart()
+ const queryClient = useQueryClient()
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.user)
   const reduxCartItems = useSelector((state: RootState) => state.cart.items)
