@@ -24,7 +24,7 @@ export default function ShopPage({productsList,categoryList}:any) {
     });
 
     const filteredAndSortedProducts = useMemo(() => {
-        const filtered = filterProducts(productsList.products, filters);
+        const filtered = filterProducts(productsList?.products || [], filters);
         return sortProducts(filtered, sortBy);
     }, [filters, sortBy]);
 

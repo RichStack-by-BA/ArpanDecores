@@ -12,7 +12,7 @@ interface ProductPageProps {
 }
 
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: any) {
 
   const result: any = await getProductById(await params.slug);
   const { product }: any = result.ok ? result.data?.data : null;

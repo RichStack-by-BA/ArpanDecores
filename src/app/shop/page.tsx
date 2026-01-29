@@ -8,8 +8,7 @@ const page = async () => {
     const categoryList = categories?.ok ? categories.data : []
     const products :any= await getAllProducts()
     const productsList = products?.ok ? products.data?.data : []
-    console.log("categoryList",categoryList)
-    console.log("productsList",productsList)
+  
   return (
    <ShopPage productsList={productsList}  categoryList={categoryList||[]}/>
   )

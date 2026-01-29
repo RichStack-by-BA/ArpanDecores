@@ -10,7 +10,7 @@ interface CategoryPageProps {
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: any) {
 
   const result:any = await getProductsByCategory(params.slug); 
 
