@@ -1,6 +1,6 @@
 import { getServerCookie, setServerCookie } from "../cookies";
 
-const baseURL =  'http://localhost:4000';
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 export type ApiError = {
   status?: number;
