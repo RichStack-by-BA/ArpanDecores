@@ -1,6 +1,6 @@
 import { getServerCookie, setServerCookie } from "../cookies";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL;
+const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://api.arpandecores.in';
 
 export type ApiError = {
   status?: number;
