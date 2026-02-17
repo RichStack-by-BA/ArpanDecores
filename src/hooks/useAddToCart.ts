@@ -31,6 +31,7 @@ export function useAddToCart() {
           productId: cartData.productId,
           quantity: cartData.quantity || 1,
           priceAtAddTime: cartData.priceAtAddTime,
+          slug: cartData.product.slug,
         }],
       })
       if (!response.ok) {
@@ -48,6 +49,7 @@ export function useAddToCart() {
         product: variables.product,
         quantity: variables.quantity || 1,
         priceAtAddTime: variables.priceAtAddTime,
+        slug: variables.product.slug,
         addedAt: new Date().toISOString(),
         ...(variables.customization && { customization: variables.customization })
       }

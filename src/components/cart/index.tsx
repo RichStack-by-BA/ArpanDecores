@@ -41,6 +41,7 @@ export default function CartPage() {
     select: (data: any) => data?.data?.carts ?? { items: [] },
   });
 
+  console.log("Server cart data:", serverCartData);
   // ------------------ Remove Item ------------------
   const removeMutation = useMutation({
     mutationFn: async (id: string) => {

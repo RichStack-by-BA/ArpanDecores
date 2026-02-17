@@ -28,6 +28,7 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
     const cartItem = {
       productId: product._id,
       product: product,
+      slug: product.slug,
       quantity,
       priceAtAddTime: product.price,
     }

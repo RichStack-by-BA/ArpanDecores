@@ -28,6 +28,7 @@ export default function AddToCartButton({
       productId: product._id,  // Changed from _id to productId to match your hook
       product: product,        // Added product object which is used in the hook
       quantity,
+      slug: product.slug,      // Added slug for better cart item identification
       priceAtAddTime: product.price,
       // Add customization if provided
       ...(customization && { customization })

@@ -30,7 +30,9 @@ export async function getAllProducts(): Promise<ApiResult<Product[]>> {
 // ✅ GET product by ID
 export async function getProductById(id: string): Promise<ApiResult<Product>> {
   try {
+    console.log(id, "Fetching product by ID");
     const data = await apiGet<Product>(`${API_ROUTES.PRODUCT.GET_BY_ID}/${id}`, { cache: 'no-store' });
+    console.log(data, "Fetched product by ID");
     return { ok: true, data };
   } catch (err) {
     return { ok: false, error: toApiError(err) };

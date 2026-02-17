@@ -4,17 +4,15 @@ import shopContent from "@/constants/shopContent.json";
  import { getCategoryById } from "@/lib/api/category";
 import { getProductsByCategory } from "@/lib/api/product";
 
-interface CategoryPageProps {
-  params: {
-    slug: string;
-  };
-}
 
 export default async function CategoryPage({ params }: any) {
+  console.log("params", await params);
+  const slug = (await params).slug;
 
-  const result:any = await getProductsByCategory(params.slug); 
+  const result:any = await getProductsByCategory(slug); 
 
   const categoryProducts :any = result.ok ? result.data?.data: null;
+  console.log("categoryProducts", categoryProducts);
 
   return (
     <div className="container-custom py-8 md:py-12">

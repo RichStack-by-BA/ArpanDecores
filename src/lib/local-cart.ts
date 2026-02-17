@@ -47,6 +47,7 @@ export const localCart = {
   },
 
   removeItem(pid: string) {
+    console.log(pid," Removing from local cart")
     const items = this.getCart().filter((i: any) => i.productId !== pid)
     this.saveCart(items)
   },
