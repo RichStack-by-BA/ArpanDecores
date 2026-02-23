@@ -87,9 +87,9 @@ const ProductDetails = ({ product }: any) => {
 
                 <Accordion
                     items={[
-                        { title: "Description", content: product.description, id: "1" },
-                        { title: "Product Details", content: product.specifications, id: "2" },
-                        { title: "Policies", content: product.policy.content, id: "3" },
+                        { title: "Description", content: product?.description, id: "1" },
+                        { title: "Product Details", content: product?.specifications, id: "2" },
+                        { title: "Policies", content: product?.policy?.content, id: "3" },
                     ]}
                     type="single"
                 />
