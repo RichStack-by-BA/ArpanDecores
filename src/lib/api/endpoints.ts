@@ -99,9 +99,12 @@ export const CART_ROUTES = {
 export const CONTACT_ROUTES = {
     BASE: `${API_BASE_PATH}/contact`,
     ADD: '/add',
-    // UPDATE: '/edit',
-    // GET_ALL: '/all',
-    // DELETE: '/delete',
+  UPDATE: '/edit/:id',
+};
+export const OFFER_ROUTES = {
+    BASE: `${API_BASE_PATH}/offer`,
+    GET_ALL: '/all',
+    APPLY: '/apply',
 };
 // ---------- COMBINED ROUTES ----------
 export const API_ROUTES = {
@@ -149,6 +152,11 @@ export const API_ROUTES = {
     GET_ALL: `${WISHLIST_ROUTES.BASE}${WISHLIST_ROUTES.GET_ALL}`,
     DELETE: `${WISHLIST_ROUTES.BASE}${WISHLIST_ROUTES.DELETE}`,
     GET_BY_ID: `${WISHLIST_ROUTES.BASE}`,
+  },
+  OFFER: {
+    GET_ALL: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.GET_ALL}`,
+    APPLY: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.APPLY}`,
+
   },
 } as const;
 

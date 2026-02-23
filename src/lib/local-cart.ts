@@ -11,6 +11,7 @@ export const localCart = {
   },
 
   saveCart(items: any[]) {
+    console.log(items,"Saving to local cart")
     try {
       localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(items))
     } catch {}
@@ -48,7 +49,8 @@ export const localCart = {
 
   removeItem(pid: string) {
     console.log(pid," Removing from local cart")
-    const items = this.getCart().filter((i: any) => i.productId !== pid)
+    const items = this.getCart().filter((i: any) => i._id !== pid)
+    console.log("Updated local cart items:", items)
     this.saveCart(items)
   },
 

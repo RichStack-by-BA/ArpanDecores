@@ -8,11 +8,11 @@ import { getAllCart } from "@/lib/api/cart"
 import { setCart, setLoading } from "@/store/slices/cartSlice"
 import { useSyncLocalCart } from "@/hooks/useSyncLocalCart"
 import type { RootState } from "@/store"
+import { localCart } from "@/lib/local-cart"
 
 export default function CartProvider({ children }: { children: React.ReactNode }) {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.user)
-  const localCartItems = useSelector((state: RootState) => state.cart.items)
 
   // Use your existing sync hook
   useSyncLocalCart()
@@ -33,12 +33,9 @@ export default function CartProvider({ children }: { children: React.ReactNode }
     dispatch(setLoading(isLoading))
   }, [isLoading, dispatch])
 
-//   console.log("CartProvider - API Cart:", apiCart)
   
 
-  // Handle initial load - only set API cart if local is empty
   useEffect(() => {
-    // console.log("CartProvider - Checking to set API cart:", { apiCart, localCartItems },user)
     if (apiCart?.items && user) {
       const apiCartItems = apiCart.items.map((item: any) => ({
         productId: item._id,
@@ -48,6 +45,8 @@ export default function CartProvider({ children }: { children: React.ReactNode }
       }))
 
       dispatch(setCart(apiCartItems))
+    }else{
+      dispatch(setCart(localCart.getCart()))
     }
   }, [apiCart, user, dispatch])
 
