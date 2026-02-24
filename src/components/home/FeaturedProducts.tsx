@@ -1,12 +1,11 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import ProductCard from "@/components/misc/ProductCard"
+import ProductCard from "@/components/shop/ProductCard"
 import { featuredProducts } from "@/constants/HomeContent"
 import homeContent from "@/constants/homeContent.json"
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({products}: any) {
     const { featuredProducts: fp } = homeContent
-
     return (
         <section className="py-16 bg-background copper-texture">
             <div className="container-custom">
@@ -21,8 +20,8 @@ export default function FeaturedProducts() {
                     </Link>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                    {featuredProducts.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                    {products.map((product:any) => (
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
             </div>

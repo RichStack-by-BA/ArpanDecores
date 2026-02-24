@@ -8,8 +8,9 @@ import TrustSignals from "@/components/home/TrustSignals"
 import TestimonialSlider from "@/components/misc/TestimonialSlider"
 import CTASection from "@/components/home/CTASection"
 import homeContent from "@/constants/homeContent.json"
-import { getProductsByCategory } from "@/lib/api/product"
+import { getAllProducts, getProductsByCategory } from "@/lib/api/product"
 import { getAllCategories } from "@/lib/api/category"
+import { get } from "http"
 
 export default async function Home() {
   const result:any = await getProductsByCategory('wall-art');
@@ -17,13 +18,19 @@ export default async function Home() {
   const categoryProducts :any = result.ok ? result.data?.data: null;
      const categories:any = await getAllCategories()
       const categoryList = categories?.ok ? categories.data : []
+
+      const products:any = await  getAllProducts()
+       const allProducts = products?.ok ? products.data : []
+       console.log(allProducts, "All Products on Home Page")
+
+
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
       <SpecialOffers products={categoryProducts?.products || []}/>
       <CuratedSection categoryList={categoryList||[]} />
       <CraftProcess />
-      <FeaturedProducts />
+      <FeaturedProducts products={allProducts?.data?.products || []} />
       <SustainabilitySection />
       <TrustSignals />
       <section className="py-16 bg-secondary/5">

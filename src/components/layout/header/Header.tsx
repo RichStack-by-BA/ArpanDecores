@@ -53,7 +53,7 @@ export default function Header({token,user}: {token: string,user:any}) {
 
   return (
     <>
-      <div className="bg-secondary/10 py-2 hidden md:block">
+      {/* <div className="bg-secondary/10 py-2 hidden md:block">
         <div className="container-custom">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4 text-sm">
@@ -73,7 +73,7 @@ export default function Header({token,user}: {token: string,user:any}) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main header */}
       <header

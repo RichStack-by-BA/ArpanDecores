@@ -76,9 +76,9 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
               <ShoppingBag className="h-4 w-4 mr-2" />
               {isPending ? "Adding..." : "Add to Cart"}
             </Button>
-            <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
+            {/* <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
               <Heart className="h-4 w-4" />
-            </Button>
+            </Button> */}
             <Link href={`/product/${product.slug}`}>
               <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
                 <Eye className="h-4 w-4" />
@@ -127,10 +127,10 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
             <ShoppingBag className="h-4 w-4" />
             <span className="sr-only">Add to cart</span>
           </Button>
-          <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
+          {/* <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
             <Heart className="h-4 w-4" />
             <span className="sr-only">Add to wishlist</span>
-          </Button>
+          </Button> */}
           <Link href={`/product/${product.slug}`}>
             <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
               <Eye className="h-4 w-4" />

@@ -251,7 +251,7 @@ export const navigation = [
     { name: "Home", href: "/" },
     { name: "Shop", href: "/shop" },
     { name: "Collections", href: "/categories" },
-    { name: "Our Craft", href: "/craft" },
+    // { name: "Our Craft", href: "/craft" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ]
