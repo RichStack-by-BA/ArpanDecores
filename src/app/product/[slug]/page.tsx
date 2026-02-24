@@ -24,7 +24,6 @@ export default async function ProductPage({ params }: any) {
     <div className="container-custom py-8 md:py-12">
       <Breadcrumbs />
       <ProductDetails product={product} />
-x``
 
       <div className="mt-12">
         <ReviewsList productId={product._id} />

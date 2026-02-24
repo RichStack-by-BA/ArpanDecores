@@ -4,6 +4,7 @@ import "@/styles/globals.css"
 import ClientLayout from "@/components/layout"
 import Providers from "@/components/providers/Providers"
 import { StoreProvider } from "@/components/providers/StoreProvider"
+import Script from "next/script"
 
 export const metadata: Metadata = {
   title: "Arpan Decores | Artisan Crafted Gifts & Home Decor",
@@ -20,6 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-body bg-background">
+         <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="afterInteractive"
+        />
         <Providers>
           <StoreProvider>
             <ClientLayout>

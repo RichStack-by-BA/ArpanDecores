@@ -30,3 +30,59 @@ export type ApiResult<T> =
     return { ok: false, error: toApiError(err) };
   }
 }
+
+export interface CreateOrderPayload {
+  couponCode: string;
+  cartItems: {
+    productId: string;
+    quantity: number;
+    price: number;
+  }[];
+}
+
+export interface CreateOrderResponse {
+  orderId: string;
+  amount: number;
+  currency: string;
+}
+
+
+export async function createOrder(
+  payload: CreateOrderPayload
+): Promise<ApiResult<CreateOrderResponse>> {
+  try {
+    const data = await apiPost<CreateOrderResponse>(
+      API_ROUTES.PAYMENT.CREATE_ORDER,
+      payload
+    );
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, error: toApiError(err) };
+  }
+}
+
+export interface VerifyPaymentPayload {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+export interface VerifyPaymentResponse {
+  status: "paid" | "failed";
+  message: string;
+}
+
+export async function verifyPayment(
+  payload: VerifyPaymentPayload
+): Promise<ApiResult<VerifyPaymentResponse>> {
+  try {
+    const data = await apiPost<VerifyPaymentResponse>(
+      API_ROUTES.PAYMENT.VERIFY_PAYMENT,
+      payload
+    );
+
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, error: toApiError(err) };
+  }
+}

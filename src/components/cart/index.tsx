@@ -103,8 +103,7 @@ export default function CartPage() {
     0
   );
 
-  const productIds = items.map((item: any) => item.productId);
-  console.log("Cart items:", items);
+  const productIds = items.map((item: any) => item.product._id);
   return (
     <div className="mx-auto container-custom py-10">
       <h1 className="text-3xl font-playfair font-bold mb-8">Your Shopping Cart</h1>
@@ -125,7 +124,7 @@ export default function CartPage() {
             />
           </div>
 
-          <CartSummary subtotal={subtotal} productIds={productIds}  />
+          <CartSummary subtotal={subtotal} productIds={productIds}  items={items} />
         </div>
       )}
     </div>

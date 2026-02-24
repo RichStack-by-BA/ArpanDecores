@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button"
 import { offers } from "@/constants/HomeContent"
 
 
-export default function SpecialOffers() {
+export default function SpecialOffers({ products }: any) {
     return (
         <section className="py-16 bg-background">
             <div className="container-custom">
@@ -17,27 +17,29 @@ export default function SpecialOffers() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {offers.map((offer) => (
+                    {products.map((product:any) => (
                         <div
-                            key={offer.id}
+                            key={product._id}
                             className="bg-card rounded-md overflow-hidden shadow-soft border border-primary/10 group hover:shadow-brass transition-shadow"
                         >
                             <div className="relative h-48">
-                                <Image src={offer.image || "/placeholder.svg"} alt={offer.title} fill className="object-cover" />
-                                <div className="absolute top-0 right-0 bg-accent text-white font-bold py-1 px-3 rounded-bl-md">
-                                    {offer.discount}
-                                </div>
+                                <Image src={product.image || "/placeholder.svg"} alt={product.name} fill className="object-cover" />
+                                {product.discount && (
+                                    <div className="absolute top-0 right-0 bg-accent text-white font-bold py-1 px-3 rounded-bl-md">
+                                        {product.discount}
+                                    </div>
+                                )}
                             </div>
                             <div className="p-5">
-                                <h3 className="font-heading font-semibold text-xl mb-2">{offer.title}</h3>
-                                <p className="text-sm text-muted-foreground mb-4">{offer.description}</p>
+                                <h3 className="font-heading font-semibold text-xl mb-2">{product.name}</h3>
+                                <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center text-xs text-muted-foreground">
                                         <Clock className="h-3 w-3 mr-1" />
-                                        <span>Expires in {offer.expiryDays} days</span>
+                                        <span>Expires in {product.expiryDays} days</span>
                                     </div>
                                     <Link
-                                        href={offer.link}
+                                        href={product.slug ? `/product/${product.slug}` : "#"}
                                         className="text-primary font-medium text-sm flex items-center group-hover:text-accent transition-colors"
                                     >
                                         Shop Now
@@ -49,9 +51,9 @@ export default function SpecialOffers() {
                     ))}
                 </div>
 
-                <div className="mt-10 text-center">
+                {/* <div className="mt-10 text-center">
                     <Button className="bg-brass-gradient text-white shadow-brass hover:shadow-brass-lg">View All Offers</Button>
-                </div>
+                </div> */}
             </div>
         </section>
     )

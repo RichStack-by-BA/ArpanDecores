@@ -3,7 +3,6 @@ import Link from "next/link"
 import { Minus, Plus, Trash2 } from "lucide-react"
 
 export function CartItem({ item, updateQuantity, removeFromCart }: any) {
-  console.log("Rendering CartItem:", item)
   return (
     <div className="flex gap-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
       <div className="relative h-24 w-24 rounded-md overflow-hidden flex-shrink-0">

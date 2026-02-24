@@ -1,102 +1,171 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import { useState, useMemo, useCallback } from "react";
 import { Button } from "../ui/Button";
-import { applyOffer } from "@/lib/api/order";
-import { useAppDispatch } from "@/store/hooks";
+import { applyOffer, createOrder, verifyPayment } from "@/lib/api/order";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { pushToast } from "@/store/slices/toastSlice";
 import { makeId } from "@/lib/utils";
+import { openLoginModal } from "@/store/slices/UISlice";
 
-export function CartSummary({
-  subtotal,
-  productIds,
-}: {
+interface CartSummaryProps {
   subtotal: number;
   productIds: string[];
-}) {
+  items: any[]; // You can replace 'any' with your actual item type
+}
+
+export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
   const dispatch = useAppDispatch();
 
   const [coupon, setCoupon] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [discount, setDiscount] = useState(0);
   const [appliedOfferId, setAppliedOfferId] = useState<string | null>(null);
+
+  const {token} = useAppSelector((state) => state.auth);
 
   const shipping = subtotal >= 1999 ? 0 : 149;
 
   const total = useMemo(() => {
-    return subtotal + shipping - discount;
+    return Math.max(subtotal + shipping - discount, 0);
   }, [subtotal, shipping, discount]);
 
-  const applyCoupon = async () => {
-    if (!coupon.trim()) return;
+  const showToast = useCallback(
+    (variant: "success" | "error", title: string, message: string) => {
+      dispatch(
+        pushToast({
+          id: makeId(),
+          variant,
+          title,
+          message,
+        })
+      );
+    },
+    [dispatch]
+  );
+
+  const applyCoupon = useCallback(async () => {
+    if (!coupon.trim() || couponLoading) return;
 
     try {
-      setLoading(true);
+      setCouponLoading(true);
 
-      const res:any = await applyOffer({
+      const res = await applyOffer({
         offerCode: coupon.trim(),
         cartTotal: subtotal,
         productIds,
       });
 
-      if ( !res.ok) {
+      if (!res.ok) {
         throw new Error(res.error.message);
       }
 
-      setDiscount(res.data.offer.discountAmount);
-      setAppliedOfferId(res.data.offer.offerId);
+      const { discountAmount, offerId } = res.data;
 
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "success",
-          title: "Coupon Applied",
-          message: `You saved ₹${res.data.offer.discountAmount}`,
-        })
-      );
+      setDiscount(discountAmount);
+      setAppliedOfferId(offerId);
+
+      showToast("success", "Coupon Applied", `You saved ₹${discountAmount}`);
     } catch (err: any) {
-      dispatch(
-        pushToast({
-          id: makeId(),
-          variant: "error",
-          title: "Error",
-          message: err.message || "Failed to apply coupon",
-        })
-      );
+      setDiscount(0);
+      setAppliedOfferId(null);
+      showToast("error", "Coupon Failed", err.message || "Invalid coupon");
     } finally {
-      setLoading(false);
+      setCouponLoading(false);
     }
-  };
+  }, [coupon, subtotal, productIds, couponLoading, showToast]);
+
+  const convertedItems = items.map(item => ({
+    productId: item.product._id,
+    quantity: item.quantity,
+    price: item.priceAtAddTime
+  }));
+
+
+  const handleCreateOrder = useCallback(async () => {
+
+    if(!token) {
+      dispatch(openLoginModal())
+      return;
+    }
+    if (!productIds.length || checkoutLoading) return;
+
+    try {
+      setCheckoutLoading(true);
+
+      const orderRes = await createOrder({
+        couponCode: coupon,
+        cartItems: convertedItems
+      });
+
+      if (!orderRes.ok) {
+        throw new Error(orderRes.error.message);
+      }
+
+      const { orderId } = orderRes.data;
+
+      const options: any = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ,
+        amount: total * 100, 
+        currency: "INR",
+        name: "Arpan Decores",
+        order_id: orderId,
+
+        handler: async function (response: any) {
+          const verifyRes = await verifyPayment({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          });
+
+          console.log("Payment verification response:", verifyRes);
+
+          if (!verifyRes.ok) {
+            showToast("error", "Payment Failed", verifyRes.error.message);
+            return;
+          }
+          showToast("success", "Payment Successful", "Order confirmed 🎉");
+        },
+      };
+
+      const razorpay = new (window as any).Razorpay(options);
+      razorpay.open();
+
+    } catch (err: any) {
+      showToast("error", "Checkout Failed", err.message);
+    } finally {
+      setCheckoutLoading(false);
+    }
+  }, [productIds, total, appliedOfferId, checkoutLoading, showToast]);
+
 
   return (
     <div className="bg-white rounded-lg shadow-sm border p-6">
       <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
 
       <div className="space-y-3 mb-6">
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-600">Subtotal</span>
-          <span>₹{subtotal.toLocaleString()}</span>
-        </div>
-
-        <div className="flex justify-between text-sm">
-          <span className="text-gray-600">Shipping</span>
-          <span>{shipping === 0 ? "Free" : `₹${shipping}`}</span>
-        </div>
+        <Row label="Subtotal" value={`₹${subtotal.toLocaleString()}`} />
+        <Row
+          label="Shipping"
+          value={shipping === 0 ? "Free" : `₹${shipping}`}
+        />
 
         {discount > 0 && (
-          <div className="flex justify-between text-sm text-green-600">
-            <span>Discount</span>
-            <span>-₹{discount.toLocaleString()}</span>
-          </div>
+          <Row
+            label="Discount"
+            value={`-₹${discount.toLocaleString()}`}
+            className="text-green-600"
+          />
         )}
 
         <hr className="my-3" />
 
-        <div className="flex justify-between font-semibold text-base">
-          <span>Total</span>
-          <span>₹{total.toLocaleString()}</span>
-        </div>
+        <Row
+          label="Total"
+          value={`₹${total.toLocaleString()}`}
+          className="font-semibold text-base"
+        />
       </div>
 
       <div className="space-y-2 mb-6">
@@ -115,18 +184,37 @@ export function CartSummary({
 
           <Button
             onClick={applyCoupon}
-            disabled={!coupon || loading}
+            disabled={!coupon || couponLoading}
           >
-            {loading ? "Applying..." : "Apply"}
+            {couponLoading ? "Applying..." : "Apply"}
           </Button>
         </div>
       </div>
 
-      <Link href="/checkout">
-        <Button className="w-full">
-          Proceed to Checkout
-        </Button>
-      </Link>
+      <Button
+        onClick={handleCreateOrder}
+        disabled={!productIds.length || checkoutLoading}
+        className="w-full"
+      >
+        {checkoutLoading ? "Processing..." : "Proceed to Checkout"}
+      </Button>
+    </div>
+  );
+}
+
+function Row({
+  label,
+  value,
+  className = "",
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) {
+  return (
+    <div className={`flex justify-between text-sm ${className}`}>
+      <span className="text-gray-600">{label}</span>
+      <span>{value}</span>
     </div>
   );
 }

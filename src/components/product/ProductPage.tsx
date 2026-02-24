@@ -19,6 +19,7 @@ const ProductDetails = ({ product }: any) => {
         setProductImages(variant.images)
     }
 
+
     return (
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             <div className="md:sticky top-24 self-start">
@@ -64,9 +65,7 @@ const ProductDetails = ({ product }: any) => {
                 }
                 {product.isVariant && <ProductVariantSelector variants={product.variants} onVariantChange={handleVariantChange} />}
                 <div className="space-y-4">
-
-                    {!product.isVariant &&
-                        product.stock > 0 ? (
+                    { product.stock > 0 ? (
                             <div className="flex items-center gap-2">
                                 <div className="h-4 w-4 rounded-full bg-green-500" />
                                 <span className="text-sm font-medium text-green-600">In Stock</span>
@@ -78,9 +77,8 @@ const ProductDetails = ({ product }: any) => {
                             </div>
                         )
                     }
-
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <AddToCartButton product={product} />
+                        <AddToCartButton product={product} isDisabled={product.stock === 0} />
                         <Button variant="outline" className="btn-outline">Add to Wishlist</Button>
                     </div>
                 </div>

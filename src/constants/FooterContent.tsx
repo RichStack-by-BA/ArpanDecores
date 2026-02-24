@@ -1,4 +1,3 @@
-// @/data/footer-data.ts
 import {
   Facebook,
   Instagram,
@@ -61,7 +60,7 @@ export const footerData: FooterData = {
         { label: "Festive Treasures", href: "/categories/festive" },
         { label: "Wedding Elegance", href: "/categories/wedding" },
         { label: "Bespoke Creations", href: "/categories/custom" },
-        { label: "Gallery", href: "/gallery" },
+        // { label: "Gallery", href: "/gallery" },
       ],
     },
     {

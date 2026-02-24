@@ -10,10 +10,12 @@ interface AddToCartButtonProps {
   customization?: string
   className?: string
   variant?: "default" | "outline" | "secondary" | "ghost" | "link"
-  size?: "default" | "sm" | "lg" | "icon"
+  size?: "default" | "sm" | "lg" | "icon",
+  isDisabled?: boolean
 }
 
 export default function AddToCartButton({ 
+  isDisabled = false,
   product, 
   quantity = 1, 
   customization, 
@@ -40,7 +42,7 @@ export default function AddToCartButton({
   return (
     <Button
       onClick={handleAddToCart}
-      disabled={isPending}
+      disabled={isPending || isDisabled}
       variant={variant}
       size={size}
       className={`flex-1 sm:flex-none ${className}`}

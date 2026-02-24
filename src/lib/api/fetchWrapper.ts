@@ -64,6 +64,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
     headers,
   });
 
+
   if (res.ok) {
     // Try to parse JSON; if empty body, return undefined as any
     const data = await parseJsonSafe<T>(res);

@@ -10,19 +10,20 @@ import MobileMenu from "@/components/layout/MobileMenu"
 import SearchBar from "@/components/ui/SearchBar"
 import { navigation } from "@/constants/HomeContent"
 import { useAppSelector } from "@/store/hooks"
-import { useAuthMutations } from "@/hooks/useAuthMutations"
 import { AuthModal } from "@/components/auth/AuthModal"
 import UserMenu from "../UserMenu"
 import { setCredentials } from "@/store/slices/authSlice"
 import { useDispatch } from "react-redux"
 import { selectCartCount } from "@/store/slices/cartSlice"
+import { closeLoginModal, openLoginModal } from "@/store/slices/UISlice"
 
 export default function Header({token,user}: {token: string,user:any}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const pathname = usePathname()
+
+  const {loginModalOpen} = useAppSelector((state) => state.UIState)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,9 +44,15 @@ export default function Header({token,user}: {token: string,user:any}) {
 
   const cartCount = useAppSelector(selectCartCount)
 
+  const handleLoginModalOpen = (isOpen: boolean) => {
+    if(isOpen)
+      dispatch(openLoginModal())
+    else
+      dispatch(closeLoginModal())
+  }
+
   return (
     <>
-      {/* Top announcement bar */}
       <div className="bg-secondary/10 py-2 hidden md:block">
         <div className="container-custom">
           <div className="flex justify-between items-center">
@@ -86,18 +93,18 @@ export default function Header({token,user}: {token: string,user:any}) {
             </Link>
 
             {/* Search bar - desktop */}
-            <div className="hidden md:block flex-1 max-w-md mx-8">
+            {/* <div className="hidden md:block flex-1 max-w-md mx-8">
               <SearchBar />
-            </div>
+            </div> */}
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center lg:space-x-4 xl:space-x-8">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "font-body text-sm uppercase tracking-wider transition-colors hover:text-primary",
+                    "font-body text-sm xl:text-base uppercase tracking-wider transition-colors hover:text-primary",
                     pathname === item.href ? "text-primary font-bold" : "text-foreground/80",
                   )}
                 >
@@ -118,20 +125,20 @@ export default function Header({token,user}: {token: string,user:any}) {
                 <span className="sr-only">Search</span>
               </Button>
 
-              <Link href="/wishlist">
+              {/* <Link href="/wishlist">
                 <Button variant="ghost" size="icon" className="hidden md:flex relative rounded-md hover:bg-primary/10">
                   <Heart className="h-5 w-5" />
                   <span className="sr-only">Wishlist</span>
                 </Button>
-              </Link>
+              </Link> */}
 
               {token && user ? (
                 <div className="hidden md:flex items-center gap-2">
                    <UserMenu user={user}/>
                 </div>
               ) : (
-               
-                  <Button onClick={() => setLoginModalOpen(true)} variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
+
+                  <Button onClick={() => handleLoginModalOpen(true)} variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
                     <User className="h-5 w-5" />
                     <span className="sr-only">Account</span>
                   </Button>
@@ -170,7 +177,7 @@ export default function Header({token,user}: {token: string,user:any}) {
         </div>
       </header>
 
-      {loginModalOpen && <AuthModal isOpen={loginModalOpen} onClose={() => setLoginModalOpen(false)} />}
+      {loginModalOpen && <AuthModal isOpen={loginModalOpen} onClose={() => handleLoginModalOpen(false)} />}
       <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} navigation={navigation} />
     </>
   )

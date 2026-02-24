@@ -50,7 +50,7 @@ export default function UserMenu({ user }: { user: any }) {
 
       {open && (
         <div
-          className="absolute right-0 mt-2 w-56 rounded-md border bg-white shadow-lg ring-1 ring-black/5 z-50 animate-fade-in"
+          className="absolute right-0 mt-2 w-60 rounded-md border bg-white shadow-lg ring-1 ring-black/5 z-50 animate-fade-in"
         >
           <div className="px-3 py-2 border-b">
             <p className="text-sm font-medium">
@@ -60,15 +60,12 @@ export default function UserMenu({ user }: { user: any }) {
           </div>
 
           <div className="py-1">
-            {/* <MenuItem href="/account" icon={<User className="h-4 w-4" />}>
-              My Account
-            </MenuItem> */}
             <MenuItem href="/orders" icon={<ShoppingBag className="h-4 w-4" />}>
               My Orders
             </MenuItem>
-            <MenuItem href="/wishlist" icon={<Heart className="h-4 w-4" />}>
+            {/* <MenuItem href="/wishlist" icon={<Heart className="h-4 w-4" />}>
               Wishlist
-            </MenuItem>
+            </MenuItem> */}
 
             <hr className="my-1 border-gray-200" />
 

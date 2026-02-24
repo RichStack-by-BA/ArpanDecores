@@ -1,9 +1,9 @@
 import CuratedCollection from "@/components/misc/CuratedCollection"
 import homeContent from "@/constants/homeContent.json"
 
-export default function CuratedSection() {
+export default function CuratedSection({categoryList}:any) {
     const { curatedCollections } = homeContent
-
+console.log("categoryList in curated section", categoryList);
     return (
         <section className="py-16 bg-background wood-texture">
             <div className="container-custom text-center mb-12">
@@ -11,7 +11,7 @@ export default function CuratedSection() {
                 <p className="body-md text-muted-foreground max-w-2xl mx-auto">{curatedCollections.description}</p>
             </div>
             <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                {curatedCollections.collections.map((item, i) => (
+                {categoryList?.data?.categories.map((item:any, i:any) => (
                     <CuratedCollection key={i} {...item} />
                 ))}
             </div>

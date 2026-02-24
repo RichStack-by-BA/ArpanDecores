@@ -104,7 +104,10 @@ export const CONTACT_ROUTES = {
 export const OFFER_ROUTES = {
     BASE: `${API_BASE_PATH}/offer`,
     GET_ALL: '/all',
-    APPLY: '/apply',
+};
+export const PAYMENT_ROUTES = {
+    BASE: `${API_BASE_PATH}/payment`,
+    GET_ALL: '/all',
 };
 // ---------- COMBINED ROUTES ----------
 export const API_ROUTES = {
@@ -155,9 +158,12 @@ export const API_ROUTES = {
   },
   OFFER: {
     GET_ALL: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.GET_ALL}`,
-    APPLY: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.APPLY}`,
-
+    APPLY: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.GET_ALL}`,
   },
+  PAYMENT: {
+    CREATE_ORDER: `${PAYMENT_ROUTES.BASE}/create-order`,
+    VERIFY_PAYMENT: `${PAYMENT_ROUTES.BASE}/verify-payment`,
+  }
 } as const;
 
 

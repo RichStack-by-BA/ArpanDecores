@@ -8,13 +8,20 @@ import TrustSignals from "@/components/home/TrustSignals"
 import TestimonialSlider from "@/components/misc/TestimonialSlider"
 import CTASection from "@/components/home/CTASection"
 import homeContent from "@/constants/homeContent.json"
+import { getProductsByCategory } from "@/lib/api/product"
+import { getAllCategories } from "@/lib/api/category"
 
-export default function Home() {
+export default async function Home() {
+  const result:any = await getProductsByCategory('name-plates');
+
+  const categoryProducts :any = result.ok ? result.data?.data: null;
+     const categories:any = await getAllCategories()
+      const categoryList = categories?.ok ? categories.data : []
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
-      <SpecialOffers />
-      <CuratedSection />
+      <SpecialOffers products={categoryProducts?.products || []}/>
+      <CuratedSection categoryList={categoryList||[]} />
       <CraftProcess />
       <FeaturedProducts />
       <SustainabilitySection />

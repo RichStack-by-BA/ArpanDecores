@@ -9,11 +9,12 @@ interface CuratedCollectionProps {
     image: string
     href: string
     className?: string
+    slug: string
 }
 
-export default function CuratedCollection({ title, description, image, href, className }: CuratedCollectionProps) {
+export default function CuratedCollection({ title, description, image, href, className ,slug}: CuratedCollectionProps) {
     return (
-        <Link href={href} className={cn("group relative overflow-hidden rounded-md shadow-soft", className)}>
+        <Link href={`/categories/${slug}`} className={cn("group relative overflow-hidden rounded-md shadow-soft", className)}>
             <div className="aspect-[4/5] relative">
                 <Image
                     src={image || "/placeholder.svg"}
