@@ -32,12 +32,12 @@ export default function SpecialOffers({ products }: any) {
                             </div>
                             <div className="p-5">
                                 <h3 className="font-heading font-semibold text-xl mb-2">{product.name}</h3>
-                                <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
+                                {/* <p className="text-sm text-muted-foreground mb-4" dangerouslySetInnerHTML={{ __html: product.description }} /> */}
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center text-xs text-muted-foreground">
+                                    {/* <div className="flex items-center text-xs text-muted-foreground">
                                         <Clock className="h-3 w-3 mr-1" />
                                         <span>Expires in {product.expiryDays} days</span>
-                                    </div>
+                                    </div> */}
                                     <Link
                                         href={product.slug ? `/product/${product.slug}` : "#"}
                                         className="text-primary font-medium text-sm flex items-center group-hover:text-accent transition-colors"

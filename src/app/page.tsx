@@ -12,7 +12,7 @@ import { getProductsByCategory } from "@/lib/api/product"
 import { getAllCategories } from "@/lib/api/category"
 
 export default async function Home() {
-  const result:any = await getProductsByCategory('name-plates');
+  const result:any = await getProductsByCategory('wall-art');
 
   const categoryProducts :any = result.ok ? result.data?.data: null;
      const categories:any = await getAllCategories()
