@@ -90,7 +90,7 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                         </Link>
                         <div className="flex items-center py-2 text-foreground/80">
                             <Phone className="h-5 w-5 mr-3" />
-                            +91 98765 43210
+                            +91 7587144408
                         </div>
                     </div>
                 </div>

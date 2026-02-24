@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 7587144408"
                       className="mt-2"
                     />
                   </div>

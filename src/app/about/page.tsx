@@ -28,18 +28,18 @@ export default function AboutPage() {
                 }))}
             />
 
-            <TeamGrid
+            {/* <TeamGrid
                 title={about.team.title}
                 description={about.team.description}
                 members={about.team.members}
-            />
+            /> */}
 
-            <WorkshopSection
+            {/* <WorkshopSection
                 title={about.workshop.title}
                 image={about.workshop.image}
                 paragraphs={about.workshop.paragraphs}
                 bullets={about.workshop.bullets}
-            />
+            /> */}
 
             <StatsStrip stats={about.stats} />
         </div>

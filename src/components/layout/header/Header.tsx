@@ -52,7 +52,7 @@ export default function Header({token,user}: {token: string,user:any}) {
             <div className="flex items-center space-x-4 text-sm">
               <div className="flex items-center">
                 <Phone className="h-3 w-3 mr-1 text-accent" />
-                <span className="text-secondary">Artisan Support: +91 98765 43210</span>
+                <span className="text-secondary">Artisan Support: +91 7587144408</span>
               </div>
               <div className="hidden lg:block text-muted-foreground">Free shipping on orders over ₹1999</div>
             </div>

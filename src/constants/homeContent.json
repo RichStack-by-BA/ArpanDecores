@@ -5,8 +5,7 @@
     "highlight": "With Passion",
     "description": "Discover exquisite personalized gifts and home decor crafted with premium materials and meticulous attention to detail.",
     "buttons": [
-      { "label": "Explore Collections", "variant": "primary" },
-      { "label": "Custom Orders", "variant": "outline" }
+      { "label": "Explore Collections", "variant": "primary", "url":"/categories" }
     ],
     "image": "/images/hero-main.jpg",
     "rating": "4.9/5 from over 2,000 reviews"

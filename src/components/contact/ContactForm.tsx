@@ -107,7 +107,7 @@ export default function ContactForm({ contactFormFields }: { contactFormFields: 
             </label>
             <Input
               {...register("phone")}
-              placeholder="+91 98765 43210"
+              placeholder="+91 7587144408"
               className="border-gray-300 focus:border-amber-500 focus:ring-amber-500"
             />
             {errors.phone && (
