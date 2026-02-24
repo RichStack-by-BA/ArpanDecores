@@ -323,7 +323,7 @@ export default function TrackOrderPage() {
                       <Phone className="h-5 w-5 text-primary" />
                       <div>
                         <p className="text-sm text-muted-foreground">Call us</p>
-                        <p className="font-semibold">+91 98765 43210</p>
+                        <p className="font-semibold">+91 7587144408</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">

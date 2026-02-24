@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Star } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Badge } from "@/components/misc/Badge"
@@ -6,6 +9,7 @@ import homeContent from "@/constants/homeContent.json"
 
 export default function HeroSection() {
     const { hero } = homeContent
+    const router = useRouter()
 
     return (
         <section className="relative bg-secondary/10 pt-16 pb-20 md:pt-24 md:pb-32 wood-texture">
@@ -18,7 +22,14 @@ export default function HeroSection() {
                     <p className="body-lg max-w-md">{hero.description}</p>
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         {hero.buttons.map((btn, i) => (
-                            <Button key={i} size="lg" variant={btn.variant === "outline" ? "outline" : undefined}>
+                            <Button
+                                key={i}
+                                size="lg"
+                                variant={btn.variant === "outline" ? "outline" : undefined}
+                                onClick={() => {
+                                    if (btn.url) router.push(btn.url)
+                                }}
+                            >
                                 {btn.label}
                             </Button>
                         ))}

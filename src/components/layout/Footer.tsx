@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer className="bg-secondary/5 border-t border-primary/10">
             <div className="max-w-screen-xl mx-auto px-4 py-12 md:py-16">
-                <div className="bg-white dark:bg-card rounded-md p-6 md:p-8 mb-12 shadow-sm border border-primary/10">
+                {/* <div className="bg-white dark:bg-card rounded-md p-6 md:p-8 mb-12 shadow-sm border border-primary/10">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="md:max-w-md">
                             <h3 className="text-xl md:text-2xl font-semibold mb-2">
@@ -34,7 +34,7 @@ export default function Footer() {
                             </Button>
                         </form>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Footer Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

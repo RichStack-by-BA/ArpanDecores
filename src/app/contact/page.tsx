@@ -25,7 +25,7 @@ export default function ContactPage() {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             src={
-              "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d0!2dLONGITUDE!3dLATITUDE!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0"}
+              "https://www.google.com/maps?output=embed&q=Block+18,+Arpan+Decores,+Plot+11,+11,+Nehru+Nagar+East,+Bhilai,+Chhattisgarh+490020"}
           />
         </div>
       </section>
