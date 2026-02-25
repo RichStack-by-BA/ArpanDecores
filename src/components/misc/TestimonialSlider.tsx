@@ -53,7 +53,7 @@ export default function TestimonialSlider() {
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="w-full flex-shrink-0 px-4 md:px-12">
               <div className="bg-card rounded-md p-6 md:p-8 shadow-soft border border-primary/10 flex flex-col items-center text-center">
-                <div className="relative h-20 w-20 rounded-full overflow-hidden border-4 border-primary/20 mb-4">
+                <div className="relative h-20 w-20  overflow-hidden border-4 border-primary/20 mb-4">
                   <Image
                     src={testimonial.avatar || "/placeholder.svg"}
                     alt={testimonial.name}
@@ -74,7 +74,7 @@ export default function TestimonialSlider() {
                   ))}
                 </div>
 
-                <blockquote className="mb-6 text-lg italic font-heading">"{testimonial.content}"</blockquote>
+                {/* <blockquote className="mb-6 text-lg italic font-heading">"{testimonial.content}"</blockquote> */}
 
                 <div>
                   <div className="font-heading font-semibold text-lg">{testimonial.name}</div>

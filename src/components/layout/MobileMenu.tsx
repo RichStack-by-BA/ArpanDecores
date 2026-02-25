@@ -96,7 +96,7 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                 </div>
 
                 {/* Action Icons */}
-                <div className="mt-6 flex justify-around">
+                {/* <div className="mt-6 flex justify-around">
                     <Link href="/wishlist" onClick={onClose}>
                         <button className="border border-input bg-background p-2 rounded-full hover:bg-accent">
                             <Heart className="h-5 w-5" />
@@ -115,7 +115,7 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                             <span className="sr-only">Cart</span>
                         </button>
                     </Link>
-                </div>
+                </div> */}
             </div>
         </div>
     );
