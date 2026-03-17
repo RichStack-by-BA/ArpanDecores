@@ -114,7 +114,7 @@ const handleCreateOrder = useCallback(async () => {
 
     console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, "Razorpay Key ID");
     const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_SJaCO0Peb1B2rG',
       amount,
       currency: "INR",
       name: "Arpan Decores",
