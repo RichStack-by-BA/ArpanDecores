@@ -112,6 +112,7 @@ const handleCreateOrder = useCallback(async () => {
       throw new Error("Invalid order response from server");
     }
 
+    console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, "Razorpay Key ID");
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       amount,
