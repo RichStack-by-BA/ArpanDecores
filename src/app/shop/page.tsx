@@ -1,7 +1,6 @@
 import ShopPage from '@/components/shop'
 import { getAllCategories } from '@/lib/api/category'
 import { getAllProducts } from '@/lib/api/product'
-import React from 'react'
 
 const page = async () => {
     const categories:any = await getAllCategories()

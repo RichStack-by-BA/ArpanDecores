@@ -1,5 +1,6 @@
 import ProductCard from "@/components/shop/ProductCard";
 import Link from "next/link";
+import ProductsGrid from "../shop/ProductsGrid";
 
 type ProductListProps = {
     products: any[];
@@ -25,12 +26,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                     Showing <span className="font-medium text-foreground">{products.length}</span> products
                 </p>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {products.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                ))}
-            </div>
+            <ProductsGrid products={products} viewMode="grid" />
         </>
     );
 };

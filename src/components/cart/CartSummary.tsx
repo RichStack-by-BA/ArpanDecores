@@ -11,7 +11,7 @@ import { openLoginModal } from "@/store/slices/UISlice";
 interface CartSummaryProps {
   subtotal: number;
   productIds: string[];
-  items: any[]; // You can replace 'any' with your actual item type
+  items: any[]; 
 }
 
 export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
@@ -23,7 +23,7 @@ export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
   const [discount, setDiscount] = useState(0);
   const [appliedOfferId, setAppliedOfferId] = useState<string | null>(null);
 
-  const {token} = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector((state) => state.auth);
 
   const shipping = subtotal >= 1999 ? 0 : 149;
 
@@ -82,62 +82,112 @@ export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
     price: item.priceAtAddTime
   }));
 
+const handleCreateOrder = useCallback(async () => {
 
-  const handleCreateOrder = useCallback(async () => {
+  if (!token) {
+    dispatch(openLoginModal());
+    return;
+  }
 
-    if(!token) {
-      dispatch(openLoginModal())
-      return;
+  if (!productIds.length || checkoutLoading) return;
+
+  try {
+    setCheckoutLoading(true);
+
+    // Step 1 — Create order on backend
+    const orderRes:any = await createOrder({
+      couponCode: coupon,
+      cartItems: convertedItems,
+    });
+
+    console.log("Create Order Response:", orderRes);
+    if (!orderRes.ok) {
+      throw new Error(orderRes.error.message);
     }
-    if (!productIds.length || checkoutLoading) return;
 
-    try {
-      setCheckoutLoading(true);
+    const { orderId, amount } = orderRes.data?.data;
+    console.log("Order created:", { orderId, amount });
 
-      const orderRes = await createOrder({
-        couponCode: coupon,
-        cartItems: convertedItems
-      });
+    if (!orderId || !amount) {
+      throw new Error("Invalid order response from server");
+    }
 
-      if (!orderRes.ok) {
-        throw new Error(orderRes.error.message);
-      }
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount,
+      currency: "INR",
+      name: "Arpan Decores",
+      order_id: orderId,
+      prefill: {
+        name: "Customer",
+        email: "customer@email.com",
+      },
+      theme: {
+        color: "#3399cc",
+      },
 
-      const { orderId } = orderRes.data;
+      // Step 3 — Handle successful payment
+      handler: async function (response: any) {
+        const {
+          razorpay_order_id,
+          razorpay_payment_id,
+          razorpay_signature,
+        } = response;
 
-      const options: any = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ,
-        amount: total * 100, 
-        currency: "INR",
-        name: "Arpan Decores",
-        order_id: orderId,
+        console.log("Razorpay Response:", {
+          razorpay_order_id,
+          razorpay_payment_id,
+          razorpay_signature,
+        });
 
-        handler: async function (response: any) {
-          const verifyRes = await verifyPayment({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-          });
+        // Guard — all three fields must be present
+        if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+          showToast("error", "Payment Error", "Incomplete payment response from Razorpay");
+          return;
+        }
 
-          console.log("Payment verification response:", verifyRes);
+        const verifyRes = await verifyPayment({
+          razorpay_order_id,
+          razorpay_payment_id,
+          razorpay_signature,
+        });
 
-          if (!verifyRes.ok) {
-            showToast("error", "Payment Failed", verifyRes.error.message);
-            return;
-          }
-          showToast("success", "Payment Successful", "Order confirmed 🎉");
+        if (!verifyRes.ok) {
+          showToast("error", "Payment Failed", verifyRes.error.message);
+          return;
+        }
+
+        showToast("success", "Payment Successful", "Order confirmed 🎉");
+      },
+
+      modal: {
+        ondismiss: () => {
+          showToast("error", "Payment Cancelled", "You closed the payment window");
+          setCheckoutLoading(false);
         },
-      };
+      },
+    };
 
-      const razorpay = new (window as any).Razorpay(options);
-      razorpay.open();
+    const razorpay = new (window as any).Razorpay(options);
 
-    } catch (err: any) {
-      showToast("error", "Checkout Failed", err.message);
-    } finally {
-      setCheckoutLoading(false);
-    }
-  }, [productIds, total, appliedOfferId, checkoutLoading, showToast]);
+    razorpay.on("payment.failed", (response: any) => {
+      console.error("Payment failed:", response.error);
+      showToast(
+        "error",
+        "Payment Failed",
+        response.error?.description || "Something went wrong"
+      );
+    });
+
+    razorpay.open();
+
+  } catch (err: any) {
+    showToast("error", "Checkout Failed", err.message);
+  } finally {
+    setCheckoutLoading(false);
+  }
+
+}, [productIds, total, coupon, convertedItems, checkoutLoading, showToast, dispatch, token]);
 
 
   return (

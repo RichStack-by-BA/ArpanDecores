@@ -74,7 +74,6 @@ export default function ShopPage({productsList,categoryList}:any) {
                         />
                     </div>
 
-                    {/* Products Grid / Empty State */}
                     {filteredAndSortedProducts.length === 0 ? (
                         <div className="text-center py-12">
                             <h3 className="heading-sm mb-4">No products found</h3>

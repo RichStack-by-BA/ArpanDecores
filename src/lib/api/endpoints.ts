@@ -163,6 +163,7 @@ export const API_ROUTES = {
   PAYMENT: {
     CREATE_ORDER: `${PAYMENT_ROUTES.BASE}/create-order`,
     VERIFY_PAYMENT: `${PAYMENT_ROUTES.BASE}/verify-payment`,
+    
   }
 } as const;
 

@@ -1,8 +1,6 @@
 
-import CategoryCard from "@/components/categories/CategoryCard"; // Import the CategoryCard
-import Breadcrumbs from "@/components/ui/Breadcrumbs"; // Import the Breadcrumbs
-import shopContent from "@/constants/shopContent.json";
-import { useGetCategories } from "@/hooks/useCategory";
+import CategoriesWithPagination from "@/components/categories/CategoryList";
+import Breadcrumbs from "@/components/ui/Breadcrumbs"; 
 import { getAllCategories } from "@/lib/api/category";
 
 export default async function CategoriesPage() {
@@ -21,18 +19,7 @@ export default async function CategoriesPage() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {categoriesData?.data?.categories.map((category:any) => (
-                    category.isActive &&
-                    <CategoryCard
-                        key={category._id}
-                        slug={category.slug}
-                        name={category.name}
-                        description={category.description}
-                        image={category.image}
-                    />
-                ))}
-            </div>
+           <CategoriesWithPagination categories={categoriesData?.data?.categories || []} />
         </div>
     );
 }
