@@ -125,14 +125,14 @@ export default function Header({token,user}: {token: string,user:any}) {
                 <span className="sr-only">Search</span>
               </Button>
 
-              {/* <Link href="/wishlist">
+               <Link href="/wishlist">
                 <Button variant="ghost" size="icon" className="hidden md:flex relative rounded-md hover:bg-primary/10">
                   <Heart className="h-5 w-5" />
                   <span className="sr-only">Wishlist</span>
                 </Button>
-              </Link> */}
+              </Link> 
 
-              {/* {token && user ? (
+              {token && user ? (
                 <div className="hidden md:flex items-center gap-2">
                    <UserMenu user={user}/>
                 </div>
@@ -142,9 +142,9 @@ export default function Header({token,user}: {token: string,user:any}) {
                     <User className="h-5 w-5" />
                     <span className="sr-only">Account</span>
                   </Button>
-              )} */}
+              )} 
 
-              {/* <Link href="/cart">
+               <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative rounded-md hover:bg-primary/10">
                   <ShoppingBag className="h-5 w-5" />
                    {cartCount > 0 && (
@@ -154,7 +154,7 @@ export default function Header({token,user}: {token: string,user:any}) {
                   )}
                   <span className="sr-only">Cart</span>
                 </Button>
-              </Link> */}
+              </Link> 
 
               <Button
                 variant="ghost"
