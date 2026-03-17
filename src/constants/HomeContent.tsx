@@ -150,28 +150,28 @@ export const craftSteps = [
         title: "Material Selection",
         description:
             "We carefully select premium materials from sustainable sources, ensuring each piece starts with the finest foundation.",
-        image: "/images/craft/materials-selection.jpg",
+        image: "/images/ms1.webp",
     },
     {
         id: 2,
         title: "Artisan Design",
         description:
             "Our skilled artisans sketch and plan each piece, blending traditional techniques with contemporary aesthetics.",
-        image: "/images/craft/artisan-design.jpg",
+        image: "/images/ms2.jpg",
     },
     {
         id: 3,
         title: "Meticulous Crafting",
         description:
             "Every item is handcrafted with precision and care, with artisans dedicating hours to perfect each detail.",
-        image: "/images/craft/crafting-process.jpg",
+        image: "/images/ms3.jpg",
     },
     {
         id: 4,
         title: "Quality Assurance",
         description:
             "Each piece undergoes rigorous quality checks to ensure it meets our exacting standards before reaching you.",
-        image: "/images/craft/quality-check.jpg",
+        image: "/images/ms4.webp",
     },
 ]
 
@@ -210,11 +210,11 @@ export const offers = [
 export const testimonials = [
     {
         id: "1",
-        name: "Priya Sharma",
-        role: "Wedding Planner",
+        name: "Hotel Grand Dhillon",
+        role: "Happy Customer",
         content:
             "The personalized wedding gifts from Arpan Decores added such a special touch to our client's big day. The attention to detail and quality of craftsmanship is unmatched.",
-        avatar: "/images/avatars/avatar-1.png",
+        avatar: "/images/reviews/review1.png",
         rating: 5,
     },
     {
@@ -223,27 +223,27 @@ export const testimonials = [
         role: "Happy Customer",
         content:
             "I ordered a custom name plate for my new home and was blown away by the quality. The elegant design perfectly matches our decor and has become a conversation starter!",
-        avatar: "/images/avatars/avatar-2.png",
+        avatar: "/images/reviews/review2.jpeg",
         rating: 5,
     },
     {
         id: "3",
-        name: "Ananya Patel",
-        role: "Interior Designer",
+        name: "Anantya Greens Wedding Palace & Resort",
+        role: "Happy Customer",
         content:
             "As an interior designer, I'm very particular about the decor pieces I recommend. Arpan Decores consistently delivers products that exceed my expectations and delight my clients.",
-        avatar: "/images/avatars/avatar-3.png",
-        rating: 4,
-    },
-    {
-        id: "4",
-        name: "Vikram Singh",
-        role: "Corporate Client",
-        content:
-            "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
-        avatar: "/images/avatars/avatar-4.png",
+        avatar: "/images/reviews/review3.jpeg",
         rating: 5,
     },
+    // {
+    //     id: "4",
+    //     name: "Vikram Singh",
+    //     role: "Happy Customer",
+    //     content:
+    //         "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
+    //     avatar: "/images/avatars/avatar-4.png",
+    //     rating: 5,
+    // },
 ]
 
 
