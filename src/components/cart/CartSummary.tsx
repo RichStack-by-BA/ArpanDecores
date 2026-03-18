@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { pushToast } from "@/store/slices/toastSlice";
 import { makeId } from "@/lib/utils";
 import { openLoginModal } from "@/store/slices/UISlice";
+import { useRouter } from "next/navigation";
 
 interface CartSummaryProps {
   subtotal: number;
@@ -16,6 +17,7 @@ interface CartSummaryProps {
 
 export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const [coupon, setCoupon] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
@@ -101,19 +103,16 @@ const handleCreateOrder = useCallback(async () => {
       cartItems: convertedItems,
     });
 
-    console.log("Create Order Response:", orderRes);
     if (!orderRes.ok) {
       throw new Error(orderRes.error.message);
     }
 
     const { orderId, amount } = orderRes.data?.data;
-    console.log("Order created:", { orderId, amount });
 
     if (!orderId || !amount) {
       throw new Error("Invalid order response from server");
     }
 
-    console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, "Razorpay Key ID");
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_SJaCO0Peb1B2rG',
       amount,
@@ -135,11 +134,6 @@ const handleCreateOrder = useCallback(async () => {
           razorpay_signature,
         } = response;
 
-        console.log("Razorpay Response:", {
-          razorpay_order_id,
-          razorpay_payment_id,
-          razorpay_signature,
-        });
 
         // Guard — all three fields must be present
         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
@@ -155,10 +149,14 @@ const handleCreateOrder = useCallback(async () => {
 
         if (!verifyRes.ok) {
           showToast("error", "Payment Failed", verifyRes.error.message);
+          router.push(`/payment-failure`);
           return;
         }
 
+        router.push(`/payment-success?orderId=${orderId}`);
+
         showToast("success", "Payment Successful", "Order confirmed 🎉");
+
       },
 
       modal: {
