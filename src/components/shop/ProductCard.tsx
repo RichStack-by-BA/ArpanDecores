@@ -9,8 +9,7 @@ import { cn } from "@/lib/utils"
 import { Badge } from "../misc/Badge"
 import { Product } from "@/types/products"
 import { useAddToCart } from "@/hooks/useAddToCart"
-import { useSelector } from "react-redux"
-import { selectCartItems } from "../../store/slices/cartSlice"
+
 
 interface ProductCardProps {
   product: Product
@@ -22,7 +21,6 @@ interface ProductCardProps {
 export default function ProductCard({ product, className, viewMode = "grid", quantity = 1 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const { addToCart, isPending } = useAddToCart()
-  const cartItems = useSelector(selectCartItems)
 
   const handleAddToCart = () => {
     const cartItem = {
@@ -36,7 +34,6 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
     addToCart(cartItem)
   }
 
-  // Check if product is already in cart
 
   if (viewMode === "list") {
     return (
@@ -69,7 +66,7 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
 
           <div className="flex gap-2">
             <Button
-              disabled={isPending }
+              disabled={isPending || product?.stock === 0}
               onClick={handleAddToCart}
               className="bg-brass-gradient text-white shadow-brass hover:shadow-brass-lg"
             >

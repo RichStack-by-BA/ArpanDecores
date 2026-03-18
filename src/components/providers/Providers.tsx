@@ -23,16 +23,16 @@ function QueryProvider({ children }: { children: React.ReactNode }) {
       },
     },
     queryCache: new QueryCache({
-      onError: (error: any) => {
-        const message = error?.message || 'Something went wrong';
-        dispatch(pushToast({ id: Math.random().toString(36).slice(2), variant: 'error', title: 'Request failed', message }));
-      },
+      // onError: (error: any) => {
+      //   const message = error?.message || 'Something went wrong';
+      //   dispatch(pushToast({ id: Math.random().toString(36).slice(2), variant: 'error', title: 'Request failed', message }));
+      // },
     }),
     mutationCache: new MutationCache({
-      onError: (error: any) => {
-        const message = error?.message || 'Something went wrong';
-        dispatch(pushToast({ id: Math.random().toString(36).slice(2), variant: 'error', title: 'Request failed', message }));
-      },
+      // onError: (error: any) => {
+      //   const message = error?.message || 'Something went wrong';
+      //   dispatch(pushToast({ id: Math.random().toString(36).slice(2), variant: 'error', title: 'Request failed', message }));
+      // },
     }),
   }), [dispatch]);
 

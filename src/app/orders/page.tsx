@@ -192,7 +192,6 @@ export default function OrdersPage() {
         </Card>
       </div>
 
-      {/* Filter Dropdown */}
       <div className="mb-6 flex justify-between items-center">
         <h2 className="heading-md">Order History</h2>
         {/* <Select value={filterStatus} onValueChange={setFilterStatus}>

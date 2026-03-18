@@ -6,46 +6,59 @@ import { useAddToCart } from "@/hooks/useAddToCart"
 
 interface AddToCartButtonProps {
   product: any
+  selectedVariant?: any // 👈 add this
   quantity?: number
   customization?: string
-  className?: string
-  variant?: "default" | "outline" | "secondary" | "ghost" | "link"
-  size?: "default" | "sm" | "lg" | "icon",
   isDisabled?: boolean
 }
 
 export default function AddToCartButton({ 
   isDisabled = false,
   product, 
+  selectedVariant,
   quantity = 1, 
   customization, 
-  className = "",
-  variant = "default",
-  size = "default"
 }: AddToCartButtonProps) {
   const { addToCart, isPending } = useAddToCart()
 
-  const handleAddToCart = () => {
-    const cartItem = {
-      productId: product._id,  // Changed from _id to productId to match your hook
-      product: product,        // Added product object which is used in the hook
-      quantity,
-      slug: product.slug,      // Added slug for better cart item identification
-      priceAtAddTime: product.price,
-      // Add customization if provided
-      ...(customization && { customization })
-    }
-    
-    addToCart(cartItem)
-  }
+ const handleAddToCart = () => {
+  const isVariantProduct = product.isVariant && selectedVariant;
+
+  const cartItem = {
+    productId: product._id,
+
+    ...(isVariantProduct && { variantId: selectedVariant._id }),
+
+    product: {
+      _id: product._id,
+      name: product.name,
+      slug: product.slug,
+
+      image: isVariantProduct
+        ? selectedVariant.images?.[0]
+        : product.images?.[0],
+
+      ...(isVariantProduct && {
+        variantName: selectedVariant.name,
+      }),
+    },
+
+    quantity,
+
+    priceAtAddTime: product.discountPrice || product.price,
+
+    ...(customization && { customization }),
+  };
+
+  addToCart(cartItem);
+};
+
+
 
   return (
     <Button
       onClick={handleAddToCart}
       disabled={isPending || isDisabled}
-      variant={variant}
-      size={size}
-      className={`flex-1 sm:flex-none ${className}`}
     >
       <ShoppingBag className="h-4 w-4 mr-2" />
       {isPending ? "Adding..." : "Add to Cart"}

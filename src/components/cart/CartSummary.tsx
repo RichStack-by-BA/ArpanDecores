@@ -78,6 +78,7 @@ export function CartSummary({ subtotal, productIds, items }: CartSummaryProps) {
 
   const convertedItems = items.map(item => ({
     productId: item.product._id,
+    variantId: item.variantId,
     quantity: item.quantity,
     price: item.priceAtAddTime
   }));
@@ -127,7 +128,6 @@ const handleCreateOrder = useCallback(async () => {
         color: "#3399cc",
       },
 
-      // Step 3 — Handle successful payment
       handler: async function (response: any) {
         const {
           razorpay_order_id,

@@ -15,6 +15,7 @@ export type Product = {
   isCustomizable?: boolean
   isBestseller?: boolean
   isNew?: boolean
+  stock?: number
 }
 
 export type ShopFilters = {

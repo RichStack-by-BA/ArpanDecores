@@ -11,6 +11,7 @@ import { localCart } from "@/lib/local-cart"
 
 interface AddToCartParams {
   productId: string
+  variantId?: string // 👈 ADD THIS
   product: any
   quantity?: number
   priceAtAddTime: number
@@ -25,10 +26,11 @@ export function useAddToCart() {
   const apiMutation = useMutation({
     mutationFn: async (cartData: AddToCartParams) => {
       dispatch(setLoading(true))
-      
+
       const response = await addToCartAPI({
         items: [{
           productId: cartData.productId,
+          variantId: cartData.variantId, // 👈 ADD THIS
           quantity: cartData.quantity || 1,
           priceAtAddTime: cartData.priceAtAddTime,
           slug: cartData.product.slug,
@@ -37,7 +39,7 @@ export function useAddToCart() {
       if (!response.ok) {
         throw new Error(response.error?.message || "Failed to add to cart")
       }
-      
+
       return response.data
     },
     onSuccess: (data, variables) => {
@@ -53,9 +55,9 @@ export function useAddToCart() {
         addedAt: new Date().toISOString(),
         ...(variables.customization && { customization: variables.customization })
       }
-      
+
       dispatch(addItem(cartItem))
-      
+
       dispatch(
         pushToast({
           id: `toast-${Date.now()}`,
@@ -83,28 +85,33 @@ export function useAddToCart() {
   // Add to cart for guest users
   const addToGuestCart = (cartData: AddToCartParams) => {
     dispatch(setLoading(true))
-    
+
     // Add to Redux store
     const cartItem: any = {
       id: `${cartData.productId}_${Date.now()}`,
       productId: cartData.productId,
+      variantId: cartData.variantId, // 👈 important for variants
       product: cartData.product,
       quantity: cartData.quantity || 1,
       priceAtAddTime: cartData.priceAtAddTime,
       addedAt: new Date().toISOString(),
       ...(cartData.customization && { customization: cartData.customization })
     }
-    
+
     dispatch(addItem(cartItem))
-    
-    // Also add to localStorage as backup
-   localCart.addItem({
-    productId: cartData.productId,
-    product: {name:cartData.product.name, image: cartData.product.image,_id:cartData.product._id},
-    quantity: cartData.quantity || 1,
-    priceAtAddTime: cartData.priceAtAddTime
-  })
-    
+
+    localCart.addItem({
+      productId: cartData.productId,
+      variantId: cartData.variantId, // 👈 important
+      product: {
+        name: cartData.product.name,
+        image: cartData.product.image,
+        _id: cartData.product._id,
+      },
+      quantity: cartData.quantity || 1,
+      priceAtAddTime: cartData.priceAtAddTime
+    })
+
     dispatch(
       pushToast({
         id: `toast-${Date.now()}`,
@@ -113,7 +120,7 @@ export function useAddToCart() {
         message: `${cartData.product.name} has been added to your cart.`,
       })
     )
-    
+
     dispatch(setLoading(false))
   }
 
@@ -128,7 +135,7 @@ export function useAddToCart() {
 
   return {
     addToCart,
-    isPending: apiMutation.isPending ,
+    isPending: apiMutation.isPending,
     isError: apiMutation.isError,
     error: apiMutation.error,
   }

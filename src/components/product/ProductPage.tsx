@@ -65,7 +65,7 @@ const ProductDetails = ({ product }: any) => {
                 }
                 {product.isVariant && <ProductVariantSelector variants={product.variants} onVariantChange={handleVariantChange} />}
                 <div className="space-y-4">
-                    { product.stock > 0 ? (
+                    { product.stock > 0 ?  (
                             <div className="flex items-center gap-2">
                                 <div className="h-4 w-4 rounded-full bg-green-500" />
                                 <span className="text-sm font-medium text-green-600">In Stock</span>
@@ -78,7 +78,7 @@ const ProductDetails = ({ product }: any) => {
                         )
                     }
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <AddToCartButton product={product} isDisabled={product.stock === 0} />
+                        <AddToCartButton product={product} selectedVariant={selectedVariant} isDisabled={product.stock === 0} />
                         <Button variant="outline" className="btn-outline">Add to Wishlist</Button>
                     </div>
                 </div>
