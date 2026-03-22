@@ -69,9 +69,9 @@ export const RadioGroupItem = forwardRef<HTMLInputElement, RadioGroupItemProps>(
           )}
           {...props}
         />
-        <span className="relative flex h-4 w-4 items-center justify-center">
+        {/* <span className="relative flex h-4 w-4 items-center justify-center">
           {checked && <Circle className="absolute h-2.5 w-2.5 fill-current text-primary" />}
-        </span>
+        </span> */}
         {label && <span className="text-sm text-foreground">{label}</span>}
       </label>
     )

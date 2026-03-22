@@ -108,7 +108,7 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
         </Link>
 
         {/* Quick actions */}
-        <div
+        {/* <div
           className={cn(
             "absolute bottom-0 left-0 right-0 flex justify-center p-4 gap-2 transition-all duration-300 bg-gradient-to-t from-secondary/80 to-transparent",
             isHovered ? "opacity-100" : "opacity-0",
@@ -124,17 +124,17 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
             <ShoppingBag className="h-4 w-4" />
             <span className="sr-only">Add to cart</span>
           </Button>
-          {/* <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
+          <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
             <Heart className="h-4 w-4" />
             <span className="sr-only">Add to wishlist</span>
-          </Button> */}
+          </Button>
           <Link href={`/product/${product.slug}`}>
             <Button size="icon" variant="secondary" className="rounded-md bg-white/90 hover:bg-white text-secondary">
               <Eye className="h-4 w-4" />
               <span className="sr-only">Quick view</span>
             </Button>
           </Link>
-        </div>
+        </div> */}
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
@@ -158,7 +158,7 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
         </Link>
         <div className="flex items-center justify-between">
           <div className="font-semibold">₹{product.price.toLocaleString()}</div>
-          <Button
+          {/* <Button
             size="sm"
             disabled={isPending}
             className="rounded-md bg-brass-gradient text-white h-8 w-8 p-0 shadow-brass hover:shadow-brass-lg"
@@ -166,7 +166,7 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
           >
             <ShoppingBag className="h-4 w-4" />
             <span className="sr-only">Add to cart</span>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

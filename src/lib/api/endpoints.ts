@@ -96,6 +96,15 @@ export const CART_ROUTES = {
     GET_ALL: '/all',
     DELETE: '/delete',
 };
+
+export const ADDRESS_ROUTES = {
+    BASE: `${API_BASE_PATH}/address`,
+    ADD: '/add',
+    UPDATE: '/edit',
+    GET_ALL: '/all',
+    DELETE: '/delete',
+};
+
 export const CONTACT_ROUTES = {
     BASE: `${API_BASE_PATH}/contact`,
     ADD: '/add',
@@ -104,6 +113,7 @@ export const CONTACT_ROUTES = {
 export const OFFER_ROUTES = {
     BASE: `${API_BASE_PATH}/offer`,
     GET_ALL: '/all',
+    APPLY: '/apply',
 };
 export const PAYMENT_ROUTES = {
     BASE: `${API_BASE_PATH}/payment`,
@@ -158,13 +168,23 @@ export const API_ROUTES = {
   },
   OFFER: {
     GET_ALL: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.GET_ALL}`,
-    APPLY: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.GET_ALL}`,
+    APPLY: `${OFFER_ROUTES.BASE}${OFFER_ROUTES.APPLY}`,
   },
   PAYMENT: {
     CREATE_ORDER: `${PAYMENT_ROUTES.BASE}/create-order`,
     VERIFY_PAYMENT: `${PAYMENT_ROUTES.BASE}/verify-payment`,
-    
-  }
+  },
+  ORDER: {
+    GET_ALL: `${ORDER_ROUTES.BASE}${ORDER_ROUTES.GET_ALL}`,
+    GET_BY_ID: `${ORDER_ROUTES.BASE}`,
+  },
+  ADDRESS_ROUTES: {
+    BASE: `${ADDRESS_ROUTES.BASE}`,
+    ADD: `${ADDRESS_ROUTES.BASE}${ADDRESS_ROUTES.ADD}`,
+    UPDATE: `${ADDRESS_ROUTES.BASE}${ADDRESS_ROUTES.UPDATE}`,
+    GET_ALL: `${ADDRESS_ROUTES.BASE}${ADDRESS_ROUTES.GET_ALL}`,
+    DELETE: `${ADDRESS_ROUTES.BASE}${ADDRESS_ROUTES.DELETE}`,
+  },
 } as const;
 
 

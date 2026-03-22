@@ -53,7 +53,7 @@ export default function CartPage() {
         return null;
       }
     },
-    onSuccess: () =>  {token && queryClient.invalidateQueries({ queryKey: ["cart"] }), dispatch(setCart(localCart.getCart()))},
+    onSuccess: () => { token && queryClient.invalidateQueries({ queryKey: ["cart"] }), dispatch(setCart(localCart.getCart())) },
     onError: (err: any) =>
       dispatch(
         pushToast({
@@ -67,18 +67,18 @@ export default function CartPage() {
 
   // ------------------ Update Quantity ------------------
   const updateMutation = useMutation({
-    mutationFn: async ({ id, quantity }: { id: string; quantity: number }) => {
+    mutationFn: async ({ id,itemId, quantity }: { id: string; itemId:string, quantity: number }) => {
       if (token) {
-        const res = await updateCartItemById(id, { quantity });
+        const res = await updateCartItemById(id, { quantity, itemId });
         if (!res.ok) throw new Error(res.error?.message || "Failed to update quantity");
         return res.data;
       } else {
-        localCart.updateQuantity(id, quantity);
+        localCart.updateQuantity(itemId, quantity);
         setLocalItems(localCart.getCart());
         return null;
       }
     },
-    onSuccess: () =>  {token && queryClient.invalidateQueries({ queryKey: ["cart"] }), dispatch(setCart(localCart.getCart()))},
+    onSuccess: () => { token && queryClient.invalidateQueries({ queryKey: ["cart"] }), dispatch(setCart(localCart.getCart())) },
     onError: (err: any) =>
       dispatch(
         pushToast({
@@ -99,11 +99,13 @@ export default function CartPage() {
 
   // ------------------ Subtotal ------------------
   const subtotal = items.reduce(
-    (total: number, item: any) => total + item.priceAtAddTime * item.quantity,
+    (total: number, item: any) => total + item.price * item.quantity,
     0
   );
 
-  const productIds = items.map((item: any) => item.product._id);
+  const productIds = items.map((item: any) => item.productId);
+
+  console.log(items, "cart items in CartPage");
   return (
     <div className="mx-auto container-custom py-10">
       <h1 className="text-3xl font-playfair font-bold mb-8">Your Shopping Cart</h1>
@@ -116,15 +118,16 @@ export default function CartPage() {
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
             <CartList
+              cartId={serverCartData?.id}
               items={items}
               removeFromCart={(id: string) => removeMutation.mutate(id)}
-              updateQuantity={(id: string, qty: number) =>
-                updateMutation.mutate({ id, quantity: qty })
+              updateQuantity={(id: string, itemId:string, qty: number) =>
+                updateMutation.mutate({ id, itemId, quantity: qty })
               }
             />
           </div>
 
-          <CartSummary subtotal={subtotal} productIds={productIds}  items={items} />
+          <CartSummary subtotal={subtotal} productIds={productIds} items={items} discount={serverCartData.discountAmount} couponCode={serverCartData.couponCode} />
         </div>
       )}
     </div>

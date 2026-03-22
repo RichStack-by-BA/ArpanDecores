@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge"
 
 interface Variant {
   _id: string // ✅ IMPORTANT
+  variantId: string // ✅ NEW field to uniquely identify variant
   name: string
   images: string[]
   stock: number
@@ -49,7 +50,7 @@ export default function ProductVariantSelector({
 
       <div className="flex flex-wrap gap-3">
         {variants.map((variant) => {
-          const isSelected = selectedVariant?._id === variant._id
+          const isSelected = selectedVariant?.variantId === variant.variantId
           const isOutOfStock = variant.stock === 0
 
           return (

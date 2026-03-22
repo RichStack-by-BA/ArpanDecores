@@ -1,8 +1,8 @@
-import { apiPost } from './fetchWrapper';
+import { apiGet, apiPost } from './fetchWrapper';
 import { API_ROUTES, toApiError, type ApiError } from './endpoints';
 
 export interface ApplyOfferPayload {
-  offerCode: string;
+  offerCode: string |null;
   cartTotal: number;
   productIds: string[];
 }
@@ -10,22 +10,22 @@ export interface ApplyOfferPayload {
 export interface ApplyOfferResponse {
   discountAmount: number;
   finalAmount: number;
-  offerId: string;
+  offerId: string | null;
 }
 
-export type ApiResult<T> =
-  | { ok: true; data: T }
-  | { ok: false; error: ApiError };
+export type ApiResult<T> = { ok: true; data: T } | { ok: false; error: ApiError };
 
-  export async function applyOffer(
+
+export async function applyOffer(
   payload: ApplyOfferPayload
 ): Promise<ApiResult<ApplyOfferResponse>> {
   try {
-    const data = await apiPost<ApplyOfferResponse>(
+    const data = await apiPost<{ offer: ApplyOfferResponse }>(
       API_ROUTES.OFFER.APPLY,
       payload
     );
-    return { ok: true, data };
+
+    return { ok: true, data: data.offer }; // ✅ clean & consistent
   } catch (err) {
     return { ok: false, error: toApiError(err) };
   }
@@ -38,6 +38,7 @@ export interface CreateOrderPayload {
     quantity: number;
     price: number;
   }[];
+  shippingAddress: string;
 }
 
 export interface CreateOrderResponse {
@@ -86,3 +87,31 @@ export async function verifyPayment(
     return { ok: false, error: toApiError(err) };
   }
 }
+
+
+export async function getAllOrders(): Promise<ApiResult<any[]>> {
+  try {
+    const data:any = await apiGet<any[]>(API_ROUTES.ORDER.GET_ALL, { cache: 'no-store' });
+    return { ok: true, data };
+  } catch (err) {
+    return { ok: false, error: toApiError(err) };
+  }
+}
+
+
+
+export async function getOrderByOrderID(orderId: string): Promise<ApiResult<any>> {
+  try {
+    const res:any = await apiGet<any>(`${API_ROUTES.ORDER.GET_BY_ID}/${orderId}`, { next: { revalidate: 60 } });
+    const order = res?.data?.order;
+    console.log("Fetched order details:", order);
+    if (!order) {
+      return { ok: false, error: { message: "Order not found" } };
+    }
+    return { ok: true,  data: order };
+  } catch (err) {
+    console.error("Error fetching order by ID:", err);
+    return { ok: false, error: toApiError(err) };
+  }
+}
+

@@ -15,10 +15,12 @@ const ProductDetails = ({ product }: any) => {
     const [productImages, setProductImages] = useState<string[]>(product.isVariant ? product.variants[0].images : product.images)
 
     const handleVariantChange = (variant: any) => {
+        
         setSelectedVariant(variant)
         setProductImages(variant.images)
     }
 
+    console.log(product, "product details component")
 
     return (
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">

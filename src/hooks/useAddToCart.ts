@@ -30,6 +30,8 @@ export function useAddToCart() {
       const response = await addToCartAPI({
         items: [{
           productId: cartData.productId,
+          image: cartData.product.image,
+          name: cartData.product.name,
           variantId: cartData.variantId, // 👈 ADD THIS
           quantity: cartData.quantity || 1,
           priceAtAddTime: cartData.priceAtAddTime,

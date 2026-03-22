@@ -21,13 +21,14 @@ export default function AddToCartButton({
 }: AddToCartButtonProps) {
   const { addToCart, isPending } = useAddToCart()
 
+  console.log(selectedVariant, "selected variant in AddToCartButton")
  const handleAddToCart = () => {
   const isVariantProduct = product.isVariant && selectedVariant;
 
   const cartItem = {
     productId: product._id,
 
-    ...(isVariantProduct && { variantId: selectedVariant._id }),
+    ...(isVariantProduct && { variantId: selectedVariant.variantId }),
 
     product: {
       _id: product._id,

@@ -43,9 +43,9 @@ export async function addToCartAPI(item: Omit<any, '_id'>): Promise<ApiResult<Ca
 }
 
 // ✅ 3. UPDATE cart item (e.g., change quantity)
-export async function updateCartItemById(id: string, quantity: any): Promise<ApiResult<CartItem>> {
+export async function updateCartItemById(id: string, reqBody: any): Promise<ApiResult<CartItem>> {
   try {
-    const data = await apiPatch<CartItem>(`${API_ROUTES.CART.UPDATE}/${id}`, quantity);
+    const data = await apiPatch<CartItem>(`${API_ROUTES.CART.UPDATE}/${id}`, reqBody);
     return { ok: true, data };
   } catch (err) {
     return { ok: false, error: toApiError(err) };
