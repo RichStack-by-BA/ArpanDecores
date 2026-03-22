@@ -20,7 +20,7 @@ export function openRazorpay({
   onDismiss,
 }: RazorpayOptions) {
   const options = {
-    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_SJaCO0Peb1B2rG', 
     amount,
     currency: 'INR',
     name,
