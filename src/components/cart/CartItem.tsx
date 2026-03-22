@@ -16,7 +16,7 @@ export function CartItem({ item, updateQuantity, removeFromCart,cartId }: any) {
               {item.name}
             </h3>
           </Link>
-          <span className="font-semibold">₹{item.price.toLocaleString()}</span>
+          <span className="font-semibold">₹{item?.price?.toLocaleString()}</span>
         </div>
 
         {item?.customization && (
