@@ -118,7 +118,7 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
       <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
 
       <div className="space-y-3 mb-6">
-        <Row label="Subtotal" value={`₹${subtotal.toLocaleString()}`} />
+        <Row label="Subtotal" value={`₹${subtotal?.toLocaleString()}`} />
         <Row
           label="Shipping"
           value={shipping === 0 ? "Free" : `₹${shipping}`}
