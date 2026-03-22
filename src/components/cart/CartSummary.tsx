@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { Button } from "../ui/Button";
-import { applyOffer, createOrder, verifyPayment } from "@/lib/api/order";
+import { applyOffer} from "@/lib/api/order";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { pushToast } from "@/store/slices/toastSlice";
 import { makeId } from "@/lib/utils";
@@ -108,119 +108,6 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
     }
   }, [appliedCouponCode, subtotal, productIds, showToast]);
 
-  // // Moved inside callback to avoid stale closure
-  // const handleCreateOrder = useCallback(async () => {
-  //   if (!token) {
-  //     dispatch(openLoginModal());
-  //     return;
-  //   }
-
-  //   if (!productIds.length || checkoutLoading) return;
-
-  //   // Build convertedItems fresh inside callback to avoid stale reference
-  //   const freshConvertedItems = items.map((item) => ({
-  //     productId: item.productId,
-  //     variantId: item.variantId,
-  //     quantity: item.quantity,
-  //     price: item.priceAtAddTime,
-  //   }));
-
-  //   try {
-  //     setCheckoutLoading(true);
-
-  //     const orderRes: any = await createOrder({
-  //       couponCode: appliedCouponCode || "",
-  //       cartItems: freshConvertedItems,
-  //     });
-
-  //     if (!orderRes.ok) {
-  //       throw new Error(orderRes.error.message);
-  //     }
-
-  //     const { orderId, amount } = orderRes.data?.data;
-
-  //     if (!orderId || !amount) {
-  //       throw new Error("Invalid order response from server");
-  //     }
-
-  //     const options = {
-  //       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_SJaCO0Peb1B2rG",
-  //       amount,
-  //       currency: "INR",
-  //       name: "Arpan Decores",
-  //       order_id: orderId,
-  //       prefill: {
-  //         name: "Customer",
-  //         email: "customer@email.com",
-  //       },
-  //       theme: {
-  //         color: "#3399cc",
-  //       },
-
-  //       handler: async function (response: any) {
-  //         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-  //           response;
-
-  //         if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-  //           showToast(
-  //             "error",
-  //             "Payment Error",
-  //             "Incomplete payment response from Razorpay"
-  //           );
-  //           return;
-  //         }
-
-  //         const verifyRes = await verifyPayment({
-  //           razorpay_order_id,
-  //           razorpay_payment_id,
-  //           razorpay_signature,
-  //         });
-
-  //         if (!verifyRes.ok) {
-  //           showToast("error", "Payment Failed", verifyRes.error.message);
-  //           router.push(`/payment-failure`);
-  //           return;
-  //         }
-
-  //         router.push(`/payment-success?orderId=${orderId}`);
-  //         showToast("success", "Payment Successful", "Order confirmed 🎉");
-  //       },
-
-  //       modal: {
-  //         ondismiss: () => {
-  //           showToast("error", "Payment Cancelled", "You closed the payment window");
-  //           setCheckoutLoading(false);
-  //         },
-  //       },
-  //     };
-
-  //     const razorpay = new (window as any).Razorpay(options);
-
-  //     razorpay.on("payment.failed", (response: any) => {
-  //       console.error("Payment failed:", response.error);
-  //       showToast(
-  //         "error",
-  //         "Payment Failed",
-  //         response.error?.description || "Something went wrong"
-  //       );
-  //     });
-
-  //     razorpay.open();
-  //   } catch (err: any) {
-  //     showToast("error", "Checkout Failed", err.message);
-  //   } finally {
-  //     setCheckoutLoading(false);
-  //   }
-  // }, [
-  //   token,
-  //   productIds,
-  //   items,
-  //   appliedCouponCode,
-  //   checkoutLoading,
-  //   showToast,
-  //   dispatch,
-  //   router,
-  // ]);
 
   const isCouponApplied = !!appliedCouponCode;
 

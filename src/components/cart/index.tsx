@@ -127,7 +127,7 @@ export default function CartPage() {
             />
           </div>
 
-          <CartSummary subtotal={subtotal} productIds={productIds} items={items} discount={serverCartData.discountAmount} couponCode={serverCartData.couponCode} />
+          <CartSummary subtotal={subtotal} productIds={productIds} items={items} discount={serverCartData?.discountAmount} couponCode={serverCartData?.couponCode} />
         </div>
       )}
     </div>
