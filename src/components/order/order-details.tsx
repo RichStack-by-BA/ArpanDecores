@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/Collapsible'
 
 interface OrderItem {
-  id: string
+  _id: string
   name: string
   price: number
   quantity: number
@@ -74,6 +74,7 @@ export function OrderCardEnhanced({
 }: OrderCardEnhancedProps) {
   const [isOpen, setIsOpen] = useState(false)
   const config = orderStatusConfig[orderStatus] 
+  console.log(config,"++++++",orderStatus)
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -100,7 +101,7 @@ export function OrderCardEnhanced({
               <div className="flex items-center gap-2">
                 <div>
                   <div className="text-xs font-medium text-muted-foreground uppercase">Amount</div>
-                  <div className="font-semibold text-base mt-1">₹{totalAmount.toLocaleString()}</div>
+                  <div className="font-semibold text-base mt-1">₹{totalAmount?.toLocaleString()}</div>
                 </div>
               </div>
 
@@ -109,7 +110,7 @@ export function OrderCardEnhanced({
                 <Package className="h-4  text-muted-foreground" />
                 <div>
                   <div className="text-xs font-medium text-muted-foreground uppercase">Items</div>
-                  <div className="font-medium text-sm mt-1">{items.length}</div>
+                  <div className="font-medium text-sm mt-1">{items?.length}</div>
                 </div>
               </div>
 
@@ -132,8 +133,8 @@ export function OrderCardEnhanced({
             <div>
               <h4 className="font-semibold mb-3">Items Ordered</h4>
               <div className="grid gap-3">
-                {items.slice(0, 3).map((item:any) => (
-                  <div key={item.orderNumber} className="flex items-center gap-3 p-3 bg-background rounded-lg border">
+                {items.slice(0, 3).map((item:any,index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 bg-background rounded-lg border">
                     <div className="w-14 h-14 rounded-md bg-muted flex-shrink-0 overflow-hidden">
                       <img
                         src={item.image || '/placeholder.svg'}
@@ -146,7 +147,7 @@ export function OrderCardEnhanced({
                       <div className="text-xs text-muted-foreground">Qty: {item.quantity}</div>
                     </div>
                     <div className="text-right">
-                      <div className="font-semibold text-sm">₹{item.price.toLocaleString()}</div>
+                      <div className="font-semibold text-sm">₹{item?.price?.toLocaleString()}</div>
                     </div>
                   </div>
                 ))}
@@ -202,7 +203,7 @@ export function OrderCardEnhanced({
                 <Button variant="outline" className="w-full">View Details</Button>
               </Link>
               <Button variant="outline" className="flex-1">Download Invoice</Button>
-              {status === 'delivered' && (
+              {orderStatus === 'DELIVERED' && (
                 <Button className="flex-1 btn-primary">Leave Review</Button>
               )}
             </div>

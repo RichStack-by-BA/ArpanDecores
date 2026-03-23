@@ -5,67 +5,86 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Separator } from "@/components/ui/Separator";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import { MapPin, Download, MessageSquare } from "lucide-react";
-import order from "@/components/order";
+import { Download, MessageSquare } from "lucide-react";
 import Image from "next/image";
 
-interface OrderDetailItem {
-  id: string;
+/* ================== TYPES ================== */
+
+interface OrderItem {
+  _id: string;
   name: string;
-  price: number;
+  productId: string;
   quantity: number;
   image: string;
+  price: number;
 }
 
-interface OrderDetail {
-  id: string;
-  orderRazorpayId: string;
+interface Order {
+  _id: string;
   createdAt: string;
-  totalAmount: number;
-  subtotal: number;
-  shipping: number;
-  tax: number;
-  orderStatus: "CREATED" | "SHIPPED" | "DELIVERED" | "CANCELLED" | "RETURNED"
-  items: OrderDetailItem[];
-  shippingAddress: any;
-  billingAddress: any;
-  trackingNumber?: string;
-  estimatedDelivery?: string;
-  paymentMethod: string;
-  paymentStatus: "pending" | "completed";
+  orderStatus: "PENDING" | "CONFIRMED" | "SHIPPED" | "DELIVERED" | "CANCELLED";
+
+  items: OrderItem[];
+
+  pricing: {
+    subTotal: number;
+    tax: number;
+    shipping: number;
+    total: number;
+  };
+
+  payment: {
+    provider: string;
+    status: "PENDING" | "PAID" | "FAILED";
+    razorpayOrderId?: string;
+  };
 }
-  
+
+/* ================== STATUS ================== */
 
 const statusColors = {
-  CREATED: "bg-blue-100 text-blue-800",
-  SHIPPED: "bg-amber-100 text-amber-800",
+  PENDING: "bg-blue-100 text-blue-800",
+  CONFIRMED: "bg-amber-100 text-amber-800",
+  SHIPPED: "bg-indigo-100 text-indigo-800",
   DELIVERED: "bg-green-100 text-green-800",
   CANCELLED: "bg-red-100 text-red-800",
-  RETURNED: "bg-purple-100 text-purple-800",
 };
 
 const statusLabels = {
-CREATED: "PROCESSING",
+  PENDING: "PROCESSING",
+  CONFIRMED: "CONFIRMED",
   SHIPPED: "SHIPPED",
   DELIVERED: "DELIVERED",
   CANCELLED: "CANCELLED",
-  RETURNED: "RETURNED",
 };
+
+/* ================== COMPONENT ================== */
 
 export default async function OrderDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const id = (await params).id;
+  const id =  (await params).id;
+
   const data = await getOrderByOrderID(id);
 
   if (!data.ok) {
     return <div className="p-10 text-center">Order not found</div>;
   }
-  const order: OrderDetail = data?.data;
 
-  console.log("Order details:", order);
+  const order: Order = data.data;
+
+  /* ================== DESTRUCTURE ================== */
+
+  const {
+    _id,
+    createdAt,
+    orderStatus,
+    items,
+    pricing,
+    payment,
+  } = order;
 
   return (
     <div className="container-custom py-8 md:py-12">
@@ -74,40 +93,47 @@ export default async function OrderDetailPage({
       {/* Header */}
       <div className="flex justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold">{order.orderRazorpayId}</h1>
-          <p className="text-muted-foreground">Placed on {order.createdAt}</p>
+          <h1 className="text-2xl font-bold">
+            {payment?.razorpayOrderId || _id}
+          </h1>
+          <p className="text-muted-foreground">
+            Placed on {new Date(createdAt).toLocaleDateString()}
+          </p>
         </div>
-        <Badge className={statusColors[order?.orderStatus]}>
-          {statusLabels[order?.orderStatus]}
+
+        <Badge className={statusColors[orderStatus]}>
+          {statusLabels[orderStatus]}
         </Badge>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* Items */}
+        {/* ================== ITEMS ================== */}
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle>Order Items</CardTitle>
             </CardHeader>
             <CardContent>
-              {order.items.map((item) => (
-                <div key={item.id} className="flex gap-4 mb-4">
+              {items.map((item) => (
+                <div key={item._id} className="flex gap-4 mb-4">
                   <div className="relative w-20 h-20">
                     <Image
                       src={item.image}
-                      alt="Product Image"
-                      layout="fill"
+                      alt={item.name}
+                      fill
                       className="object-cover rounded"
                     />
                   </div>
+
                   <div className="flex-1">
-                    <Link href={`/product/${item.id}`}>
+                    <Link href={`/product/`}>
                       {item.name}
                     </Link>
                     <div className="text-sm">
                       Qty: {item.quantity}
                     </div>
                   </div>
+
                   <div>₹{item.price * item.quantity}</div>
                 </div>
               ))}
@@ -115,7 +141,7 @@ export default async function OrderDetailPage({
           </Card>
         </div>
 
-        {/* Sidebar */}
+        {/* ================== SIDEBAR ================== */}
         <div className="space-y-6">
           {/* Summary */}
           <Card>
@@ -125,36 +151,48 @@ export default async function OrderDetailPage({
             <CardContent>
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span>₹{order.subtotal}</span>
+                <span>₹{pricing.subTotal}</span>
               </div>
+
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span>{order.shipping === 0 ? "Free" : `₹${order.shipping}`}</span>
+                <span>
+                  {pricing.shipping === 0
+                    ? "Free"
+                    : `₹${pricing.shipping}`}
+                </span>
               </div>
+
               <div className="flex justify-between">
                 <span>Tax</span>
-                <span>₹{order.tax}</span>
+                <span>₹{pricing.tax}</span>
               </div>
+
               <Separator />
+
               <div className="flex justify-between font-bold">
                 <span>Total</span>
-                <span>₹{order.totalAmount}</span>
+                <span>₹{pricing.total}</span>
               </div>
             </CardContent>
           </Card>
 
-          {/* Address */}
-          {/* <Card>
+          {/* Payment Info */}
+          <Card>
             <CardHeader>
-              <CardTitle>
-                <MapPin className="inline mr-2" /> Shipping
-              </CardTitle>
+              <CardTitle>Payment</CardTitle>
             </CardHeader>
             <CardContent>
-              <div>{order.shippingAddress.name}</div>
-              <div>{order.shippingAddress.address}</div>
+              <div className="flex justify-between">
+                <span>Method</span>
+                <span>{payment.provider}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Status</span>
+                <span>{payment.status}</span>
+              </div>
             </CardContent>
-          </Card> */}
+          </Card>
 
           {/* Actions */}
           <Button className="w-full" variant="outline">
