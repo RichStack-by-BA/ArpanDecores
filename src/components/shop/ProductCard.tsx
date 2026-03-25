@@ -65,22 +65,22 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
           <div className="font-semibold text-lg mb-4">₹{product.price.toLocaleString()}</div>
 
           <div className="flex gap-2">
-            <Button
+            {/* <Button
               disabled={isPending || product?.stock === 0}
               onClick={handleAddToCart}
               className="bg-brass-gradient text-white shadow-brass hover:shadow-brass-lg"
             >
               <ShoppingBag className="h-4 w-4 mr-2" />
               {isPending ? "Adding..." : "Add to Cart"}
-            </Button>
+            </Button> */}
             {/* <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
               <Heart className="h-4 w-4" />
             </Button> */}
-            <Link href={`/product/${product.slug}`}>
+            {/* <Link href={`/product/${product.slug}`}>
               <Button variant="outline" size="icon" className="border-primary/20 hover:border-primary">
                 <Eye className="h-4 w-4" />
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

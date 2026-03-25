@@ -76,7 +76,7 @@ export interface OrderItem {
   price: number
 }
 
-export type OrderStatus = 'CREATED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'RETURNED'
+export type OrderStatus = "CREATED" | "CONFIRMED" | "PACKED" | "SHIPPED" | "OUT_FOR_DELIVERY" | "DELIVERED" | "CANCELLED" | "RETURNED";
 
 /* ================== COMPONENT ================== */
 

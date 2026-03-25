@@ -59,7 +59,7 @@ export default function AddToCartButton({
   return (
     <Button
       onClick={handleAddToCart}
-      disabled={isPending || isDisabled}
+      disabled={isPending || isDisabled || selectedVariant.stock===0}
     >
       <ShoppingBag className="h-4 w-4 mr-2" />
       {isPending ? "Adding..." : "Add to Cart"}

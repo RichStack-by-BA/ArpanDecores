@@ -1,3 +1,4 @@
+import { TOKEN } from "@/constants";
 import { getServerCookie, setServerCookie } from "../cookies";
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://api.arpandecores.in';
@@ -54,7 +55,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
   }
 
   // Attach Authorization from localStorage when on client
-  const token = await getServerCookie("token");
+  const token = await getServerCookie(TOKEN);
   if (token && !headers.has('Authorization')) {
     headers.set('Authorization', `Bearer ${token}`);
   }
@@ -76,7 +77,7 @@ export async function fetchWrapper<T>(path: string, options: FetchOptions = {}):
   const message = (data as any)?.message || res.statusText || 'Unexpected error';
 
   if (status === 401) {
-    await setServerCookie("token", "", { maxAge: -1 });
+    await setServerCookie(TOKEN, "", { maxAge: -1 });
   }
 
   const apiError: ApiError = { status, message, data };

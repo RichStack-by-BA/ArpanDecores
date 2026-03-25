@@ -1,16 +1,17 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Button } from "../ui/Button";
-import { applyOffer} from "@/lib/api/order";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { applyOffer } from "@/lib/api/order";
+import { useAppDispatch } from "@/store/hooks";
 import { pushToast } from "@/store/slices/toastSlice";
 import { makeId } from "@/lib/utils";
 import { openLoginModal } from "@/store/slices/UISlice";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 interface CartSummaryProps {
+  token: string
   subtotal: number;
   productIds: string[];
   items: any[];
@@ -18,26 +19,28 @@ interface CartSummaryProps {
   couponCode: string | null;
 }
 
-export function CartSummary({ subtotal, productIds, items ,discount, couponCode}: CartSummaryProps) {
+export function CartSummary({ token, subtotal, productIds, items, discount, couponCode }: CartSummaryProps) {
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  const queryClient = useQueryClient();
+  const router = useRouter()
 
   const [coupon, setCoupon] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [discountAmount, setDiscountAmount] = useState(discount || 0);
-  const [appliedOfferId, setAppliedOfferId] = useState<string | null>(null);
   const [appliedCouponCode, setAppliedCouponCode] = useState<string | null>(discount > 0 ? couponCode : null);
 
-  const { token } = useAppSelector((state) => state.auth);
 
-  const shipping = subtotal >=999 ? 0 : 149;
+  const shipping = subtotal >= 999 ? 0 : 149;
 
   const total = useMemo(() => {
     return Math.max(subtotal + shipping - discountAmount, 0);
   }, [subtotal, shipping, discountAmount]);
 
 
+  useEffect(() => {
+    setDiscountAmount(discount)
+  }, [discount])
 
   const showToast = useCallback(
     (variant: "success" | "error", title: string, message: string) => {
@@ -69,16 +72,14 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
       }
 
       const { discountAmount, offerId } = res.data || {};
-      console.log("Apply offer response:", res.data);
 
       setDiscountAmount(discountAmount);
-      setAppliedOfferId(offerId);
       setAppliedCouponCode(coupon.trim());
+      if (token) queryClient.invalidateQueries({ queryKey: ["cart"] });
 
       showToast("success", "Coupon Applied", `You saved ₹${discountAmount}`);
     } catch (err: any) {
       setDiscountAmount(0);
-      setAppliedOfferId(null);
       setAppliedCouponCode(null);
       showToast("error", "Coupon Failed", err.message || "Invalid coupon");
     } finally {
@@ -101,7 +102,6 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
       // Silently ignore backend errors on removal — reset UI regardless
     } finally {
       setDiscountAmount(0);
-      setAppliedOfferId(null);
       setAppliedCouponCode(null);
       setCoupon("");
       showToast("success", "Coupon Removed", "Coupon has been removed from your order");
@@ -111,10 +111,16 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
 
   const isCouponApplied = !!appliedCouponCode;
 
-  console.log({ subtotal, shipping, discount, total });
+  const handleCheckout = () => {
+    if (!token) {
+      dispatch(openLoginModal())
+      return;
+    }
+    router.push('/checkout')
+  }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
+    <div className="bg-white rounded-lg shadow-sm border p-6 md:col-span-2 lg:col-span-1">
       <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
 
       <div className="space-y-3 mb-6">
@@ -147,7 +153,7 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
           Coupon Code
         </label>
 
-        {isCouponApplied ? (
+        {isCouponApplied && couponCode ? (
           // ── Applied state ──────────────────────────────────────────
           <div className="flex items-center justify-between rounded-md border border-green-300 bg-green-50 px-3 py-2">
             <div className="flex items-center gap-2">
@@ -200,15 +206,13 @@ export function CartSummary({ subtotal, productIds, items ,discount, couponCode}
         )}
       </div>
 
-      <Link href="/checkout">
       <Button
-        // onClick={handleCreateOrder}
+        onClick={handleCheckout}
         disabled={!productIds.length || checkoutLoading}
         className="w-full"
       >
         {checkoutLoading ? "Processing..." : "Proceed to Checkout"}
       </Button>
-      </Link>
     </div>
 
   );

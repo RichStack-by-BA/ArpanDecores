@@ -3,7 +3,6 @@ import homeContent from "@/constants/homeContent.json"
 
 export default function CuratedSection({categoryList}:any) {
     const { curatedCollections } = homeContent
-console.log("categoryList in curated section", categoryList);
     return (
         <section className="py-16 bg-background wood-texture">
             <div className="container-custom text-center mb-12">

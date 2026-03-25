@@ -7,6 +7,7 @@ import Toast from "@/components/ui/Toast"
 import "@/styles/globals.css"
 import { getServerCookie } from "@/lib/cookies"
 import { getUserDetails } from "@/lib/api/auth"
+import { TOKEN } from "@/constants"
 
 // Import fonts
 const cormorant = Cormorant_Garamond({
@@ -24,7 +25,7 @@ const lato = Lato({
 })
 
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
-    const token = await  getServerCookie("token") ||''
+    const token = await  getServerCookie(TOKEN) ||''
     const userDetails:any = await getUserDetails()
     
     return (

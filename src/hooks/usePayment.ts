@@ -10,12 +10,14 @@ export function usePayment() {
     amount,
     onSuccess,
     onError,
+    onCancel, // ✅ NEW
     onFinally,
   }: {
     orderId: string
     amount: number
     onSuccess?: () => void
     onError?: (msg: string) => void
+    onCancel?: () => void // ✅ NEW
     onFinally?: () => void
   }) => {
     try {
@@ -23,8 +25,7 @@ export function usePayment() {
 
       openRazorpay({
         orderId,
-        amount,
-
+        amount,      
         onSuccess: async (res) => {
           const verifyRes = await verifyPayment(res)
 
@@ -37,11 +38,13 @@ export function usePayment() {
         },
 
         onFailure: (err) => {
+          // ✅ Real payment failure
           onError?.(err?.description || 'Payment failed')
         },
 
         onDismiss: () => {
-          onError?.('Payment cancelled')
+          // ✅ User closed popup
+          onCancel?.()
         },
       })
     } catch (err: any) {

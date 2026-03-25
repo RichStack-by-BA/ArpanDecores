@@ -11,6 +11,7 @@ export default async function CategoryPage({ params }: any) {
   const result:any = await getProductsByCategory(slug); 
 
   const categoryProducts :any = result.ok ? result.data?.data: null;
+  console.log(result,"++++++++")
 
   return (
     <div className="container-custom py-8 md:py-12">

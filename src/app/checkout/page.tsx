@@ -9,10 +9,11 @@ import { pushToast } from '@/store/slices/toastSlice'
 import { makeId } from '@/lib/utils'
 import { createOrder } from '@/lib/api/order'
 import { usePayment } from '@/hooks/usePayment'
-import { useQuery } from '@tanstack/react-query'
+import { QueryClient, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getAllCart } from '@/lib/api/cart'
-import { getAllAddresses } from '@/lib/api/address'
-import { AddressModal } from '@/components/checkout/AddressModal'
+import { getAllAddresses, updateAddress } from '@/lib/api/address'
+import { AddressModal } from '@/components/address/AddressModal'
+import Link from 'next/link'
 
 
 export default function CheckoutPage() {
@@ -39,7 +40,6 @@ export default function CheckoutPage() {
     enabled: !!token,
     select: (res: any) => (res.ok ? res.data?.data?.addresses : []),
   })
-  console.log('Addresses:', addresses, serverCartData)
 
   const [selectedAddress, setSelectedAddress] = useState<any>({})
 
@@ -88,7 +88,7 @@ export default function CheckoutPage() {
     try {
       const cartItems = serverCartData.items.map((item: any) => ({
         productId: item.productId,
-        variantId: item.variantId,
+        variantId: item.variantId || '',
         quantity: item.quantity,
         price: item.priceAtAddTime,
       }))
@@ -119,9 +119,29 @@ export default function CheckoutPage() {
           showToast('error', 'Payment Failed', msg)
           router.push('/payment-failure')
         },
+
+        onCancel: () => {
+          // ✅ NO redirect
+          showToast('error', 'Payment Cancelled', 'You closed the payment window')
+        },
       })
     } catch (err: any) {
       showToast('error', 'Checkout Failed', err.message)
+    }
+  }
+
+  const queryClient = useQueryClient();
+  const handleSetDefault = async (id: string) => {
+    try {
+      const res = await updateAddress(id, { isDefault: true })
+
+      if (res.ok) {
+        queryClient.invalidateQueries({ queryKey: ["addresses"] })
+      } else {
+        console.error(res.error.message)
+      }
+    } catch (err) {
+      console.error("Set default failed:", err)
     }
   }
 
@@ -150,12 +170,13 @@ export default function CheckoutPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                {addresses?.map((addr: any) => (
+                {addresses.slice(0, 3)?.map((addr: any) => (
                   <div
+                    onClick={() => handleSetDefault(addr._id)}
                     key={addr._id}
-                    className={`border rounded-lg p-4 cursor-pointer transition ${selectedAddress._id === addr._id
-                        ? 'border-primary bg-primary/5'
-                        : 'border-gray-200'
+                    className={`border rounded-lg p-4  hover:border-gray-200 hover:bg-primary/5 hover:border-primary cursor-pointer transition ${selectedAddress._id === addr._id
+                      ? 'border-primary bg-primary/5'
+                      : 'border-gray-200'
                       }`}
                   >
                     <div className="flex justify-between items-center">
@@ -173,11 +194,14 @@ export default function CheckoutPage() {
                     </p>
                   </div>
                 ))}
+                <div className='flex justify-end'>
+                  <Link href={'/addresses'} className='text-sm font-medium text-primary '>Show more</Link>
+                </div>
 
                 <Button
                   variant="outline"
                   className="w-full"
-                  onClick={() => router.push('/account/addresses/new')}
+                  onClick={() => setIsOpen(true)}
                 >
                   + Add New Address
                 </Button>

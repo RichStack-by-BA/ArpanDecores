@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react"
 import Link from "next/link"
-import { User, ShoppingBag, Heart, LogOut, ChevronDown } from "lucide-react"
+import {  ShoppingBag, LogOut, ChevronDown, MapPinHouse,  } from "lucide-react"
 import { Avatar } from "@/components/ui/Avatar"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
@@ -63,9 +63,9 @@ export default function UserMenu({ user }: { user: any }) {
             <MenuItem href="/orders" icon={<ShoppingBag className="h-4 w-4" />}>
               My Orders
             </MenuItem>
-            {/* <MenuItem href="/wishlist" icon={<Heart className="h-4 w-4" />}>
-              Wishlist
-            </MenuItem> */}
+            <MenuItem href="/addresses" icon={<MapPinHouse className="h-4 w-4" />}>
+              Your Address
+            </MenuItem>
 
             <hr className="my-1 border-gray-200" />
 

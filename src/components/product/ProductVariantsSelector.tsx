@@ -36,7 +36,7 @@ export default function ProductVariantSelector({
   }, [variants])
 
   const handleSelectVariant = (variant: Variant) => {
-    if (variant.stock === 0) return // ❌ prevent selection
+    // if (variant.stock === 0) return // ❌ prevent selection
 
     setSelectedVariant(variant)
     onVariantChange(variant)
@@ -51,16 +51,15 @@ export default function ProductVariantSelector({
       <div className="flex flex-wrap gap-3">
         {variants.map((variant) => {
           const isSelected = selectedVariant?.variantId === variant.variantId
-          const isOutOfStock = variant.stock === 0
 
           return (
             <button
-              key={variant._id}
+              key={variant.variantId}
               onClick={() => handleSelectVariant(variant)}
-              disabled={isOutOfStock}
+              // disabled={isOutOfStock}
               className={`relative group transition-all ${
                 isSelected ? "ring-2 ring-primary" : ""
-              } ${isOutOfStock ? "opacity-50 cursor-not-allowed" : ""}`}
+              }`}
             >
               <div className="relative w-14 h-14 rounded-lg overflow-hidden border-2 border-muted hover:border-primary transition-colors">
                 <Image

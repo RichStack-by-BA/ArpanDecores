@@ -17,15 +17,28 @@ export interface Address {
   updatedAt?: string
 }
 
+// Generic API Result
 export type ApiResult<T> =
   | { ok: true; data: T }
   | { ok: false; error: ApiError }
+
+  type ApiWrapper<T> = {
+  data: T
+}
+// Backend response shape
+type AddressResponse = {
+  address: Address
+}
+
+type MessageResponse = {
+  message: string
+}
 
 // ─── 1. GET all addresses ─────────────────────────────
 
 export async function getAllAddresses(): Promise<ApiResult<Address[]>> {
   try {
-    const data: any = await apiGet<Address[]>(
+    const data = await apiGet<Address[]>(
       API_ROUTES.ADDRESS_ROUTES.GET_ALL,
       { cache: 'no-store' }
     )
@@ -40,14 +53,14 @@ export async function getAllAddresses(): Promise<ApiResult<Address[]>> {
 
 export async function addAddress(
   payload: Address
-): Promise<ApiResult<Address>> {
+): Promise<ApiResult<AddressResponse>> {
   try {
-    const data = await apiPost<Address>(
+    const res:any = await apiPost<AddressResponse>(
       API_ROUTES.ADDRESS_ROUTES.ADD,
       payload
     )
 
-    return { ok: true, data }
+    return { ok: true, data:res?.data }
   } catch (err) {
     return { ok: false, error: toApiError(err) }
   }
@@ -58,14 +71,14 @@ export async function addAddress(
 export async function updateAddress(
   id: string,
   payload: Partial<Address>
-): Promise<ApiResult<Address>> {
+): Promise<ApiResult<AddressResponse>> {
   try {
-    const data = await apiPatch<Address>(
+    const res:any = await apiPatch<AddressResponse>(
       `${API_ROUTES.ADDRESS_ROUTES.UPDATE}/${id}`,
       payload
     )
 
-    return { ok: true, data }
+    return { ok: true, data:res?.data }
   } catch (err) {
     return { ok: false, error: toApiError(err) }
   }
@@ -75,9 +88,9 @@ export async function updateAddress(
 
 export async function deleteAddress(
   id: string
-): Promise<ApiResult<{ message: string }>> {
+): Promise<ApiResult<MessageResponse>> {
   try {
-    const data = await apiDelete<{ message: string }>(
+    const data = await apiDelete<MessageResponse>(
       `${API_ROUTES.ADDRESS_ROUTES.DELETE}/${id}`
     )
 
@@ -86,6 +99,8 @@ export async function deleteAddress(
     return { ok: false, error: toApiError(err) }
   }
 }
+
+// ─── 5. GET address by ID ─────────────────────────────
 
 export async function getAddressById(
   id: string

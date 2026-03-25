@@ -6,6 +6,7 @@ import ProductVariantSelector from './ProductVariantsSelector'
 import AddToCartButton from '../shop/AddToCard'
 import { Button } from '../ui/Button'
 import Accordion from '../ui/Accordian'
+import { Badge } from '../ui/Badge'
 
 
 
@@ -15,12 +16,11 @@ const ProductDetails = ({ product }: any) => {
     const [productImages, setProductImages] = useState<string[]>(product.isVariant ? product.variants[0].images : product.images)
 
     const handleVariantChange = (variant: any) => {
-        
+
         setSelectedVariant(variant)
         setProductImages(variant.images)
     }
 
-    console.log(product, "product details component")
 
     return (
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
@@ -67,17 +67,22 @@ const ProductDetails = ({ product }: any) => {
                 }
                 {product.isVariant && <ProductVariantSelector variants={product.variants} onVariantChange={handleVariantChange} />}
                 <div className="space-y-4">
-                    { product.stock > 0 ?  (
-                            <div className="flex items-center gap-2">
+                    {product.stock > 0 ? (
+                        <div className="flex items-center gap-2 justify-between">
+                            <div className='flex gap-2 items-center'>
                                 <div className="h-4 w-4 rounded-full bg-green-500" />
                                 <span className="text-sm font-medium text-green-600">In Stock</span>
                             </div>
-                        ) : (
-                            <div className="flex items-center gap-2">
-                                <div className="h-4 w-4 rounded-full bg-red-500" />
-                                <span className="text-sm font-medium text-red-600">Out Of Stock</span>
-                            </div>
-                        )
+                          {!product.isVariant &&  <Badge className="bg-green-50 text-green-700 border-green-200">
+                                {product.stock} in stock
+                            </Badge>}
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-2">
+                            <div className="h-4 w-4 rounded-full bg-red-500" />
+                            <span className="text-sm font-medium text-red-600">Out Of Stock</span>
+                        </div>
+                    )
                     }
                     <div className="flex flex-col sm:flex-row gap-4">
                         <AddToCartButton product={product} selectedVariant={selectedVariant} isDisabled={product.stock === 0} />

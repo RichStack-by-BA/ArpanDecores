@@ -38,6 +38,7 @@ export default function CartPage() {
     queryFn: getAllCart,
     enabled: !!token,
     select: (data: any) => data?.data?.carts ?? { items: [] },
+    staleTime:0
   });
 
 
@@ -97,15 +98,13 @@ export default function CartPage() {
 
   const isLoading = token ? serverLoading : false;
 
-  // ------------------ Subtotal ------------------
   const subtotal = items.reduce(
-    (total: number, item: any) => total + item.price * item.quantity,
+    (total: number, item: any) => total + item.priceAtAddTime * item.quantity,
     0
   );
 
   const productIds = items.map((item: any) => item.productId);
 
-  console.log(items, "cart items in CartPage");
   return (
     <div className="mx-auto container-custom py-10">
       <h1 className="text-3xl font-playfair font-bold mb-8">Your Shopping Cart</h1>
@@ -115,8 +114,8 @@ export default function CartPage() {
       ) : items.length === 0 ? (
         <CartEmpty />
       ) : (
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
+        <div className="grid  gap-4 md:grid-cols-5 lg:grid-cols-3 lg:gap-8">
+          <div className="md:col-span-3 lg:col-span-2">
             <CartList
               cartId={serverCartData?.id}
               items={items}
@@ -127,7 +126,7 @@ export default function CartPage() {
             />
           </div>
 
-          <CartSummary subtotal={subtotal} productIds={productIds} items={items} discount={serverCartData?.discountAmount} couponCode={serverCartData?.couponCode} />
+          <CartSummary token={token} subtotal={subtotal} productIds={productIds} items={items} discount={serverCartData?.discountAmount ||''} couponCode={serverCartData?.couponCode} />
         </div>
       )}
     </div>

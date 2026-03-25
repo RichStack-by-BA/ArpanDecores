@@ -21,7 +21,7 @@ interface OrderCardEnhancedProps {
   orderNumber: string
   date: string
   totalAmount: number
-  orderStatus: 'CREATED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'RETURNED'
+  orderStatus: "CREATED" | "CONFIRMED" | "PACKED" | "SHIPPED" | "OUT_FOR_DELIVERY" | "DELIVERED" | "CANCELLED" | "RETURNED";
   items: OrderItem[]
   trackingNumber?: string
   estimatedDelivery?: string
@@ -33,33 +33,47 @@ interface OrderCardEnhancedProps {
 }
 
 const orderStatusConfig = {
-  CREATED : {
-    color: 'bg-blue-100 text-blue-800 border-blue-200',
-    icon: '⏳',
-    label: 'Created'
+  CREATED: {
+    color: "bg-blue-100 text-blue-800 border-blue-200",
+    icon: "⏳",
+    label: "Created",
+  },
+  CONFIRMED: {
+    color: "bg-indigo-100 text-indigo-800 border-indigo-200",
+    icon: "✔️",
+    label: "Confirmed",
+  },
+  PACKED: {
+    color: "bg-purple-100 text-purple-800 border-purple-200",
+    icon: "📦",
+    label: "Packed",
   },
   SHIPPED: {
-    color: 'bg-amber-100 text-amber-800 border-amber-200',
-    icon: '📦',
-    label: 'Shipped'
+    color: "bg-amber-100 text-amber-800 border-amber-200",
+    icon: "🚚",
+    label: "Shipped",
+  },
+  OUT_FOR_DELIVERY: {
+    color: "bg-orange-100 text-orange-800 border-orange-200",
+    icon: "🚛",
+    label: "Out for Delivery",
   },
   DELIVERED: {
-    color: 'bg-green-100 text-green-800 border-green-200',
-    icon: '✓',
-    label: 'Delivered'
+    color: "bg-green-100 text-green-800 border-green-200",
+    icon: "✓",
+    label: "Delivered",
   },
   CANCELLED: {
-    color: 'bg-red-100 text-red-800 border-red-200',
-    icon: '✕',
-    label: 'Cancelled'
+    color: "bg-red-100 text-red-800 border-red-200",
+    icon: "✕",
+    label: "Cancelled",
   },
-    RETURNED: {
-        color: 'bg-red-100 text-red-800 border-red-200',
-        icon: '↩️',
-        label: 'Returned'
-    }
-
-}
+  RETURNED: {
+    color: "bg-gray-100 text-gray-800 border-gray-200",
+    icon: "↩️",
+    label: "Returned",
+  },
+} as const;
 
 export function OrderCardEnhanced({
   id,
@@ -117,7 +131,7 @@ export function OrderCardEnhanced({
               {/* Status and Expand */}
               <div className="flex items-center justify-between">
                 <Badge className={`${config?.color} border font-medium`}>
-                  {config?.label}
+                {config.icon}  {config?.label}
                 </Badge>
                 <ChevronDown
                   className={`h-5 w-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}

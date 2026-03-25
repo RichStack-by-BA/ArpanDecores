@@ -50,7 +50,7 @@ export function useAddToCart() {
       const cartItem: any = {
         _id: `${variables.productId}_${Date.now()}`,
         productId: variables.productId,
-        product: variables.product,
+        name: variables.product.name,
         quantity: variables.quantity || 1,
         priceAtAddTime: variables.priceAtAddTime,
         slug: variables.product.slug,
@@ -88,13 +88,14 @@ export function useAddToCart() {
   const addToGuestCart = (cartData: AddToCartParams) => {
     dispatch(setLoading(true))
 
-    // Add to Redux store
     const cartItem: any = {
       id: `${cartData.productId}_${Date.now()}`,
       productId: cartData.productId,
-      variantId: cartData.variantId, // 👈 important for variants
-      product: cartData.product,
+      image: cartData.product.image,
+      name: cartData.product.name,
+      variantId: cartData.variantId, // 👈 ADD THIS
       quantity: cartData.quantity || 1,
+      slug: cartData.product.slug,
       priceAtAddTime: cartData.priceAtAddTime,
       addedAt: new Date().toISOString(),
       ...(cartData.customization && { customization: cartData.customization })
@@ -104,14 +105,12 @@ export function useAddToCart() {
 
     localCart.addItem({
       productId: cartData.productId,
-      variantId: cartData.variantId, // 👈 important
-      product: {
-        name: cartData.product.name,
-        image: cartData.product.image,
-        _id: cartData.product._id,
-      },
+      image: cartData.product.image,
+      name: cartData.product.name,
+      variantId: cartData.variantId, // 👈 ADD THIS
       quantity: cartData.quantity || 1,
-      priceAtAddTime: cartData.priceAtAddTime
+      slug: cartData.product.slug,
+      priceAtAddTime: cartData.priceAtAddTime,
     })
 
     dispatch(

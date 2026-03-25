@@ -9,3 +9,30 @@ export const contactSchema = z.object({
 })
 
 export type ContactFormValues = z.infer<typeof contactSchema>
+
+
+export const addressSchema = z.object({
+  name: z.string().trim().min(1, 'Full name is required'),
+
+  phone: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, 'Enter valid Indian phone number'),
+
+  addressLine1: z.string().trim().min(1, 'Address is required'),
+
+  city: z.string().trim().min(1, 'City is required'),
+
+  state: z.string().trim().min(1, 'State is required'),
+
+  postalCode: z
+    .string()
+    .regex(/^\d{6}$/, 'Postal code must be 6 digits'),
+
+  isDefault: z.boolean().optional(),
+
+  addressType: z.enum(['HOME', 'WORK', 'OTHER'] as const, {
+    error: 'Address type is required',
+  }),
+})
+
+export type AddressFormValues = z.infer<typeof addressSchema>

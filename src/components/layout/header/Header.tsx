@@ -125,12 +125,12 @@ export default function Header({token,user}: {token: string,user:any}) {
                 <span className="sr-only">Search</span>
               </Button>
 
-               <Link href="/wishlist">
+               {/* <Link href="/wishlist">
                 <Button variant="ghost" size="icon" className="hidden md:flex relative rounded-md hover:bg-primary/10">
                   <Heart className="h-5 w-5" />
                   <span className="sr-only">Wishlist</span>
                 </Button>
-              </Link> 
+              </Link>  */}
 
               {token && user ? (
                 <div className="hidden md:flex items-center gap-2">

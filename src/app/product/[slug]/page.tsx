@@ -12,16 +12,20 @@ interface ProductPageProps {
 }
 
 
-export default async function ProductPage({ params }: any) {
+export default async function ProductPage({ params }: ProductPageProps) {
+  const slug =  (await params).slug;
 
-  const slug = (await params).slug;
   const result: any = await getProductById(slug);
-  const { product }: any = result.ok ? result.data?.data : null;
+  const product: any = result.ok
+    ? result.data?.data?.product || {}
+    : null;
 
-
+  if (!product) {
+    return <div  className="container-custom">Product not found</div>;
+  }
 
   return (
-    <div className="container-custom py-8 md:py-12">
+    <div className=" container-custom py-8 md:py-12">
       <Breadcrumbs />
       <ProductDetails product={product} />
 
@@ -31,6 +35,5 @@ export default async function ProductPage({ params }: any) {
 
       <RelatedProducts currentProductId={product._id} />
     </div>
-
-  )
+  );
 }
