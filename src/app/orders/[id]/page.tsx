@@ -31,6 +31,7 @@ interface Order {
     tax: number;
     shipping: number;
     total: number;
+    discount: number;
   };
 
   payment: {
@@ -75,6 +76,7 @@ export default async function OrderDetailPage({
 
   const order: Order = data.data;
 
+
   /* ================== DESTRUCTURE ================== */
 
   const {
@@ -86,11 +88,12 @@ export default async function OrderDetailPage({
     payment,
   } = order;
 
+
+
   return (
     <div className="container-custom py-8 md:py-12">
       <Breadcrumbs />
 
-      {/* Header */}
       <div className="flex justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">
@@ -107,7 +110,6 @@ export default async function OrderDetailPage({
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-        {/* ================== ITEMS ================== */}
         <div className="lg:col-span-2">
           <Card>
             <CardHeader>
@@ -149,7 +151,7 @@ export default async function OrderDetailPage({
               <CardTitle>Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-4">
                 <span>Subtotal</span>
                 <span>₹{pricing.subTotal}</span>
               </div>
@@ -164,11 +166,11 @@ export default async function OrderDetailPage({
               </div>
 
               <div className="flex justify-between">
-                <span>Tax</span>
-                <span>₹{pricing.tax}</span>
+                <span>Discount</span>
+                <span>₹{pricing?.discount}</span>
               </div>
 
-              <Separator />
+              <Separator  className="my-3"/>
 
               <div className="flex justify-between font-bold">
                 <span>Total</span>

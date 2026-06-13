@@ -3,7 +3,6 @@ import { getAllOrders } from '@/lib/api/order'
 
 const page = async () => {
   const res:any = await getAllOrders()
-  console.log(res, "orders res")
   const ordersData = res.data?.data
 
   if (!res.ok) {
