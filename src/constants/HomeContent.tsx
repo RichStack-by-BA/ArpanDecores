@@ -235,15 +235,15 @@ export const testimonials = [
         avatar: "/images/reviews/review3.jpeg",
         rating: 5,
     },
-    // {
-    //     id: "4",
-    //     name: "Vikram Singh",
-    //     role: "Happy Customer",
-    //     content:
-    //         "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
-    //     avatar: "/images/avatars/avatar-4.png",
-    //     rating: 5,
-    // },
+    {
+        id: "4",
+        name: "Utopia",
+        role: "Happy Customer",
+        content:
+            "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
+        avatar: "/images/avatars/avatar-4.png",
+        rating: 5,
+    }
 ]
 
 

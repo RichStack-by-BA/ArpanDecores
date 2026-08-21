@@ -21,7 +21,7 @@ export default function FeaturedProducts({products}: any) {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {products.map((product:any) => (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard key={product._id} product={product} variant="collection" />
                     ))}
                 </div>
             </div>

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Heart, ShoppingBag, Eye } from "lucide-react"
+import { ArrowRight, Heart, ShoppingBag, Eye } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 import { Badge } from "../misc/Badge"
@@ -16,9 +16,16 @@ interface ProductCardProps {
   className?: string
   viewMode?: "grid" | "list"
   quantity?: number
+  variant?: "default" | "collection"
 }
 
-export default function ProductCard({ product, className, viewMode = "grid", quantity = 1 }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  className,
+  viewMode = "grid",
+  quantity = 1,
+  variant = "default",
+}: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const { addToCart, isPending } = useAddToCart()
 
@@ -87,6 +94,42 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
     )
   }
 
+  if (variant === "collection") {
+    return (
+      <Link
+        href={`/product/${product.slug}`}
+        className={cn("group relative overflow-hidden rounded-md shadow-soft", className)}
+      >
+        <div className="aspect-[4/5] relative">
+          <Image
+            src={product.image || "/placeholder.svg"}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/40 to-transparent" />
+
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {product.isNew && <Badge className="bg-accent text-accent-foreground">New Arrival</Badge>}
+              {product.isBestseller && <Badge className="bg-primary text-primary-foreground">Bestseller</Badge>}
+            </div>
+            <h3 className="font-heading font-bold text-2xl mb-2">{product.name}</h3>
+            {product.description && (
+              <p className="text-white/90 mb-4 line-clamp-3 max-w-xs">
+                {product.description.replace(/<[^>]*>/g, "").trim()}
+              </p>
+            )}
+            <div className="flex items-center gap-2 font-medium text-primary">
+              <span>{product.price > 10 ? `₹${product.price.toLocaleString()}` : "View Product"}</span>
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </div>
+          </div>
+        </div>
+      </Link>
+    )
+  }
+
   return (
     <div
       className={cn(
@@ -149,15 +192,16 @@ export default function ProductCard({ product, className, viewMode = "grid", qua
       </div>
 
       {/* Product info */}
-      <div className="p-4">
-        <div className="text-sm text-muted-foreground mb-1">{product.categories?.name || "Uncategorized"}</div>
-        <Link href={`/product/${product.slug}`} className="block">
+      <div className="p-1">
+        
+        {/* <div className="text-sm text-muted-foreground mb-1">{product.categories?.name || "Uncategorized"}</div> */}
+        <Link href={`/product/${product.slug}`} className="block text-center">
           <h3 className="font-heading font-medium text-lg mb-2 transition-colors group-hover:text-primary">
             {product.name}
           </h3>
         </Link>
         <div className="flex items-center justify-between">
-          <div className="font-semibold">₹{product.price.toLocaleString()}</div>
+          {product.price>10 && <div className="font-semibold">₹{product.price.toLocaleString()}</div>}
           {/* <Button
             size="sm"
             disabled={isPending}

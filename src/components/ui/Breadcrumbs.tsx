@@ -30,6 +30,7 @@ export default function DynamicBreadcrumbs() {
 
         {crumbs.map((item, i) => {
           const isLast = i === crumbs.length - 1
+          const href = item.href.startsWith("/product") ? "/shop" : item.href
           return (
             <div key={i} className="flex items-center">
               <ChevronRight className="h-4 w-4 mx-2 text-muted-foreground" />
@@ -38,7 +39,7 @@ export default function DynamicBreadcrumbs() {
                 <span className="text-foreground font-medium">{item.label}</span>
               ) : (
                 <Link
-                  href={item.href}
+                  href={href}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}

@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import ProductImageGallery from './ProductImageGallery'
-import { Star } from 'lucide-react'
+import { MessageCircle, Star } from 'lucide-react'
 import ProductVariantSelector from './ProductVariantsSelector'
 import AddToCartButton from '../shop/AddToCard'
 import { Button } from '../ui/Button'
@@ -19,6 +19,14 @@ const ProductDetails = ({ product }: any) => {
 
         setSelectedVariant(variant)
         setProductImages(variant.images)
+    }
+
+    const handleWhatsAppDetails = () => {
+        const variantMessage = product.isVariant ? `\nVariant: ${selectedVariant.name}` : ""
+        const message = `Hi, I would like to get details about ${product.name}.${variantMessage}`
+        const whatsappUrl = `https://wa.me/917587144408?text=${encodeURIComponent(message)}`
+
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer")
     }
 
 
@@ -39,14 +47,16 @@ const ProductDetails = ({ product }: any) => {
                                     className={i < 4 ? "h-5 w-5 fill-primary text-primary" : "h-5 w-5 fill-muted text-muted"}
                                 />
                             ))}
-                            <span className="ml-2 text-sm text-muted-foreground">
-                                ({product.totalReviews} reviews)
-                            </span>
+                            {product.totalReviews>0 && (
+                                <span className="ml-2 text-sm text-muted-foreground">
+                                    ({product.totalReviews} reviews)
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
 
-                {
+                {product.price >10 &&(
                     product.price === product.discountPrice ? (
                         <div className="text-2xl font-bold">
                             ₹ {product.price.toLocaleString()}
@@ -63,7 +73,7 @@ const ProductDetails = ({ product }: any) => {
                                 {Math.round(((product.price - product.discountPrice) / product.price) * 100)}% OFF
                             </div>
                         </div>
-                    )
+                    ))
                 }
                 {product.isVariant && <ProductVariantSelector variants={product.variants} onVariantChange={handleVariantChange} />}
                 <div className="space-y-4">
@@ -85,8 +95,14 @@ const ProductDetails = ({ product }: any) => {
                     )
                     }
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <AddToCartButton product={product} selectedVariant={selectedVariant} isDisabled={product.stock === 0} />
-                        <Button variant="outline" className="btn-outline">Add to Wishlist</Button>
+                        <Button
+                            type="button"
+                            onClick={handleWhatsAppDetails}
+                            className="bg-green-600 text-white hover:bg-green-700"
+                        >
+                            <MessageCircle className="h-4 w-4" />
+                            Get Details
+                        </Button>
                     </div>
                 </div>
 

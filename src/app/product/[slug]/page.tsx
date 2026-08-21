@@ -29,9 +29,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Breadcrumbs />
       <ProductDetails product={product} />
 
-      <div className="mt-12">
+      {/* <div className="mt-12">
         <ReviewsList productId={product._id} />
-      </div>
+      </div> */}
 
       <RelatedProducts currentProductId={product._id} />
     </div>
