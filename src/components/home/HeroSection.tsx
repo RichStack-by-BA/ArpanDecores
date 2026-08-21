@@ -19,7 +19,9 @@ export default function HeroSection() {
                     <h1 className="heading-xl">
                         {hero.title} <span className="text-primary">{hero.highlight}</span>
                     </h1>
+                    {/* <p className="body-sm max-w-md">{hero.description2}</p>                                                                          */}
                     <p className="body-lg max-w-md">{hero.description}</p>
+                    
                     <div className="flex flex-col sm:flex-row gap-4 pt-4">
                         {hero.buttons.map((btn, i) => (
                             <Button

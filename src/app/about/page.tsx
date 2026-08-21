@@ -11,7 +11,7 @@ import StatsStrip from "@/components/about/StatsStrip"
 export default function AboutPage() {
     return (
         <div className="py-8 md:py-12 container-custom">
-            <Breadcrumbs  />
+            {/* <Breadcrumbs  /> */}
 
             <AboutHero
                 titleHTML={about.hero.title}

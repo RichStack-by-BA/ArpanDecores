@@ -138,13 +138,13 @@ export default function Header({token,user}: {token: string,user:any}) {
                 </div>
               ) : (
 
-                  <Button onClick={() => handleLoginModalOpen(true)} variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
-                    <User className="h-5 w-5" />
-                    <span className="sr-only">Account</span>
-                  </Button>
+              <Button onClick={() => handleLoginModalOpen(true)} variant="ghost" size="icon" className="hidden md:flex rounded-md hover:bg-primary/10">
+              <User className="h-5 w-5" />
+              <span className="sr-only">Account</span>
+              </Button>
               )} 
 
-               <Link href="/cart">
+               {/* <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative rounded-md hover:bg-primary/10">
                   <ShoppingBag className="h-5 w-5" />
                    {cartCount > 0 && (
@@ -154,7 +154,7 @@ export default function Header({token,user}: {token: string,user:any}) {
                   )}
                   <span className="sr-only">Cart</span>
                 </Button>
-              </Link> 
+              </Link>  */}
 
               <Button
                 variant="ghost"
