@@ -2,16 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { Button } from "@/components/ui/Button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { testimonials } from "@/constants/HomeContent"
 
-const stars = Array.from({ length: 5 })
-
 export default function TestimonialSlider() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -24,92 +20,66 @@ export default function TestimonialSlider() {
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(goToNext, 5000)
+    const interval = setInterval(goToNext, 6000)
     return () => clearInterval(interval)
   }, [goToNext])
 
+  const visibleTestimonials = [
+    testimonials[(currentIndex - 1 + testimonials.length) % testimonials.length],
+    testimonials[currentIndex],
+  ]
+
   return (
     <div className="relative">
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="w-full flex-shrink-0 px-4 md:px-12">
-              <div className="bg-card rounded-md p-6 md:p-8 shadow-soft border border-primary/10 flex flex-col items-center text-center">
-                <div className="relative h-20 w-20  overflow-hidden border-4 border-primary/20 mb-4">
-                  <Image
-                    src={testimonial.avatar || "/placeholder.svg"}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+      <div className="relative mx-auto max-w-6xl">
+        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_18%,rgba(255,255,255,0.55),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(105,130,99,0.12),transparent_24%),linear-gradient(135deg,#dfead4_0%,#dfead4_45%,#cad6bf_100%)]" />
 
-                <div className="flex items-center justify-center mb-4">
-                  {stars.map((_, i) => (
-                    <Star
-                      key={i}
-                      className={cn(
-                        "h-5 w-5",
-                        i < testimonial.rating
-                          ? "fill-primary text-primary"
-                          : "fill-muted text-muted"
-                      )}
+        <div className="text-center">
+          
+          <h2 className="heading-lg mb-4">
+            Trusted By Distinguished Brands
+          </h2>
+          <p className="body-md text-muted-foreground max-w-2xl mx-auto">
+            Trusted by leading brands across diverse industries, we deliver precision-crafted solutions that seamlessly align with their vision and identity.
+          </p>
+        </div>
+
+        <div className="relative mt-8 md:mt-10">
+          <div className="flex items-stretch justify-center gap-5 md:gap-8">
+            {visibleTestimonials.map((testimonial, index) => (
+              <article
+                key={`${testimonial.id}-${index}`}
+                className="relative flex w-full max-w-[420px] min-h-[50px] flex-col rounded-[2rem] bg-[#ffffff] px-1 pb-4 pt-20 shadow-[0_20px_40px_rgba(29,66,46,0.18)] md:px-7 md:pb-4 md:pt-14"
+              >
+                <div className="absolute left-1/2 top-0 z-20 -translate-x-1/2 -translate-y-[20%]">
+                  <div className="relative h-24 w-24 overflow-hidden rounded--[2rem] border-[5px] border-[#dfead4] bg-[#dfead4] shadow-[0_8px_22px_rgba(0,0,0,0.12)] md:h-28 md:w-28">
+                    <Image
+                      src={testimonial.avatar || "/placeholder.svg"}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
                     />
-                  ))}
-                </div>
-
-                {/* <blockquote className="mb-6 text-lg italic font-heading">"{testimonial.content}"</blockquote> */}
-
-                <div>
-                  <div className="font-heading font-semibold text-lg">
-                    {testimonial.name}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonial.role}
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+
+                <div className="absolute left-1 md:left-4 top-15 text-[4rem] md:text-[9rem] text-primary leading-none md:block ">
+                  “
+                </div>
+                <div className="absolute right-1 md:right-4 top-15 text-[4rem] md:text-[9rem] text-primary leading-none md:block  ">
+                  ”
+                </div>
+
+                <div className="mt-2 flex min-h-[70px] items-center justify-center text-center text-sm uppercase tracking-[0.18em] bold">
+                  {testimonial.name}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Navigation */}
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute top-1/2 left-0 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm border-primary/20 hover:border-primary"
-        onClick={goToPrev}
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </Button>
 
-      <Button
-        variant="outline"
-        size="icon"
-        className="absolute top-1/2 right-0 -translate-y-1/2 rounded-full bg-background/80 backdrop-blur-sm border-primary/20 hover:border-primary"
-        onClick={goToNext}
-      >
-        <ChevronRight className="h-5 w-5" />
-      </Button>
-
-      {/* Indicators */}
-      <div className="flex justify-center mt-6 gap-2">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={cn(
-              "h-2 rounded-full transition-all",
-              index === currentIndex ? "w-8 bg-primary" : "w-2 bg-primary/30"
-            )}
-            aria-label={`Go to testimonial ${index + 1}`}
-          />
-        ))}
-      </div>
+   
     </div>
   )
 }

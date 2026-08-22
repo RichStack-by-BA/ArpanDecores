@@ -214,34 +214,61 @@ export const testimonials = [
         role: "Happy Customer",
         content:
             "The personalized wedding gifts from Arpan Decores added such a special touch to our client's big day. The attention to detail and quality of craftsmanship is unmatched.",
-        avatar: "/images/reviews/review1.png",
+        avatar: "/images/reviews/granddhillon.png",
         rating: 5,
     },
     {
         id: "2",
-        name: "Rahul Mehta",
+        name: "Bhilai Steel Plant",
         role: "Happy Customer",
         content:
             "I ordered a custom name plate for my new home and was blown away by the quality. The elegant design perfectly matches our decor and has become a conversation starter!",
-        avatar: "/images/reviews/review2.jpeg",
+        avatar: "/images/reviews/bsp.png",
         rating: 5,
     },
     {
         id: "3",
-        name: "Anantya Greens Wedding Palace & Resort",
+        name: "Anantya Greens",
         role: "Happy Customer",
         content:
             "As an interior designer, I'm very particular about the decor pieces I recommend. Arpan Decores consistently delivers products that exceed my expectations and delight my clients.",
-        avatar: "/images/reviews/review3.jpeg",
+        avatar: "/images/reviews/anantya.png",
         rating: 5,
     },
     {
         id: "4",
-        name: "Utopia",
+        name: "UTOPIA",
         role: "Happy Customer",
         content:
             "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
-        avatar: "/images/avatars/avatar-4.png",
+        avatar: "/images/reviews/utopia.png",
+        rating: 5,
+    },
+    {
+        id: "5",
+        name: "36 Hideout",
+        role: "Happy Customer",
+        content:
+            "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
+        avatar: "/images/reviews/36hideout.png",
+        rating: 5,
+    },
+    {
+        id: "6",
+        name: "Hotel Amit Park",
+        role: "Happy Customer",
+        content:
+            "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
+        avatar: "/images/reviews/hai.png",
+        rating: 5,
+    },
+    {
+        id: "7",
+        name: "Navam Restaurant",
+        role: "Happy Customer",
+        content:
+            "We ordered custom corporate gifts for our top clients, and the response was phenomenal. The personalized touch made our company stand out and strengthened our client relationships.",
+        avatar: "/images/reviews/Navam.png",
         rating: 5,
     }
 ]

@@ -40,10 +40,10 @@ export default function HeroSection() {
                 <div className="relative h-[300px] md:h-[500px] rounded-md overflow-hidden shadow-soft-lg">
                     <Image src={hero.image || ""} alt="Hero" fill className="object-cover" priority />
                     <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6 flex items-center gap-2 text-white text-sm">
+                    {/* <div className="absolute bottom-6 left-6 right-6 flex items-center gap-2 text-white text-sm">
                         {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-primary text-primary" />)}
                         <span>{hero.rating}</span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

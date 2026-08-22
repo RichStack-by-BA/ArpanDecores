@@ -34,10 +34,6 @@ export default async function Home() {
       {/* <SustainabilitySection /> */}
       {/* <TrustSignals /> */}
       <section className="py-16 bg-secondary/5">
-        <div className="container-custom text-center mb-12">
-          <h2 className="heading-lg mb-4">{homeContent.testimonialSection.title}</h2>
-          <p className="body-md text-muted-foreground max-w-2xl mx-auto">{homeContent.testimonialSection.description}</p>
-        </div>
         <TestimonialSlider />
       </section>
       {/* <CTASection /> */}

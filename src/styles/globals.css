@@ -73,6 +73,13 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .testimonial-script {
+    font-family: "Segoe Print", "Bradley Hand", "Lucida Handwriting", cursive;
+    font-style: italic;
+    letter-spacing: -0.06em;
+  }
+
   h1,
   h2,
   h3,
