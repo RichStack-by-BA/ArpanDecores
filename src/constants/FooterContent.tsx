@@ -53,16 +53,16 @@ export const footerData: FooterData = {
     ],
   },
   sections: [
-    {
-      heading: "Collections",
-      links: [
-        { label: "All Products", href: "/shop" },
-        { label: "Festive Treasures", href: "/categories/festive" },
-        { label: "Wedding Elegance", href: "/categories/wedding" },
-        { label: "Bespoke Creations", href: "/categories/custom" },
-        // { label: "Gallery", href: "/gallery" },
-      ],
-    },
+    // {
+    //   heading: "Collections",
+    //   links: [
+    //     { label: "All Products", href: "/shop" },
+    //     { label: "Festive Treasures", href: "/categories/festive" },
+    //     { label: "Wedding Elegance", href: "/categories/wedding" },
+    //     { label: "Bespoke Creations", href: "/categories/custom" },
+    //     // { label: "Gallery", href: "/gallery" },
+    //   ],
+    // },
     {
       heading: "Customer Care",
       links: [

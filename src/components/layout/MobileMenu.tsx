@@ -70,7 +70,7 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                 </div>
 
                 {/* Utility Links */}
-                <div className="mt-6 pt-6 border-t">
+                {/* <div className="mt-6 pt-6 border-t">
                     <div className="flex flex-col space-y-3">
                         <Link
                             href="/help"
@@ -93,7 +93,7 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                             +91 7587144408
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Action Icons */}
                 {/* <div className="mt-6 flex justify-around">

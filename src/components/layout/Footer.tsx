@@ -37,7 +37,7 @@ export default function Footer() {
                 </div> */}
 
                 {/* Footer Content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                     {/* Brand Info */}
                     <div className="space-y-4">
                         <Link href="/" className="inline-block">
@@ -62,9 +62,9 @@ export default function Footer() {
                     </div>
 
                     {/* Dynamic Sections */}
-                    {sections.slice(0, 2).map((section) => (
+                    {/* {sections.slice(0, 2).map((section) => (
                         <div key={section.heading}>
-                            <h4 className="font-semibold text-lg mb-4">{section.heading}</h4>
+                            {/* <h4 className="font-semibold text-lg mb-4">{section.heading}</h4> 
                             <ul className="space-y-2">
                                 {section.links?.map((link) => (
                                     <li key={link.href}>
@@ -79,13 +79,13 @@ export default function Footer() {
                                 ))}
                             </ul>
                         </div>
-                    ))}
+                    ))} */}
 
                     {/* Contact Info */}
                     <div>
-                        <h4 className="font-semibold text-lg mb-4">{sections[2].heading}</h4>
+                        <h4 className="font-semibold text-lg mb-4">{sections[1].heading}</h4>
                         <ul className="space-y-3 text-sm text-muted-foreground">
-                            {sections[2].contacts?.map(({ icon: Icon, value }, i) => (
+                            {sections[1].contacts?.map(({ icon: Icon, value }, i) => (
                                 <li key={i} className="flex items-start">
                                     <Icon className="h-5 w-5 mr-3 text-primary flex-shrink-0 mt-0.5" />
                                     <span>{value}</span>
