@@ -8,7 +8,8 @@ import { Button } from '../ui/Button'
 import Accordion from '../ui/Accordian'
 import { Badge } from '../ui/Badge'
 
-
+// treats HTML with no visible text (e.g. "<p><br></p>") as empty
+const hasContent = (html?: string) => !!html && html.replace(/<[^>]*>/g, '').trim().length > 0
 
 const ProductDetails = ({ product }: any) => {
 
@@ -28,7 +29,7 @@ const ProductDetails = ({ product }: any) => {
 
         window.open(whatsappUrl, "_blank", "noopener,noreferrer")
     }
-
+console.log(product, 'productproduct')
 
     return (
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
@@ -111,7 +112,7 @@ const ProductDetails = ({ product }: any) => {
                         { title: "Description", content: product?.description, id: "1" },
                         { title: "Product Details", content: product?.specifications, id: "2" },
                         { title: "Policies", content: product?.policy?.content, id: "3" },
-                    ]}
+                    ].filter((item) => hasContent(item.content))}
                     type="single"
                 />
             </div>
