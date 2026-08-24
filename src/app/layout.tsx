@@ -5,6 +5,7 @@ import ClientLayout from "@/components/layout"
 import Providers from "@/components/providers/Providers"
 import { StoreProvider } from "@/components/providers/StoreProvider"
 import Script from "next/script"
+import NextTopLoader from "nextjs-toploader"
 
 export const metadata: Metadata = {
   title: "Arpan Decores | Artisan Crafted Gifts & Home Decor",
@@ -21,6 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-body bg-background">
+         <NextTopLoader
+          color="hsl(36, 34%, 52%)"
+          height={3}
+          showSpinner={false}
+        />
          <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="afterInteractive"

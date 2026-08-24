@@ -2,7 +2,7 @@ import { TOKEN } from "@/constants";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const token = request.cookies.get(TOKEN)?.value;
   const { pathname } = request.nextUrl;
 console.log("MIDDLEWARE RUNNING:", request.nextUrl.pathname);
