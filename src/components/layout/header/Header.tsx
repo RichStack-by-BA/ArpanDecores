@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 // import { useCart } from "@/components/cart-provider"
 import MobileMenu from "@/components/layout/MobileMenu"
-import SearchBar from "@/components/ui/SearchBar"
+// import SearchBar from "@/components/ui/SearchBar"
 import { navigation } from "@/constants/HomeContent"
 import { useAppSelector } from "@/store/hooks"
 import { AuthModal } from "@/components/auth/AuthModal"
-import UserMenu from "../UserMenu"
+// import UserMenu from "../UserMenu"
 import { setCredentials } from "@/store/slices/authSlice"
 import { useDispatch } from "react-redux"
 import { selectCartCount } from "@/store/slices/cartSlice"
@@ -20,7 +20,7 @@ import { closeLoginModal, openLoginModal } from "@/store/slices/UISlice"
 export default function Header({token,user}: {token: string,user:any}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [showSearch, setShowSearch] = useState(false)
+  // const [showSearch, setShowSearch] = useState(false)
   const pathname = usePathname()
 
   const {loginModalOpen} = useAppSelector((state) => state.UIState)
@@ -115,7 +115,7 @@ export default function Header({token,user}: {token: string,user:any}) {
 
             {/* Actions */}
             <div className="flex items-center space-x-2 md:space-x-4">
-              <Button
+              {/* <Button
                 variant="ghost"
                 size="icon"
                 className="md:hidden rounded-md hover:bg-primary/10"
@@ -123,7 +123,7 @@ export default function Header({token,user}: {token: string,user:any}) {
               >
                 <Search className="h-5 w-5" />
                 <span className="sr-only">Search</span>
-              </Button>
+              </Button> */}
 
                {/* <Link href="/wishlist">
                 <Button variant="ghost" size="icon" className="hidden md:flex relative rounded-md hover:bg-primary/10">
@@ -169,11 +169,11 @@ export default function Header({token,user}: {token: string,user:any}) {
           </div>
 
           {/* Mobile search bar */}
-          {showSearch && (
+          {/* {showSearch && (
             <div className="pb-4 md:hidden">
               <SearchBar />
             </div>
-          )}
+          )} */}
         </div>
       </header>
 

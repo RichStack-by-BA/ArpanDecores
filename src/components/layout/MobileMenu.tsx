@@ -46,9 +46,9 @@ export default function MobileMenu({ isOpen, onClose, navigation }: MobileMenuPr
                 </div>
 
                 {/* Search */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                     <SearchBar />
-                </div>
+                </div> */}
 
                 {/* Navigation Links */}
                 <div className="flex flex-col space-y-3">
