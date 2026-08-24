@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { Download } from "lucide-react"
+import { Button } from "@/components/ui/Button"
 
 export default function AboutHero({
   titleHTML,
@@ -23,6 +25,14 @@ export default function AboutHero({
                 {p}
               </p>
             ))}
+           <div>
+             <a href="/brochure/ARPAN%20DECORES.pdf" download>
+              <Button className="bg-brass-gradient text-white shadow-brass hover:shadow-brass-lg">
+                <Download className="h-4 w-4 mr-2" />
+                Download Brochure
+              </Button>
+            </a>
+          </div>
           </div>
           <div className="hidden md:block relative h-[400px] rounded-2xl overflow-hidden shadow-elegant-lg">
             <Image src={image} alt="About hero" fill className="object-cover" />

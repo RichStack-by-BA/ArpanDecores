@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { footerData } from "@/constants/FooterContent";
 import { Button } from "../ui/Button";
 
@@ -92,6 +92,12 @@ export default function Footer() {
                                 </li>
                             ))}
                         </ul>
+                        <div className="flex items-start mt-3 text-sm text-muted-foreground">
+                            <a href="/brochure/ARPAN%20DECORES.pdf" download aria-label="Download Brochure" className="mr-3 flex-shrink-0">
+                                <Download className="h-5 w-5 text-primary" />
+                            </a>
+                            <span>Download Brochure</span>
+                        </div>
                     </div>
                 </div>
 
