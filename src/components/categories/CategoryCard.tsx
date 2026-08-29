@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import ShimmerImage from "@/components/ui/ShimmerImage";
 
 type CategoryCardProps = {
     slug: string;
@@ -17,7 +17,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ slug, name, description, im
             className="group relative overflow-hidden rounded-2xl shadow-elegant card-hover"
         >
             <div className="aspect-[4/5] relative">
-                <Image
+                <ShimmerImage
                     src={image || "/placeholder.svg"}
                     alt={name}
                     fill

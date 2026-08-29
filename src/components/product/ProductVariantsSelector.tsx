@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import { Badge } from "@/components/ui/Badge"
+import ShimmerImage from "@/components/ui/ShimmerImage"
 
 interface Variant {
   _id: string // ✅ IMPORTANT
@@ -62,7 +62,7 @@ export default function ProductVariantSelector({
               }`}
             >
               <div className="relative w-14 h-14 rounded-lg overflow-hidden border-2 border-muted hover:border-primary transition-colors">
-                <Image
+                <ShimmerImage
                   src={variant.images?.[0] || "/placeholder.svg"}
                   alt={`${variant.name} variant`}
                   fill

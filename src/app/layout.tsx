@@ -25,7 +25,7 @@ export default function RootLayout({
          <NextTopLoader
           color="hsl(36, 34%, 52%)"
           height={3}
-          showSpinner={false}
+          showSpinner={true}
         />
          <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
