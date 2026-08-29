@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
+import ShimmerImage from "@/components/ui/ShimmerImage"
 
 interface ProductImageGalleryProps {
   images: string[]
@@ -25,7 +25,7 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
     <div className="space-y-4">
       {/* Main image */}
       <div className="relative aspect-square rounded-xl overflow-hidden bg-muted">
-        <Image
+        <ShimmerImage
           src={images[selectedImage] || "/placeholder.svg"}
           alt="Product image"
           fill
@@ -71,7 +71,7 @@ export default function ProductImageGallery({ images }: ProductImageGalleryProps
               )}
               onClick={() => setSelectedImage(index)}
             >
-              <Image
+              <ShimmerImage
                 src={image || "/placeholder.svg"}
                 alt={`Product image ${index + 1}`}
                 fill

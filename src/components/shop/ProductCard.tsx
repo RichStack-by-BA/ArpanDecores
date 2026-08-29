@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowRight, Heart, ShoppingBag, Eye } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 import { Badge } from "../misc/Badge"
 import { Product } from "@/types/products"
 import { useAddToCart } from "@/hooks/useAddToCart"
+import ShimmerImage from "@/components/ui/ShimmerImage"
 
 
 interface ProductCardProps {
@@ -47,7 +47,7 @@ export default function ProductCard({
       <div className={cn("flex gap-4 p-4 bg-card rounded-md shadow-soft border border-primary/10", className)}>
         <div className="relative h-32 w-32 rounded-md overflow-hidden flex-shrink-0">
           <Link href={`/product/${product.slug}`}>
-            <Image
+            <ShimmerImage
               src={product.image || "/placeholder.svg"}
               alt={product.name}
               fill
@@ -101,7 +101,7 @@ export default function ProductCard({
         className={cn("group relative overflow-hidden rounded-md shadow-soft", className)}
       >
         <div className="aspect-[4/5] relative">
-          <Image
+          <ShimmerImage
             src={product.image || "/placeholder.svg"}
             alt={product.name}
             fill
@@ -142,7 +142,7 @@ export default function ProductCard({
       {/* Product image */}
       <div className="aspect-square relative overflow-hidden">
         <Link href={`/product/${product.slug}`}>
-          <Image
+          <ShimmerImage
             src={product.image || "/placeholder.svg"}
             alt={product.name}
             fill
