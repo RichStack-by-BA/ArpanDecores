@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: "Arpan Decores | Artisan Crafted Gifts & Home Decor",
   description:
     "Discover exquisite handcrafted gifts and home decor made with premium materials and artisan craftsmanship.",
-  generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: "/favicon.ico"
+  }
 }
 
 export default function RootLayout({
