@@ -17,7 +17,10 @@ export const metadata: Metadata = {
     "Discover exquisite handcrafted gifts and home decor made with premium materials and artisan craftsmanship.",
   applicationName: "Arpan Decores",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
   },
   openGraph: {
     siteName: "Arpan Decores",
