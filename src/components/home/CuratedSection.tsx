@@ -5,7 +5,8 @@ export default function CuratedSection({categoryList}:any) {
     const { curatedCollections } = homeContent
     return (
         <section className="py-16 bg-background wood-texture">
-            <div className="container-custom text-center mb-12">
+            <div className="container-custom text-center mb-12 reveal-up">
+                <p className="eyebrow mb-4">The collection edit</p>
                 <h2 className="heading-lg mb-4">{curatedCollections.title}</h2>
                 <p className="body-md text-muted-foreground max-w-2xl mx-auto">{curatedCollections.description}</p>
             </div>

@@ -78,18 +78,18 @@ export default function Header({token,user}: {token: string,user:any}) {
       {/* Main header */}
       <header
         className={cn(
-          "sticky top-0 w-full z-50 transition-all duration-300",
+            "sticky top-0 w-full z-50 transition-all duration-500",
           isScrolled
-            ? "bg-background/95 backdrop-blur-md shadow-soft py-2"
-            : "bg-background py-4 border-b border-primary/10",
+            ? "bg-background/90 backdrop-blur-xl shadow-soft py-2"
+            : "bg-background/80 py-5 border-b border-primary/10",
         )}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <span className="text-3xl font-heading font-bold text-primary tracking-wide">ARPAN</span>
-              <span className="text-3xl font-heading font-light text-secondary tracking-wide ml-1">DECORES</span>
+              <span className="text-2xl font-heading font-semibold text-primary tracking-[0.12em]">ARPAN</span>
+              <span className="text-2xl font-heading font-light text-secondary tracking-[0.12em] ml-1">DECORES</span>
             </Link>
 
             {/* Search bar - desktop */}

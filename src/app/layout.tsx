@@ -7,9 +7,9 @@ import { StoreProvider } from "@/components/providers/StoreProvider"
 import Script from "next/script"
 
 export const metadata: Metadata = {
-  title: "Arpan Decores | Artisan Crafted Gifts & Home Decor",
+  title: "Arpan Decores | Objects with a story",
   description:
-    "Discover exquisite handcrafted gifts and home decor made with premium materials and artisan craftsmanship.",
+    "Discover considered home decor and handcrafted objects made with premium materials and artisan craftsmanship.",
   generator: 'v0.dev'
 }
 

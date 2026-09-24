@@ -15,7 +15,7 @@ export default function CraftProcess() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {craftSteps.map((step) => (
-            <div key={step.id} className="bg-card rounded-md shadow-soft overflow-hidden border border-primary/10">
+            <div key={step.id} className="card-hover bg-card rounded-2xl shadow-soft overflow-hidden border border-primary/10">
               <div className="relative h-48">
                 <Image src={step.image || "/placeholder.svg"} alt={step.title} fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 to-transparent"></div>
