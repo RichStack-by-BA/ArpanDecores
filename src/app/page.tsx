@@ -7,6 +7,7 @@ import SustainabilitySection from "@/components/home/SustainabilitySection"
 import TrustSignals from "@/components/home/TrustSignals"
 import TestimonialSlider from "@/components/misc/TestimonialSlider"
 import CTASection from "@/components/home/CTASection"
+import ScrollReveal from "@/components/ui/ScrollReveal"
 import homeContent from "@/constants/homeContent.json"
 import { getAllProducts, getProductsByCategory } from "@/lib/api/product"
 import { getAllCategories } from "@/lib/api/category"
@@ -27,19 +28,21 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <HeroSection />
-      <SpecialOffers products={categoryProducts?.products || []}/>
-      <CuratedSection categoryList={categoryList||[]} />
-      <CraftProcess />
-      <FeaturedProducts products={allProducts?.data?.products || []} />
+      <ScrollReveal><SpecialOffers products={categoryProducts?.products || []}/></ScrollReveal>
+      <ScrollReveal delay={0.05}><CuratedSection categoryList={categoryList||[]} /></ScrollReveal>
+      <ScrollReveal delay={0.08}><CraftProcess /></ScrollReveal>
+      <ScrollReveal delay={0.05}><FeaturedProducts products={allProducts?.data?.products || []} /></ScrollReveal>
       {/* <SustainabilitySection /> */}
       {/* <TrustSignals /> */}
-      <section className="py-16 bg-secondary/5">
-        <div className="container-custom text-center mb-12">
-          <h2 className="heading-lg mb-4">{homeContent.testimonialSection.title}</h2>
-          <p className="body-md text-muted-foreground max-w-2xl mx-auto">{homeContent.testimonialSection.description}</p>
-        </div>
-        <TestimonialSlider />
-      </section>
+      <ScrollReveal>
+        <section className="py-16 bg-secondary/5">
+          <div className="container-custom text-center mb-12">
+            <h2 className="heading-lg mb-4">{homeContent.testimonialSection.title}</h2>
+            <p className="body-md text-muted-foreground max-w-2xl mx-auto">{homeContent.testimonialSection.description}</p>
+          </div>
+          <TestimonialSlider />
+        </section>
+      </ScrollReveal>
       {/* <CTASection /> */}
     </div>
   )
