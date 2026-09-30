@@ -32,7 +32,9 @@
     --input: 30 20% 86%;
     --ring: 36 34% 52%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'DM Sans', Arial, sans-serif;
   }
 
   .dark {

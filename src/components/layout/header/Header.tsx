@@ -78,10 +78,8 @@ export default function Header({token,user}: {token: string,user:any}) {
       {/* Main header */}
       <header
         className={cn(
-          "sticky top-0 w-full z-50 transition-all duration-300",
-          isScrolled
-            ? "bg-background/95 backdrop-blur-md shadow-soft py-2"
-            : "bg-background py-4 border-b border-primary/10",
+          "sticky top-0 z-50 w-full border-b border-[#eadfd2] bg-[#f8f4ef]/95 transition-all duration-300 backdrop-blur-md",
+          isScrolled ? "py-2 shadow-[0_8px_24px_rgba(77,51,28,0.08)]" : "py-4",
         )}
       >
         <div className="container-custom">

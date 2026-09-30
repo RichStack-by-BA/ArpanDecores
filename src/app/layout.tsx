@@ -5,6 +5,10 @@ import ClientLayout from "@/components/layout"
 import Providers from "@/components/providers/Providers"
 import { StoreProvider } from "@/components/providers/StoreProvider"
 import Script from "next/script"
+import { Cormorant_Garamond, DM_Sans } from "next/font/google"
+
+const headingFont = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-heading", display: "swap" })
+const bodyFont = DM_Sans({ subsets: ["latin"], variable: "--font-body", display: "swap" })
 
 export const metadata: Metadata = {
   title: "Arpan Decores | Artisan Crafted Gifts & Home Decor",
@@ -19,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className="font-body bg-background">
          <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
