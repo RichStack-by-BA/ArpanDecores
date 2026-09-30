@@ -27,15 +27,17 @@ export default function TrustSignals() {
     const { trustSignals } = homeContent
 
     return (
-        <section className="py-16 bg-background">
-            <div className="container-custom grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <section className="border-b border-primary/10 bg-[#f8f4ee] py-7">
+            <div className="container-custom grid grid-cols-2 gap-y-6 md:grid-cols-4 md:gap-0">
                 {trustSignals.map((signal: { icon: string; title: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; desc: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined }, i: Key | null | undefined) => (
-                    <div key={i} className="flex flex-col items-center text-center p-6 rounded-md bg-card shadow-soft border border-primary/10">
-                        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <div key={i} className="flex items-center gap-3 border-primary/15 px-4 first:pl-0 md:border-r md:px-6 md:last:border-r-0">
+                        <div className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10">
                             {iconMap[signal.icon as keyof typeof iconMap]}
                         </div>
-                        <h3 className="font-heading font-semibold text-lg mb-2">{signal.title}</h3>
-                        <p className="text-sm text-muted-foreground">{signal.desc}</p>
+                        <div>
+                            <h3 className="font-heading text-base font-semibold text-foreground">{signal.title}</h3>
+                            <p className="text-xs leading-4 text-muted-foreground">{signal.desc}</p>
+                        </div>
                     </div>
                 ))}
             </div>

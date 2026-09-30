@@ -33,7 +33,7 @@ export default async function Home() {
       <ScrollReveal delay={0.08}><CraftProcess /></ScrollReveal>
       <ScrollReveal delay={0.05}><FeaturedProducts products={allProducts?.data?.products || []} /></ScrollReveal>
       {/* <SustainabilitySection /> */}
-      {/* <TrustSignals /> */}
+      <TrustSignals />
       <ScrollReveal>
         <section className="py-16 bg-secondary/5">
           <div className="container-custom text-center mb-12">

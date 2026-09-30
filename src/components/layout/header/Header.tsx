@@ -78,18 +78,18 @@ export default function Header({token,user}: {token: string,user:any}) {
       {/* Main header */}
       <header
         className={cn(
-            "sticky top-0 w-full z-50 transition-all duration-500",
+            "sticky top-0 z-50 w-full border-b border-primary/10 transition-all duration-500",
           isScrolled
-            ? "bg-background/90 backdrop-blur-xl shadow-soft py-2"
-            : "bg-background/80 py-5 border-b border-primary/10",
+            ? "bg-background/95 py-2 shadow-soft backdrop-blur-xl"
+            : "bg-[#f8f4ee]/95 py-4 backdrop-blur-md",
         )}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-heading font-semibold text-primary tracking-[0.12em]">ARPAN</span>
-              <span className="text-2xl font-heading font-light text-secondary tracking-[0.12em] ml-1">DECORES</span>
+              <span className="font-heading text-[1.55rem] font-semibold tracking-[0.04em] text-primary">ARPAN</span>
+              <span className="ml-1 font-heading text-[1.55rem] font-light tracking-[0.04em] text-secondary">DECORES</span>
             </Link>
 
             {/* Search bar - desktop */}
@@ -98,14 +98,14 @@ export default function Header({token,user}: {token: string,user:any}) {
             </div> */}
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center lg:space-x-4 xl:space-x-8">
+            <nav className="hidden items-center gap-7 lg:flex xl:gap-9">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "font-body text-sm xl:text-base uppercase tracking-wider transition-colors hover:text-primary",
-                    pathname === item.href ? "text-primary font-bold" : "text-foreground/80",
+                    "font-body text-[0.72rem] uppercase tracking-[0.04em] transition-colors hover:text-primary",
+                    pathname === item.href ? "border-b-2 border-primary pb-5 font-semibold text-foreground" : "text-foreground/80",
                   )}
                 >
                   {item.name}
