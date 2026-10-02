@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface CuratedCollectionProps {
@@ -10,27 +10,188 @@ interface CuratedCollectionProps {
     href: string
     className?: string
     slug: string
+    index?: number
 }
 
-export default function CuratedCollection({ title, description, image, href, className ,slug}: CuratedCollectionProps) {
+export default function CuratedCollection({
+    title,
+    description,
+    image,
+    href,
+    className,
+    slug,
+    index = 0,
+}: CuratedCollectionProps) {
+    const collectionNumber = String(index + 1).padStart(2, "0")
+
     return (
-        <Link href={`/categories/${slug}`} className={cn("group relative overflow-hidden rounded-md shadow-soft", className)}>
-            <div className="aspect-[4/5] relative">
+        <Link
+            href={`/categories/${slug}`}
+            className={cn(
+                "group relative block",
+                "w-[calc(50%-8px)]",
+                "lg:w-[calc(25%-18px)]",
+                "overflow-hidden",
+                "rounded-t-[120px]",
+                "border border-[#B8874A]/20",
+                "bg-[#FBF7F0]",
+                "shadow-[0_8px_25px_rgba(82,58,35,0.035)]",
+                "transition-all duration-500",
+                "hover:-translate-y-1",
+                "hover:shadow-[0_18px_40px_rgba(82,58,35,0.10)]",
+                className
+            )}
+        >
+            {/* IMAGE */}
+            <div
+                className="
+                    relative
+                    mx-[5px]
+                    mt-[5px]
+                    
+                    overflow-hidden
+                    rounded-t-[120px]
+                    sm:aspect-[1.34]
+                    lg:aspect-[1.6]
+                    aspect-[1.32]
+                "
+            >
                 <Image
                     src={image || "/placeholder.svg"}
                     alt={title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="
+                        (max-width: 640px) 46vw,
+                        (max-width: 1024px) 30vw,
+                        24vw
+                    "
+                    className="
+                        object-cover
+                        transition-transform
+                        duration-700
+                        ease-[cubic-bezier(.2,.7,.2,1)]
+                        group-hover:scale-[1.045]
+                    "
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/40 to-transparent"></div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="font-heading font-bold text-2xl mb-2">{title}</h3>
-                    <p className="text-white/90 mb-4 max-w-xs">{description}</p>
-                    <div className="flex items-center font-medium text-primary">
-                        Explore Collection
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </div>
+                {/* Image warmth */}
+                <div
+                    className="
+                        absolute
+                        inset-0
+                        bg-gradient-to-t
+                        from-[#5B3B21]/10
+                        via-transparent
+                        to-[#FFF8EC]/5
+                    "
+                />
+            </div>
+
+            {/* CONTENT */}
+            <div
+                className="
+                    relative
+                    min-h-[205px]
+                    px-5
+                    pb-5
+                    pt-5
+                    sm:min-h-[235px]
+                    sm:px-6
+                    sm:pb-6
+                    lg:min-h-[215px]
+                    lg:px-7
+                    lg:pb-6
+                "
+            >
+                {/* NUMBER */}
+                <div
+                    className="
+                        mb-2
+                        flex
+                        items-center
+                        gap-2
+                        font-body
+                        text-[10px]
+                        font-medium
+                        tracking-[0.12em]
+                        text-[#66615B]
+                    "
+                >
+                    <span>{collectionNumber}</span>
+
+                    <span className="h-px w-7 bg-[#B8874A]/70" />
+                </div>
+
+                {/* TITLE */}
+                <h3
+                    className="
+                        max-w-[240px]
+                        font-heading
+                        text-[24px]
+                        font-normal
+                        leading-[0.98]
+                        tracking-[-0.025em]
+                        text-[#24211F]
+                        sm:text-[26px]
+                        lg:text-[27px]
+                    "
+                >
+                    {title}
+                </h3>
+
+                {/* DESCRIPTION */}
+                <p
+                    className="
+                        mt-2
+                        max-w-[240px]
+                        font-body
+                        text-[10px]
+                        leading-[1.2]
+                        text-[#68635D]
+                        sm:text-[12px]
+                        lg:text-[12px]
+                    "
+                >
+                    {description}
+                </p>
+
+                {/* ARROW */}
+                <div
+                    className="
+                        hidden
+                        absolute
+                        bottom-5
+                        right-5
+                        md:flex
+                        h-10
+                        w-10
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-[#B8874A]
+                        text-[#A66D32]
+                        transition-all
+                        duration-300
+                        sm:bottom-6
+                        sm:right-6
+                        sm:h-11
+                        sm:w-11
+                        lg:right-7
+                        group-hover:bg-[#B8874A]
+                        group-hover:text-white
+                    "
+                >
+                    <ArrowUpRight
+                        className="
+                            h-4
+                            w-4
+                            transition-transform
+                            duration-300
+                            group-hover:translate-x-0.5
+                            group-hover:-translate-y-0.5
+                        "
+                    />
                 </div>
             </div>
         </Link>
