@@ -1,6 +1,6 @@
 
 import type React from "react"
-import { Cormorant_Garamond, Lato } from "next/font/google"
+import { Bodoni_Moda, Cormorant_Garamond, Italiana, Lato } from "next/font/google"
 import Header from "@/components/layout/header/Header"
 import Footer from "@/components/layout/Footer"
 import Toast from "@/components/ui/Toast"
@@ -24,12 +24,25 @@ const lato = Lato({
     display: "swap",
 })
 
+const bodoniModa = Bodoni_Moda({
+    subsets: ["latin"],
+    variable: "--font-bodoni-moda",
+    display: "swap",
+})
+
+const italiana = Italiana({
+    subsets: ["latin"],
+    weight: "400",
+    variable: "--font-italiana",
+    display: "swap",
+})
+
 export default async function ClientLayout({ children }: { children: React.ReactNode }) {
     const token = await  getServerCookie(TOKEN) ||''
     const userDetails:any = await getUserDetails()
     
     return (
-        <div className={`${cormorant.variable} ${lato.variable} font-body bg-background`}>
+        <div className={`${cormorant.variable} ${lato.variable} ${bodoniModa.variable} ${italiana.variable} font-body bg-background`}>
             <div className="flex min-h-screen flex-col">
                 <Header token={token} user={userDetails?.data?.user}/>
                 <main className="flex-1">{children}</main>

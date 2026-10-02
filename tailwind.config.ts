@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -26,8 +26,8 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#AB6A36",
+          foreground: "#AB6A36",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -57,9 +57,9 @@ const config = {
         artisan: {
           brass: "#B08D57",
           walnut: "#5C4432",
-          copper: "#B66E41",
-          birch: "#F5F1ED",
-          charcoal: "#2D2D2D",
+          copper: "#A97843",
+          birch: "#F8F5EF",
+          charcoal: "#292522",
         },
       },
       borderRadius: {
@@ -68,9 +68,11 @@ const config = {
         sm: "calc(var(--radius) - 0.25rem)",
       },
       fontFamily: {
-        heading: ["var(--font-cormorant)"],
-        body: ["var(--font-lato)"],
-      },
+heading: ["var(--font-bodoni-moda)", "serif"],
+body: ["var(--font-lato)", "sans-serif"],
+  display: ["var(--font-bodoni-moda)", "serif"],
+        italiana: ["var(--font-italiana)", "serif"],
+},
       boxShadow: {
         soft: "0 4px 20px rgba(0, 0, 0, 0.05)",
         "soft-lg": "0 10px 30px rgba(0, 0, 0, 0.08)",
@@ -78,9 +80,12 @@ const config = {
         copper: "0 4px 12px rgba(182, 110, 65, 0.15)",
       },
       backgroundImage: {
-        "brass-gradient": "linear-gradient(to right, #B08D57, #D4B483, #B08D57)",
-        "copper-gradient": "linear-gradient(to right, #B66E41, #D4916B, #B66E41)",
-        "walnut-gradient": "linear-gradient(to right, #5C4432, #7D6148, #5C4432)",
+        "brass-gradient":
+          "linear-gradient(to right, #B08D57, #D4B483, #B08D57)",
+        "copper-gradient":
+          "linear-gradient(to right, #B66E41, #D4916B, #B66E41)",
+        "walnut-gradient":
+          "linear-gradient(to right, #5C4432, #7D6148, #5C4432)",
       },
       keyframes: {
         "accordion-down": {
@@ -92,23 +97,23 @@ const config = {
           to: { height: "0" },
         },
         slideInRight: {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' },
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
         },
         slideOutRight: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(100%)' },
-        },  
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        'slide-in-right': 'slideInRight 0.3s ease-out',
-        'slide-out-right': 'slideOutRight 0.3s ease-in',
+        "slide-in-right": "slideInRight 0.3s ease-out",
+        "slide-out-right": "slideOutRight 0.3s ease-in",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),  require("@tailwindcss/typography")],
-} satisfies Config
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+} satisfies Config;
 
-export default config
+export default config;

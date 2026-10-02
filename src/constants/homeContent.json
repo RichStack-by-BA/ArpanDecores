@@ -7,7 +7,7 @@
     "buttons": [
       { "label": "Explore Collections", "variant": "primary", "url":"/categories" }
     ],
-    "image": "/images/hero-main.jpg",
+    "image": "/images/hero-main.png",
     "rating": "4.9/5 from over 2,000 reviews"
   },
   "curatedCollections": {
