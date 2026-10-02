@@ -114,7 +114,8 @@ export default function HeroSection() {
                                 absolute inset-0
                                 overflow-hidden
                                 rounded-bl-[48%]
-                                rounded-tl-[22%]
+                                rounded-tl-[62%]
+                                md:rounded-tl-[22%]62%
                                 rounded-tr-none
                                 rounded-br-[8%]
                                 lg:rounded-bl-[50%]
@@ -168,11 +169,14 @@ export default function HeroSection() {
                         <div
                             className="
                                 absolute
-                                bottom-8 left-5
+                                bottom-0
+                                md:bottom-8
+                                 left-2
+                                 md:left-5
                                 sm:left-8
                                 lg:bottom-[9rem] lg:left-[-70px]
                                 z-20
-                                w-[190px]
+                                w-[152px]
                                 sm:w-[220px]
                                 overflow-hidden
                                 rounded-2xl
@@ -182,7 +186,7 @@ export default function HeroSection() {
                                 backdrop-blur-md
                             "
                         >
-                            <div className="relative h-[100px] sm:h-[115px]">
+                            <div className="relative h-[70px] sm:h-[115px]">
                                 <Image
                                     src={hero.image || ""}
                                     alt=""
@@ -194,7 +198,7 @@ export default function HeroSection() {
                                 <div className="absolute inset-0 bg-black/10" />
                             </div>
 
-                            <div className="flex items-center justify-between px-4 py-3">
+                            <div className="flex items-center justify-between px-4 md:py-3 ">
                                 <div>
                                     <p className="text-[9px] uppercase tracking-[0.22em] text-[#A57B45]">
                                         {/* 01 / 04 */}
@@ -231,7 +235,8 @@ export default function HeroSection() {
                         <div
                             className="
                                 absolute
-                                bottom-7 right-[6rem]
+                                bottom-3 md:bottom-7 
+                                right-[1rem] md:right-[6rem]
                                 lg:bottom-12 lg:right-[6rem]
                                 z-20
                                 flex items-center
@@ -420,8 +425,6 @@ items-center
                                 mt-4
                                 md:mt-8
                                 flex
-                                
-                                md:flex-col
                                 gap-3
                                 sm:flex-row
                             "
