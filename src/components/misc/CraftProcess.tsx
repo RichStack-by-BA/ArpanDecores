@@ -4,7 +4,8 @@ import Image from "next/image"
 
 export default function CraftProcess() {
   return (
-    <section className="py-16 bg-secondary/5">
+    <section className="py-16 bg-[#F7F3EC]"> 
+    {/* bg-secondary/5  */}
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="heading-lg mb-4">Our Craft Process</h2>

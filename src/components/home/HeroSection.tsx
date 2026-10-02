@@ -385,16 +385,19 @@ items-center
                             className="
                                 pointer-events-none
                                 absolute
-                                right-[5%]
-                                top-[8%]
-                                hidden
+                                right-[1%]
+                                md:right-[5%]
+                                top-[64%]
+                                md:top-[8%]
                                 h-32
-                                w-20
+                                md:h-[10rem]
+                                w-30
                                 text-[#B28A55]
-                                opacity-20
-                                lg:block
+                                opacity-30
+                                
                             "
                         />
+                        {/* lg:block */}
 
                         {/* =================================================
                             DESCRIPTION
@@ -406,9 +409,12 @@ items-center
                                 md:mt-7
                                 max-w-[480px]
                                 text-[15px]
-                                leading-7
+                                leading-5
+                                md:leading-7
                                 text-[#5D5751]
                                 sm:text-base
+                                text-center
+                                md:text-left
                             "
                         >
                             Handcrafted décor, personalized gifts and

@@ -32,7 +32,9 @@ export default function TestimonialSlider() {
   return (
     <div className="relative">
       <div className="relative mx-auto max-w-6xl">
-        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_15%_18%,rgba(255,255,255,0.55),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(105,130,99,0.12),transparent_24%),linear-gradient(135deg,#dfead4_0%,#dfead4_45%,#cad6bf_100%)]" />
+        <div className="absolute inset-0 -z-20 bg-secondary/5
+         " />
+         {/* //bg-[radial-gradient(circle_at_15%_18%,rgba(255,255,255,0.55),transparent_28%),radial-gradient(circle_at_80%_30%,rgba(105,130,99,0.12),transparent_24%),linear-gradient(135deg,#dfead4_0%,#dfead4_45%,#cad6bf_100%)] */}
 
         <div className="text-center">
           
