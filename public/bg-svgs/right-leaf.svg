@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700" fill="none">
+  <g stroke="#B8874A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- Main stem -->
+    <path d="M385 610
+             C360 565 346 518 345 470
+             C344 407 359 348 350 290
+             C341 225 307 151 238 76" />
+
+    <!-- Top long leaf -->
+    <path d="M238 76
+             C300 92 348 132 371 191
+             C383 223 382 258 371 298
+             C351 226 312 144 238 76Z" />
+
+    <!-- Upper inner leaf -->
+    <path d="M303 153
+             C275 148 247 135 226 111
+             C252 118 282 129 303 153Z" />
+
+    <!-- Middle leaf -->
+    <path d="M347 286
+             C316 267 288 235 280 197
+             C310 216 337 247 347 286Z" />
+
+    <!-- Main middle-left leaf -->
+    <path d="M345 348
+             C300 344 256 323 218 286
+             C265 286 312 304 345 348Z" />
+
+    <!-- Middle leaf vein -->
+    <path d="M218 286 C267 302 308 322 345 348" />
+
+    <!-- Lower leaf -->
+    <path d="M355 485
+             C313 480 272 463 232 432
+             C276 424 322 443 355 485Z" />
+
+    <!-- Lower leaf vein -->
+    <path d="M232 432 C275 442 316 460 355 485" />
+
+    <!-- Small branch -->
+    <path d="M348 400 C371 397 388 386 399 368" />
+
+    <!-- Small branch leaf -->
+    <path d="M397 368
+             C374 365 355 354 343 339
+             C365 342 385 351 397 368Z" />
+
+  </g>
+</svg>

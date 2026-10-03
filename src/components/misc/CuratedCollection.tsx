@@ -148,8 +148,8 @@ export default function CuratedCollection({
                         text-[10px]
                         leading-[1.2]
                         text-[#68635D]
-                        sm:text-[12px]
-                        lg:text-[12px]
+                        sm:text-[13px]
+                        lg:text-[13px]
                     "
                 >
                     {description}
