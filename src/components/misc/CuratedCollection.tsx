@@ -32,7 +32,7 @@ export default function CuratedCollection({
                 "w-[calc(50%-8px)]",
                 "lg:w-[calc(25%-18px)]",
                 "overflow-hidden",
-                "rounded-t-[120px]",
+                "rounded-t-[150px]",
                 "border border-[#B8874A]/20",
                 "bg-[#FBF7F0]",
                 "shadow-[0_8px_25px_rgba(82,58,35,0.035)]",
@@ -50,10 +50,10 @@ export default function CuratedCollection({
                     mt-[5px]
                     
                     overflow-hidden
-                    rounded-t-[120px]
-                    sm:aspect-[1.34]
-                    lg:aspect-[1.6]
-                    aspect-[1.32]
+                    rounded-t-[150px]
+                    sm:aspect-[1.2]
+                    lg:aspect-[1.2]
+                    aspect-[1.2]
                 "
             >
                 <Image
@@ -91,16 +91,12 @@ export default function CuratedCollection({
             <div
                 className="
                     relative
-                    min-h-[205px]
-                    px-5
-                    pb-5
-                    pt-5
-                    sm:min-h-[235px]
-                    sm:px-6
-                    sm:pb-6
-                    lg:min-h-[215px]
-                    lg:px-7
-                    lg:pb-6
+                    min-h-[180px]
+                    p-3
+                    sm:min-h-[180px]
+                    sm:p-3
+                    lg:min-h-[180px]
+                    lg:p-3
                 "
             >
                 {/* NUMBER */}
@@ -143,7 +139,7 @@ export default function CuratedCollection({
                 <p
                     className="
                         mt-2
-                        max-w-[240px]
+                        text-justify
                         font-body
                         text-[10px]
                         leading-[1.2]
@@ -160,11 +156,11 @@ export default function CuratedCollection({
                     className="
                         hidden
                         absolute
-                        bottom-5
+                        bottom-3
                         right-5
                         md:flex
-                        h-10
-                        w-10
+                        h-5
+                        w-5
                         items-center
                         justify-center
                         rounded-full
@@ -173,11 +169,11 @@ export default function CuratedCollection({
                         text-[#A66D32]
                         transition-all
                         duration-300
-                        sm:bottom-6
+                        sm:bottom-[0.5rem]
                         sm:right-6
                         sm:h-11
                         sm:w-11
-                        lg:right-7
+                        lg:right-3
                         group-hover:bg-[#B8874A]
                         group-hover:text-white
                     "

@@ -13,7 +13,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heading, description, imageSr
     return ["phone", "mail", "clock"].includes(icon)
   }
   return (
-    <section className="relative bg-gradient-to-b from-royal-cream to-background py-16 md:py-24">
+    <section className="relative bg-gradient-to-b from-royal-cream to-background py-16 md:py-24 ">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <h1 className="heading-xl">

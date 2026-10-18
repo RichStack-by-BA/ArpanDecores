@@ -33,7 +33,7 @@ export default function CraftProcess() {
 {/* 80%     border-top-right-radius: 66%;
     border-bottom-right-radius: 41%; */}
         {/* subtle darker bottom-left */}
-        <div
+        {/* <div
           className="
             absolute
             -bottom-[30%]
@@ -43,10 +43,10 @@ export default function CraftProcess() {
             rounded-full
             bg-[#8E6035]/20
           "
-        />
+        /> */}
 
         {/* top-left soft circle */}
-        <div
+        {/* <div
           className="
             absolute
             -left-[110px]
@@ -56,81 +56,12 @@ export default function CraftProcess() {
             rounded-full
             bg-[#D9B382]/20
           "
-        />
-
-        {/* cream decoration on right */}
-        <div
-          className="
-            absolute
-            -right-[110px]
-            -top-[120px]
-            h-[350px]
-            w-[350px]
-            rounded-full
-            bg-[#E8DCCB]/45
-          "
-        />
-
-        {/* bottom-right cream decoration */}
-        <div
-          className="
-            absolute
-            -bottom-[220px]
-            -right-[80px]
-            h-[430px]
-            w-[430px]
-            rounded-full
-            bg-[#E8DCCB]/40
-          "
-        />
+        /> */}
 
      
         {/* LEFT LEAF */}
 
-        <svg
-          className="
-            absolute
-            -left-8
-            -top-8
-            h-[220px]
-            w-[160px]
-            text-[#F7EBDD]/45
-            md:h-[260px]
-            md:w-[190px]
-          "
-          viewBox="0 0 220 310"
-          fill="none"
-        >
-          <path
-            d="M5 300C57 249 76 190 81 119C85 66 112 30 169 7"
-            stroke="currentColor"
-            strokeWidth="1.1"
-          />
-
-          <path
-            d="M70 176C42 165 22 146 10 120"
-            stroke="currentColor"
-            strokeWidth="1.1"
-          />
-
-          <path
-            d="M80 137C110 120 130 95 137 67"
-            stroke="currentColor"
-            strokeWidth="1.1"
-          />
-
-          <path
-            d="M49 216C28 209 14 195 6 177"
-            stroke="currentColor"
-            strokeWidth="1.1"
-          />
-
-          <path
-            d="M89 101C108 88 122 71 128 52"
-            stroke="currentColor"
-            strokeWidth="1.1"
-          />
-        </svg>
+        
       </div>
    {/* =================================================
             RIGHT SIDE LEAF

@@ -24,11 +24,11 @@ export default function CuratedSection({ categoryList }: any) {
                 BACKGROUND
             ====================================================== */}
 
-            <div
+            {/* <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 overflow-hidden"
             >
-                {/* TOP LEFT SOFT SHAPE */}
+                // {/* TOP LEFT SOFT SHAPE 
                 <div
                     className="
                         absolute
@@ -41,7 +41,7 @@ export default function CuratedSection({ categoryList }: any) {
                     "
                 />
 
-                {/* TOP RIGHT */}
+                {/* TOP RIGHT 
                 <div
                     className="
                         absolute
@@ -54,7 +54,7 @@ export default function CuratedSection({ categoryList }: any) {
                     "
                 />
 
-                {/* RIGHT CENTER */}
+                {/* RIGHT CENTER 
                 <div
                     className="
                         absolute
@@ -67,7 +67,7 @@ export default function CuratedSection({ categoryList }: any) {
                     "
                 />
 
-                {/* BOTTOM LEFT */}
+                {/* BOTTOM LEFT 
                 <div
                     className="
                         absolute
@@ -80,7 +80,7 @@ export default function CuratedSection({ categoryList }: any) {
                     "
                 />
 
-                {/* BOTTOM RIGHT */}
+                {/* BOTTOM RIGHT 
                 <div
                     className="
                         absolute
@@ -93,7 +93,7 @@ export default function CuratedSection({ categoryList }: any) {
                     "
                 />
 
-                {/* SIDE LINES */}
+                {/* SIDE LINES 
                 <div
                     className="
                         absolute
@@ -118,7 +118,7 @@ export default function CuratedSection({ categoryList }: any) {
 
                 {/* =================================================
                     LEFT BOTANICAL
-                ================================================== */}
+                ================================================== 
 
                 <svg
                     className="
@@ -174,7 +174,7 @@ export default function CuratedSection({ categoryList }: any) {
 
                 {/* =================================================
                     RIGHT BOTANICAL
-                ================================================== */}
+                ================================================== 
 
                 <svg
                     className="
@@ -221,7 +221,7 @@ export default function CuratedSection({ categoryList }: any) {
                         strokeWidth="1.2"
                     />
                 </svg>
-            </div>
+            </div> */}
 
             {/* =====================================================
                 CONTENT
@@ -331,12 +331,12 @@ export default function CuratedSection({ categoryList }: any) {
 
                 <div
                     className="
-                        mt-10
+                        mt-5
                         flex
                         items-center
                         justify-center
                         gap-4
-                        sm:mt-12
+                        sm:mt-5
                     "
                 >
                     <span

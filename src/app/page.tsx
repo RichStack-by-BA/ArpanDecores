@@ -33,7 +33,7 @@ export default async function Home() {
       <FeaturedProducts products={allProducts?.data?.products || []} />
       {/* <SustainabilitySection /> */}
       {/* <TrustSignals /> */}
-      <section className="py-16 bg-secondary/5">
+      <section className="bg-secondary/5">
         <TestimonialSlider />
       </section>
       {/* <CTASection /> */}
